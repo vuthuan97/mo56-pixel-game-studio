@@ -1,0 +1,5 @@
+- Không antialias/blur/bilinear.
+- Preview nearest-neighbor.
+- Native 1x là tiêu chí nghiệm thu.
+- Asset phải theo Style Profile.
+- Không sao chép art có bản quyền từ game tham khảo.

@@ -1,0 +1,4 @@
+- Body tách equipment.
+- Rig/PartGraph data-driven.
+- Không giả định mọi entity luôn humanoid.
+- Anchor/pivot/z-order là metadata.

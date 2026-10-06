@@ -1,0 +1,3 @@
+- Test serialization/project load-save/rig/anchor/equip/animation/behavior/validation/export.
+- Build/test trước DONE.
+- Báo rõ test chưa chạy.

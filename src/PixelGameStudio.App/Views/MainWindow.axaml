@@ -1,0 +1,814 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PixelGameStudio.App.ViewModels"
+        xmlns:ins="using:PixelGameStudio.App.ViewModels.Inspectors"
+        xmlns:ch="using:PixelGameStudio.Domain.Character"
+        xmlns:c="using:PixelGameStudio.App.Converters"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+        x:Class="PixelGameStudio.App.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="{Binding WindowTitle}" Width="1280" Height="800" MinWidth="1024" MinHeight="640"
+        Background="#FFFFFF" FontSize="12">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding NewProjectCommand}" />
+        <KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}" />
+        <KeyBinding Gesture="Ctrl+Y" Command="{Binding RedoCommand}" />
+        <KeyBinding Gesture="F5" Command="{Binding TogglePlayCommand}" />
+        <KeyBinding Gesture="Right" Command="{Binding StepNextCommand}" />
+        <KeyBinding Gesture="Left" Command="{Binding StepBackCommand}" />
+    </Window.KeyBindings>
+
+    <Window.Resources>
+        <!-- Palette: light editor theme (Godot/Unity-light inspired) -->
+        <SolidColorBrush x:Key="TextPrimaryBrush">#1B2330</SolidColorBrush>
+        <SolidColorBrush x:Key="TextSecondaryBrush">#667085</SolidColorBrush>
+        <SolidColorBrush x:Key="TextFaintBrush">#98A2B3</SolidColorBrush>
+        <SolidColorBrush x:Key="HairlineBrush">#E3E6EB</SolidColorBrush>
+        <SolidColorBrush x:Key="BarBrush">#F7F8FA</SolidColorBrush>
+        <SolidColorBrush x:Key="CanvasPageBrush">#F0F2F5</SolidColorBrush>
+        <SolidColorBrush x:Key="SubtleBrush">#F1F4F8</SolidColorBrush>
+        <SolidColorBrush x:Key="HoverBrush">#F3F6FB</SolidColorBrush>
+        <SolidColorBrush x:Key="AccentBrush">#3574F0</SolidColorBrush>
+        <SolidColorBrush x:Key="AccentHoverBrush">#2B63D9</SolidColorBrush>
+        <SolidColorBrush x:Key="AccentPressedBrush">#2456C4</SolidColorBrush>
+        <SolidColorBrush x:Key="AccentSoftBrush">#E9F0FE</SolidColorBrush>
+        <SolidColorBrush x:Key="AccentBorderBrush">#B9D0F9</SolidColorBrush>
+    </Window.Resources>
+
+    <Window.Styles>
+        <!-- ===== Typography ===== -->
+        <Style Selector="TextBlock.caption">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+        </Style>
+        <Style Selector="TextBlock.fieldLabel">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
+            <Setter Property="Margin" Value="0,6,0,2" />
+        </Style>
+        <Style Selector="TextBlock.note">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{StaticResource TextFaintBrush}" />
+        </Style>
+
+        <!-- ===== Cards / sections ===== -->
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource HairlineBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style Selector="Border.current">
+            <Setter Property="Background" Value="{StaticResource AccentSoftBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+        </Style>
+        <!-- Defined BEFORE Border.current so the current-frame accent overrides it -->
+        <Style Selector="Border.frameCard">
+            <Setter Property="Background" Value="{StaticResource SubtleBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource HairlineBrush}" />
+        </Style>
+
+        <!-- ===== Buttons ===== -->
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="10,4" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MinHeight" Value="28" />
+        </Style>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AccentHoverBrush}" />
+        </Style>
+        <Style Selector="Button.primary:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AccentPressedBrush}" />
+        </Style>
+        <Style Selector="Button.subtle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.subtle:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource HoverBrush}" />
+        </Style>
+
+        <!-- ===== Inputs ===== -->
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MinHeight" Value="28" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <!-- ===== Lists ===== -->
+        <Style Selector="ListBoxItem">
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MinHeight" Value="30" />
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource HoverBrush}" />
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AccentSoftBrush}" />
+        </Style>
+
+        <Style Selector="Menu">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Styles>
+
+    <Panel>
+        <DockPanel IsVisible="{Binding EditorVisible}">
+        <!-- ============ APP BAR: menu ============ -->
+        <Border DockPanel.Dock="Top" Background="White"
+                BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,0,0,1">
+            <Menu Margin="6,0">
+                <MenuItem Header="Tệp">
+                    <MenuItem Header="Tạo project mới…" Click="OnCreateNewProjectClick" InputGesture="Ctrl+N" />
+                    <MenuItem Header="Mở project…" Click="OnOpenProjectClick" InputGesture="Ctrl+O" />
+                    <Separator />
+                    <MenuItem Header="Lưu project" Click="OnSaveProjectClick" InputGesture="Ctrl+S" />
+                    <MenuItem Header="Lưu project vào thư mục khác…" Click="OnSaveProjectAsClick" InputGesture="Ctrl+Shift+S" />
+                    <MenuItem Header="Phục hồi autosave…" Click="OnRecoverAutosaveClick" />
+                    <Separator />
+                    <MenuItem Header="Về màn hình chính" Click="OnShowLauncherClick" />
+                </MenuItem>
+                <MenuItem Header="Chỉnh sửa">
+                    <MenuItem Header="Hoàn tác" Command="{Binding UndoCommand}" InputGesture="Ctrl+Z" />
+                    <MenuItem Header="Làm lại" Command="{Binding RedoCommand}" InputGesture="Ctrl+Y" />
+                </MenuItem>
+                <MenuItem Header="Hoạt ảnh">
+                    <MenuItem Header="Phát / Dừng" Command="{Binding TogglePlayCommand}" InputGesture="F5" />
+                    <MenuItem Header="Frame trước" Command="{Binding StepBackCommand}" InputGesture="Left" />
+                    <MenuItem Header="Frame sau" Command="{Binding StepNextCommand}" InputGesture="Right" />
+                    <Separator />
+                    <MenuItem Header="Cài preset (pose/animation/behavior)" Command="{Binding InstallPresetsCommand}" />
+                </MenuItem>
+            </Menu>
+        </Border>
+
+        <!-- ============ TOOLBAR: workspace tabs (Godot-style) + project ops ============ -->
+        <Border DockPanel.Dock="Top" Background="{StaticResource BarBrush}"
+                BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,0,0,1" Padding="8,4">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Margin="12,0,2,0" MaxWidth="330"
+                           Foreground="{StaticResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis"
+                           ToolTip.Tip="{Binding ProjectSummary}"
+                           Text="{Binding ProjectSummary}" />
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <ListBox Background="Transparent" BorderThickness="0"
+                                 ItemsSource="{Binding WorkspaceOptions}" SelectedItem="{Binding SelectedWorkspace}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="2" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static c:WorkspaceDisplayNameConverter.Instance}}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Padding" Value="9,4" />
+                                    <Setter Property="MinHeight" Value="28" />
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                                <Style Selector="ListBoxItem:selected">
+                                    <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Style>
+                            </ListBox.Styles>
+                        </ListBox>
+                     </StackPanel>
+                </ScrollViewer>
+            </DockPanel>
+        </Border>
+
+        <!-- ============ STATUS BAR (Aseprite-style: status trái, trạng thái phải) ============ -->
+        <Border DockPanel.Dock="Bottom" Background="{StaticResource BarBrush}"
+                BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,1,0,0" Padding="10,4">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" Foreground="{StaticResource TextSecondaryBrush}"
+                           Text="{Binding DirtyIndicator}" />
+                <TextBlock Foreground="{StaticResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis"
+                           Text="{Binding Status}" />
+            </DockPanel>
+        </Border>
+
+        <!-- ============ TIMELINE (Aseprite/Spine-style, hiện ở workspace Animation) ============ -->
+        <Border DockPanel.Dock="Bottom" Background="White"
+                BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,1,0,0" Padding="10,8"
+                IsVisible="{Binding TimelineVisible}">
+            <StackPanel Spacing="8">
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,12,2" VerticalAlignment="Center">
+                        <TextBlock VerticalAlignment="Center" Classes="caption" Text="HOẠT ẢNH" />
+                        <ComboBox Width="150" ToolTip.Tip="Chọn animation để phát và sửa frame"
+                                  ItemsSource="{Binding AnimationOptions}" SelectedItem="{Binding SelectedAnimationId}" />
+                    </StackPanel>
+                    <Border CornerRadius="6" BorderBrush="{StaticResource HairlineBrush}" BorderThickness="1" Padding="4"
+                            Margin="0,2,12,2" Background="{StaticResource BarBrush}" VerticalAlignment="Center"
+                            ToolTip.Tip="Điều khiển phát animation (F5 = phát/dừng, ←/→ = từng frame)">
+                        <StackPanel Orientation="Horizontal" Spacing="2">
+                            <Button Classes="subtle" Content="◀" Width="30" Padding="0,2"
+                                    Command="{Binding StepBackCommand}" ToolTip.Tip="Về frame trước (Left)" />
+                            <Button Classes="primary" Content="Phát / Dừng" Width="86" Padding="0,2"
+                                    Command="{Binding TogglePlayCommand}" ToolTip.Tip="Phát hoặc dừng animation (F5)" />
+                            <Button Classes="subtle" Content="▶" Width="30" Padding="0,2"
+                                    Command="{Binding StepNextCommand}" ToolTip.Tip="Sang frame sau (Right)" />
+                        </StackPanel>
+                    </Border>
+                    <CheckBox Margin="0,2,12,2" VerticalAlignment="Center" Content="Onion skin" IsChecked="{Binding ShowOnionSkin}"
+                              ToolTip.Tip="Hiện mờ frame kế trước để đối chiếu khi dựng tư thế" />
+                    <Button Classes="subtle" Margin="0,2,0,2" VerticalAlignment="Center"
+                            Content="Cài preset (pose/animation/behavior)" Command="{Binding InstallPresetsCommand}"
+                            ToolTip.Tip="Cài bộ preset mẫu: tư thế, animation và behavior (cần lưu project)" />
+                </WrapPanel>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                        <TextBlock Classes="caption" VerticalAlignment="Center" Margin="0,0,2,0" Text="FRAME" />
+                        <Button Classes="subtle" Content="Thêm" Command="{Binding AddFrameCommand}"
+                                ToolTip.Tip="Thêm frame mới vào cuối animation" />
+                        <Button Classes="subtle" Content="Copy" Command="{Binding CopyFrameCommand}"
+                                ToolTip.Tip="Sao chép frame hiện tại vào bộ nhớ đệm" />
+                        <Button Classes="subtle" Content="Paste" Command="{Binding PasteFrameCommand}"
+                                ToolTip.Tip="Dán frame đã sao chép vào vị trí hiện tại" />
+                        <Button Classes="subtle" Content="Xóa" Command="{Binding DeleteFrameCommand}"
+                                ToolTip.Tip="Xóa frame hiện tại khỏi animation" />
+                        <Button Classes="subtle" Content="◀đổi chỗ" Command="{Binding MoveFrameLeftCommand}"
+                                ToolTip.Tip="Đổi chỗ frame hiện tại với frame trước nó" />
+                        <Button Classes="subtle" Content="đổi chỗ▶" Command="{Binding MoveFrameRightCommand}"
+                                ToolTip.Tip="Đổi chỗ frame hiện tại với frame sau nó" />
+                    </StackPanel>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding TimelineFrames}" Margin="0,0,8,0">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="4" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:FrameItemViewModel">
+                                    <Border Width="92" CornerRadius="5" Padding="8,5" BorderThickness="1"
+                                            Classes="frameCard" Classes.current="{Binding IsCurrent}">
+                                        <StackPanel>
+                                            <TextBlock FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"
+                                                       TextTrimming="CharacterEllipsis">
+                                                <Run Text="#" /><Run Text="{Binding Index}" /><Run Text="  " /><Run Text="{Binding PoseId}" />
+                                            </TextBlock>
+                                            <TextBlock FontSize="9" Foreground="{StaticResource TextFaintBrush}"
+                                                       Text="{Binding Markers}" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ============ MAIN 3-COLUMN DOCK LAYOUT (Godot/Unity-style) ============ -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" MinWidth="220" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="*" MinWidth="320" />
+                <ColumnDefinition Width="6" />
+                <ColumnDefinition Width="330" MinWidth="250" />
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT DOCK: Assets + Behavior Library -->
+            <Grid Grid.Column="0" Margin="8,8,0,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="230" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Classes="card">
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8">
+                            <TextBlock DockPanel.Dock="Right" Classes="note" Text="{Binding AssetCountText}" />
+                            <TextBlock Classes="caption" Text="THƯ VIỆN ASSET" />
+                        </DockPanel>
+                        <Button DockPanel.Dock="Bottom" Classes="subtle" Content="Xóa asset đã chọn"
+                                Click="OnDeleteAssetClick" HorizontalContentAlignment="Center"
+                                Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,0"
+                                ToolTip.Tip="Xóa asset đang chọn trong danh sách khỏi project" />
+                        <Button DockPanel.Dock="Bottom" Content="＋ Import PNG" Click="OnImportAssetClick"
+                                HorizontalContentAlignment="Center" Margin="0,8,0,0"
+                                ToolTip.Tip="Nhập file PNG làm asset cho project (cần lưu project trước)" />
+                        <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,8">
+                            <TextBox Watermark="Tìm asset theo tên/id…" Text="{Binding AssetQuery, Mode=TwoWay}" />
+                            <TextBox Watermark="Tags (phẩy)" Text="{Binding AssetTagFilter, Mode=TwoWay}" />
+                        </StackPanel>
+                        <ListBox Background="Transparent" BorderThickness="0" FontSize="11"
+                                 ItemsSource="{Binding AssetItems}" SelectedItem="{Binding SelectedAsset}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Padding" Value="4" />
+                                    <Setter Property="MinHeight" Value="0" />
+                                    <Setter Property="CornerRadius" Value="6" />
+                                </Style>
+                            </ListBox.Styles>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:AssetItemViewModel">
+                                    <StackPanel Width="84" Spacing="4" Margin="2">
+                                        <Border Height="58" CornerRadius="4" Background="{StaticResource SubtleBrush}"
+                                                BorderBrush="{StaticResource HairlineBrush}" BorderThickness="1" ClipToBounds="True">
+                                            <Image Source="{Binding Thumbnail}" Stretch="Uniform" Margin="3" />
+                                        </Border>
+                                        <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" FontSize="11"
+                                                   TextAlignment="Center" TextTrimming="CharacterEllipsis"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Text="{Binding Meta}" FontSize="9.5" TextAlignment="Center"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Foreground="{StaticResource TextFaintBrush}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+
+                <Border Grid.Row="1" Classes="card" Margin="0,8,0,0">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Classes="caption" Text="THƯ VIỆN BEHAVIOR" Margin="0,0,0,8" />
+                        <Button DockPanel.Dock="Top" Classes="subtle" Content="Cài preset behaviors"
+                                Command="{Binding InstallPresetsCommand}" HorizontalContentAlignment="Center" Margin="0,0,0,6"
+                                ToolTip.Tip="Cài sẵn các behavior mẫu (di chuyển, chiến đấu, sinh tồn…)" />
+                        <ListBox Background="Transparent" BorderThickness="0"
+                                 ItemsSource="{Binding BehaviorItems}" SelectedItem="{Binding SelectedBehavior}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:BehaviorItemViewModel">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Text="{Binding Group}" FontSize="10"
+                                                   Foreground="{StaticResource TextFaintBrush}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Background="Transparent" />
+
+            <!-- CENTER: preview options bar + canvas (Aseprite-style checkerboard) -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="White" Padding="10,6"
+                        BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,0,0,1">
+                    <!-- WrapPanel: each control group wraps to a new line instead of overlapping -->
+                    <WrapPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,12,2" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Classes="caption" Text="HƯỚNG" />
+                            <ComboBox Width="86" ToolTip.Tip="Hướng nhìn của nhân vật (Down/Up/Left/Right)"
+                                      ItemsSource="{Binding Directions}" SelectedItem="{Binding SelectedDirection}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,12,2" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Classes="caption" Text="TƯ THẾ" />
+                            <ComboBox Width="120" ToolTip.Tip="Tư thế (pose) hiển thị khi không phát animation"
+                                      ItemsSource="{Binding Poses}" SelectedItem="{Binding SelectedPose}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,12,2" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Classes="caption" Text="CHẾ ĐỘ" />
+                            <ComboBox Width="110" ToolTip.Tip="Chế độ hiển thị sprite (bình thường / xám / silhouette / debug)"
+                                      ItemsSource="{Binding Modes}" SelectedItem="{Binding SelectedMode}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,2,12,2" VerticalAlignment="Center">
+                            <TextBlock VerticalAlignment="Center" Classes="caption" Text="TỶ LỆ" />
+                            <ComboBox Width="64" ToolTip.Tip="Độ phóng đại của ảnh xem (nearest-neighbor)"
+                                      ItemsSource="{Binding Scales}" SelectedItem="{Binding SelectedScale}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,2,0,2" VerticalAlignment="Center">
+                            <CheckBox VerticalAlignment="Center" Content="Xem trước màn game" IsChecked="{Binding GamePreview}"
+                                      ToolTip.Tip="Mô phỏng màn hình game 360x640: nền + lưới 32px + sprite 4x" />
+                            <ComboBox Width="90" MinWidth="90" VerticalAlignment="Center"
+                                      ToolTip.Tip="Màu nền của khung xem trước màn game"
+                                      ItemsSource="{Binding GameBackgroundOptions}" SelectedItem="{Binding GameBackground}" />
+                        </StackPanel>
+                    </WrapPanel>
+                </Border>
+                <Border Grid.Row="1" Background="{StaticResource CanvasPageBrush}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Border x:Name="PreviewCanvasCard" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Margin="12" CornerRadius="4" BorderThickness="1"
+                                BorderBrush="{StaticResource HairlineBrush}"
+                                BoxShadow="0 1 4 0 #14000000">
+                            <Image Source="{Binding Preview}" Stretch="None" />
+                        </Border>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+
+            <GridSplitter Grid.Column="3" Background="Transparent" />
+
+            <!-- RIGHT DOCK: Inspector (Unity-style section cards) -->
+            <Border Grid.Column="4" Background="White" Margin="0,8,8,8"
+                    BorderBrush="{StaticResource HairlineBrush}" BorderThickness="1" CornerRadius="6">
+                <DockPanel>
+                    <Border DockPanel.Dock="Top" Padding="12,9" BorderBrush="{StaticResource HairlineBrush}"
+                            BorderThickness="0,0,0,1">
+                        <StackPanel Spacing="1">
+                            <TextBlock Classes="caption" Text="THUỘC TÍNH" />
+                            <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"
+                                       Text="{Binding SelectedWorkspace, Converter={x:Static c:WorkspaceDisplayNameConverter.Instance}}" />
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="10,10,10,10">
+                        <ContentControl Content="{Binding Inspector}">
+                            <ContentControl.DataTemplates>
+
+                                <!-- Project -->
+                                <DataTemplate DataType="ins:ProjectInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="HỒ SƠ GAME" />
+                                                <ComboBox ItemsSource="{Binding GenreOptions}" SelectedItem="{Binding Genre}"
+                                                          ToolTip.Tip="Thể loại game của project" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="GÓC NHÌN" />
+                                                <ComboBox ItemsSource="{Binding PerspectiveOptions}" SelectedItem="{Binding Perspective}"
+                                                          ToolTip.Tip="Góc nhìn: top-down, side-view… (quyết định số hướng)" />
+                                                <TextBlock Classes="note"
+                                                           Text="{Binding DirectionCount, StringFormat='{}{0} direction trong ViewProfile'}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="CANVAS (PIXEL)" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Rộng" />
+                                                    <TextBox Width="70" Text="{Binding CanvasWidth}" ToolTip.Tip="Bề rộng canvas (px, 8–1024)" />
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="8,0,0,0" Text="Cao" />
+                                                    <TextBox Width="70" Text="{Binding CanvasHeight}" ToolTip.Tip="Bề cao canvas (px, 8–1024)" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="BẢNG MÀU" />
+                                                <TextBlock Classes="note"
+                                                           Text="{Binding PaletteColorCount, StringFormat='{}{0} / {1} màu (giới hạn)'}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Character -->
+                                <DataTemplate DataType="ins:CharacterInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="NHÂN VẬT" />
+                                                <ComboBox ToolTip.Tip="Chọn nhân vật để chỉnh sửa"
+                                                          ItemsSource="{Binding CharacterDisplayItems}"
+                                                          SelectedValueBinding="{Binding Id}"
+                                                          SelectedValue="{Binding SelectedCharacter}"
+                                                          DisplayMemberBinding="{Binding DisplayName}" />
+                                                <Button Classes="subtle" Content="＋ Thêm nhân vật" Command="{Binding AddCharacterCommand}"
+                                                        HorizontalContentAlignment="Center" Margin="0,6,0,0"
+                                                        ToolTip.Tip="Tạo thêm một nhân vật mới trong project (v1: nhiều nhân vật / project)" />
+                                                <TextBlock Classes="fieldLabel" Text="Tên" />
+                                                <TextBox Text="{Binding Name, Mode=TwoWay}" />
+                                                <TextBlock Classes="fieldLabel" Text="Ghi chú" />
+                                                <TextBox Text="{Binding Notes, Mode=TwoWay}" AcceptsReturn="True" Height="80" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="NGOẠI HÌNH" />
+                                                <Grid ColumnDefinitions="58,*">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Thân" />
+                                                    <ComboBox Grid.Column="1" ToolTip.Tip="Dáng người của nhân vật"
+                                                              ItemsSource="{Binding BodyVariantOptions}" SelectedItem="{Binding BodyVariant}" />
+                                                </Grid>
+                                                <Grid ColumnDefinitions="58,*">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Mắt" />
+                                                    <ComboBox Grid.Column="1" ToolTip.Tip="Kiểu mắt (hiệu lực khi part có asset biến thể)"
+                                                              ItemsSource="{Binding EyeStyleOptions}" SelectedItem="{Binding EyeStyle}" />
+                                                </Grid>
+                                                <Grid ColumnDefinitions="58,*">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Miệng" />
+                                                    <ComboBox Grid.Column="1" ToolTip.Tip="Kiểu miệng (hiệu lực khi part có asset biến thể)"
+                                                              ItemsSource="{Binding MouthStyleOptions}" SelectedItem="{Binding MouthStyle}" />
+                                                </Grid>
+                                                <Grid ColumnDefinitions="58,*">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Tóc" />
+                                                    <ComboBox Grid.Column="1" ToolTip.Tip="Kiểu tóc — áp cho cả tóc trước và tóc sau"
+                                                              ItemsSource="{Binding HairStyleOptions}" SelectedItem="{Binding HairStyle}" />
+                                                </Grid>
+                                                <Grid ColumnDefinitions="58,*">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Da" />
+                                                    <ComboBox Grid.Column="1" ToolTip.Tip="Tông màu da — remap bảng màu các part da"
+                                                              ItemsSource="{Binding SkinToneOptions}" SelectedItem="{Binding SkinTone}" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Rig -->
+                                <DataTemplate DataType="ins:RigInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="RIG" />
+                                                <TextBlock FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"
+                                                           Text="{Binding RigDisplayName}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="BỘ PHẬN" />
+                                                <ListBox Background="Transparent" BorderThickness="0" MinHeight="120"
+                                                         ItemsSource="{Binding Parts}" SelectedItem="{Binding SelectedPart}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate x:DataType="ch:PartNode">
+                                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                                <TextBlock Width="24" Foreground="{StaticResource TextFaintBrush}" Text="{Binding ZIndex}" />
+                                                                <TextBlock Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding DisplayName}" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card"
+                                                IsVisible="{Binding SelectedPart, Converter={x:Static ObjectConverters.IsNotNull}}">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="THUỘC TÍNH BỘ PHẬN" />
+                                                <TextBlock Classes="fieldLabel" Text="Tên hiển thị" />
+                                                <TextBox Text="{Binding PartDisplayName, Mode=TwoWay}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Z" />
+                                                    <TextBox Width="60" Text="{Binding PartZIndex}" />
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="8,0,0,0" Text="dX" />
+                                                    <TextBox Width="60" Text="{Binding PartOffsetX}" />
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="8,0,0,0" Text="dY" />
+                                                    <TextBox Width="60" Text="{Binding PartOffsetY}" />
+                                                </StackPanel>
+                                                <TextBlock Classes="note" Margin="0,4,0,0"
+                                                           Text="{Binding PartParentId, StringFormat='Gắn vào: {0}'}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Equipment -->
+                                <DataTemplate DataType="ins:EquipmentInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="NHÂN VẬT" />
+                                                <ComboBox ToolTip.Tip="Chọn nhân vật để trang bị"
+                                                          ItemsSource="{Binding CharacterDisplayItems}"
+                                                          SelectedValueBinding="{Binding Id}"
+                                                          SelectedValue="{Binding SelectedCharacter}"
+                                                          DisplayMemberBinding="{Binding DisplayName}" />
+                                                <Button Classes="subtle" Content="Tạo nội dung mẫu" Command="{Binding CreateStarterCommand}"
+                                                        HorizontalContentAlignment="Center"
+                                                        ToolTip.Tip="Tạo rig + asset + trang bị mẫu (nhân vật demo hoàn chỉnh)" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="SLOT TRANG BỊ (DATA-DRIVEN)" />
+                                                <ItemsControl ItemsSource="{Binding Slots}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate x:DataType="vm:EquipmentSlotViewModel">
+                                                            <Grid ColumnDefinitions="96,*" Margin="0,0,0,6">
+                                                                <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0"
+                                                                           Text="{Binding DisplayName}" />
+                                                                <ComboBox Grid.Column="1" ItemsSource="{Binding Options}"
+                                                                          SelectedItem="{Binding SelectedOption}" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Animation -->
+                                <DataTemplate DataType="ins:AnimationInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="HOẠT ẢNH" />
+                                                <TextBlock Classes="fieldLabel" Text="Tên hiển thị" />
+                                                <TextBox Text="{Binding AnimationDisplayName, Mode=TwoWay}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="FPS" />
+                                                    <TextBox Width="60" Text="{Binding Fps}" />
+                                                <CheckBox VerticalAlignment="Center" Content="Lặp lại" IsChecked="{Binding Loop}"
+                                                          ToolTip.Tip="Animation lặp vô hạn khi phát" />
+                                                </StackPanel>
+                                                <TextBlock Classes="note" Margin="0,4,0,0"
+                                                           Text="{Binding DurationSeconds, StringFormat='Độ dài: {0:0.00}s — {1} frame'}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="SỬA TƯ THẾ (FRAME HIỆN TẠI)" />
+                                                <ComboBox ItemsSource="{Binding PosePartOptions}" SelectedItem="{Binding PoseEditorPart}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="dX" />
+                                                    <TextBox Width="54" Text="{Binding PoseEditOffsetX}" />
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="8,0,0,0" Text="dY" />
+                                                    <TextBox Width="54" Text="{Binding PoseEditOffsetY}" />
+                                                    <CheckBox VerticalAlignment="Center" Content="Ẩn" IsChecked="{Binding PoseEditHidden}" />
+                                                </StackPanel>
+                                                <TextBlock Classes="fieldLabel" Text="States (key=giá trị; cách bằng ;)" />
+                                                <TextBox Text="{Binding PoseEditState, Mode=TwoWay}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+                                                    <Button Content="Load" Command="{Binding LoadPoseEditCommand}"
+                                                            ToolTip.Tip="Nạp offset/state hiện tại của part vào form" />
+                                                    <Button Classes="primary" Content="Áp pose" Command="{Binding ApplyPoseEditCommand}"
+                                                            ToolTip.Tip="Áp offset/state vừa nhập vào part trong frame hiện tại" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="EVENT MARKER (FRAME HIỆN TẠI)" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <ComboBox Width="110" ItemsSource="{Binding MarkerTypeOptions}" SelectedItem="{Binding NewMarkerType}" />
+                                                    <TextBox Width="90" Watermark="giá trị" Text="{Binding NewMarkerValue, Mode=TwoWay}" />
+                                                    <Button Classes="subtle" Content="＋" Width="30" Padding="0"
+                                                            Command="{Binding AddMarkerToCurrentFrameCommand}"
+                                                            ToolTip.Tip="Thêm event marker vào frame hiện tại" />
+                                                    <Button Classes="subtle" Content="－" Width="30" Padding="0"
+                                                            Command="{Binding RemoveLastMarkerFromCurrentFrameCommand}"
+                                                            ToolTip.Tip="Bớt event marker cuối cùng của frame hiện tại" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Behavior -->
+                                <DataTemplate DataType="ins:BehaviorInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="4">
+                                                <TextBlock Classes="caption" Text="GẮN BEHAVIOR" />
+                                                <TextBlock Classes="fieldLabel" Text="Tên hiển thị" />
+                                                <TextBox Text="{Binding DisplayName, Mode=TwoWay}" />
+                                                <TextBlock Classes="fieldLabel" Text="Nhóm" />
+                                                <ComboBox ItemsSource="{Binding GroupOptions}" SelectedItem="{Binding Group}" />
+                                                <TextBlock Classes="fieldLabel" Text="Animation" />
+                                                <ComboBox ItemsSource="{Binding AnimationOptions}" SelectedItem="{Binding AnimationId}" />
+                                                <TextBlock Classes="fieldLabel" Text="Held item slot" />
+                                                <ComboBox ItemsSource="{Binding SlotOptions}" SelectedItem="{Binding HeldItemSlotId}" />
+                                                <TextBlock Classes="fieldLabel" Text="Interaction anchor" />
+                                                <ComboBox ItemsSource="{Binding AnchorOptions}" SelectedItem="{Binding InteractionAnchorId}" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="MARKER" />
+                                                <TextBlock FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextSecondaryBrush}"
+                                                           Text="{Binding MarkersText}" />
+                                                <Button Content="Nhân bản thành behavior tùy chỉnh"
+                                                        Command="{Binding DuplicateBehaviorCommand}" Margin="0,4,0,0"
+                                                        ToolTip.Tip="Tạo bản sao behavior này để tùy chỉnh riêng" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Validation -->
+                                <DataTemplate DataType="ins:ValidationInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="8">
+                                                <TextBlock Classes="caption" Text="KIỂM TRA (VALIDATION)" />
+                                                <Button Classes="primary" Content="Chạy kiểm tra" Click="OnRunValidationClick"
+                                                        HorizontalContentAlignment="Center"
+                                                        ToolTip.Tip="Kiểm tra project, asset trên đĩa và chất lượng sprite nhân vật" />
+                                                <TextBlock FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"
+                                                           Text="{Binding Summary}" TextWrapping="Wrap" />
+                                                <ListBox Background="Transparent" BorderThickness="0" MinHeight="140"
+                                                         ItemsSource="{Binding Issues}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+
+                                <!-- Export -->
+                                <DataTemplate DataType="ins:ExportInspectorViewModel">
+                                    <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="XUẤT NHÂN VẬT" />
+                                                <TextBlock Classes="note" TextWrapping="Wrap"
+                                                           Text="Xuất theo direction của ViewProfile + frame của animation (spritesheet kèm frame map)." />
+                                                <TextBlock Classes="fieldLabel" Text="Animation" />
+                                                <ComboBox ItemsSource="{Binding AnimationOptions}" SelectedItem="{Binding SelectedAnimation}" />
+                                                <CheckBox Content="Xuất từng frame PNG" IsChecked="{Binding IncludeFrames}" />
+                                                <CheckBox Content="Xuất spritesheet" IsChecked="{Binding IncludeSpritesheet}" />
+                                                <Button Classes="primary" Content="Export…" Click="OnExportCharacterClick"
+                                                        HorizontalContentAlignment="Center" Margin="0,4,0,0"
+                                                        ToolTip.Tip="Chọn thư mục và xuất frame/spritesheet của nhân vật" />
+                                                <TextBlock FontSize="11" TextWrapping="Wrap" Foreground="{StaticResource TextSecondaryBrush}"
+                                                           Text="{Binding OutputSummary}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ContentControl.DataTemplates>
+                        </ContentControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+        </DockPanel>
+
+        <!-- ============ LAUNCHER (màn hình chính — Godot Project Manager style) ============ -->
+        <Panel IsVisible="{Binding LauncherVisible}" Background="{StaticResource CanvasPageBrush}">
+            <Border Classes="card" MaxWidth="780" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Padding="24" Margin="16" BoxShadow="0 2 12 0 #1A000000">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="4">
+                        <TextBlock FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"
+                                   Text="Pixel Game Studio" />
+                        <TextBlock Classes="note"
+                                   Text="Chọn project gần đây để tiếp tục chỉnh sửa, mở từ thư mục, hoặc tạo project mới." />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Classes="primary" Content="＋ Tạo project mới" Click="OnCreateNewProjectClick"
+                                ToolTip.Tip="Chọn thư mục lưu và tạo project mới kèm một nhân vật thân trống" />
+                        <Button Content="Mở thư mục project…" Click="OnOpenProjectClick"
+                                ToolTip.Tip="Duyệt tới thư mục chứa project đã lưu" />
+                    </StackPanel>
+                    <TextBlock Classes="caption" Text="PROJECT GẦN ĐÂY" />
+                    <ListBox x:Name="RecentProjectsList" MinHeight="240" MaxHeight="380"
+                             Background="Transparent" BorderThickness="0"
+                             ItemsSource="{Binding RecentProjects}"
+                             DoubleTapped="OnRecentListDoubleTapped"
+                             ToolTip.Tip="Nhấp đúp để mở project">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:RecentProjectItemViewModel">
+                                <Grid ColumnDefinitions="*,Auto" Margin="2">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                        <TextBlock Text="{Binding Path}" FontSize="10.5"
+                                                   Foreground="{StaticResource TextFaintBrush}"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding LastOpenedText}" FontSize="10.5"
+                                                   Foreground="{StaticResource TextFaintBrush}" VerticalAlignment="Center" />
+                                        <Button Content="Mở" Padding="8,2" MinHeight="26"
+                                                Command="{Binding OpenCommand}"
+                                                ToolTip.Tip="Mở project này vào trình chỉnh sửa" />
+                                        <Button Classes="subtle" Content="✕" Width="26" Padding="0"
+                                                Command="{Binding RemoveCommand}"
+                                                ToolTip.Tip="Xóa khỏi danh sách (dữ liệu project giữ nguyên)" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock Classes="note" Text="{Binding HasRecentProjectsText}" TextWrapping="Wrap" />
+                    <TextBlock FontSize="11.5" Foreground="#C0392B" TextWrapping="Wrap"
+                               Text="{Binding LauncherMessage}"
+                               IsVisible="{Binding LauncherMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                </StackPanel>
+            </Border>
+        </Panel>
+    </Panel>
+</Window>

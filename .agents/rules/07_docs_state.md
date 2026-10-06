@@ -1,0 +1,3 @@
+- CURRENT_STATE phản ánh code thật.
+- TASK_LIST không báo DONE giả.
+- Thay project format/data spec phải cập nhật docs.

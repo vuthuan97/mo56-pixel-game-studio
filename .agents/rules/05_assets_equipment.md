@@ -1,0 +1,4 @@
+- Production renderer asset-driven.
+- Procedural chỉ placeholder/debug/template.
+- Equipment slot tùy chỉnh theo project.
+- Imported asset có id/type/view/anchor/zIndex/tags.

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\PixelGameStudio.Core\PixelGameStudio.Core.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Domain\PixelGameStudio.Domain.csproj" />
+  </ItemGroup>
+</Project>

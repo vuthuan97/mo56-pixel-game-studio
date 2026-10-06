@@ -1,0 +1,69 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="PixelGameStudio.App.Views.NewProjectDialog"
+        Title="Tạo project mới" Width="480" SizeToContent="Height"
+        CanResize="False" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="#FFFFFF">
+
+    <Window.Styles>
+        <Style Selector="TextBlock.fieldLabel">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="#667085" />
+            <Setter Property="Margin" Value="0,10,0,3" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="12,5" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MinHeight" Value="30" />
+        </Style>
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#3574F0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#2B63D9" />
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="MinHeight" Value="30" />
+        </Style>
+    </Window.Styles>
+
+    <StackPanel Margin="22" Spacing="4">
+        <TextBlock FontSize="16" FontWeight="SemiBold" Foreground="#1B2330" Text="Thông tin project" />
+        <TextBlock FontSize="11" Foreground="#98A2B3"
+                   Text="Nhập thông tin trước — môi trường (rig, nhân vật nền, preset) sẽ được thiết lập sau khi chọn nơi lưu." />
+
+        <TextBlock Classes="fieldLabel" Text="Tên project" />
+        <TextBox x:Name="NameBox" Watermark="VD: Nhân vật phiêu lưu" Text="Project mới" />
+
+        <TextBlock Classes="fieldLabel" Text="Hồ sơ game (thể loại)" />
+        <ComboBox x:Name="GenreBox" HorizontalAlignment="Stretch"
+                  ToolTip.Tip="Thể loại game mà project nhắm tới" />
+
+        <TextBlock Classes="fieldLabel" Text="Góc nhìn" />
+        <ComboBox x:Name="PerspectiveBox" HorizontalAlignment="Stretch" SelectionChanged="OnPerspectiveChanged"
+                  DisplayMemberBinding="{Binding Label}"
+                  ToolTip.Tip="Quyết định số hướng sprite cần vẽ (Down/Up/Left/Right…)" />
+        <TextBlock x:Name="DirectionHint" FontSize="10.5" Foreground="#98A2B3" Margin="0,2,0,0" />
+
+        <TextBlock Classes="fieldLabel" Text="Canvas (pixel)" />
+        <Grid ColumnDefinitions="Auto,70,14,Auto,70,Auto" Margin="0,0,0,6">
+            <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="Rộng" FontSize="11" Foreground="#667085" />
+            <TextBox Grid.Column="1" x:Name="WidthBox" Text="32" Margin="6,0,0,0" />
+            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="×" Foreground="#667085" />
+            <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="Cao" FontSize="11" Foreground="#667085" Margin="0,0,6,0" />
+            <TextBox Grid.Column="4" x:Name="HeightBox" Text="46" />
+            <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="px" FontSize="11" Foreground="#98A2B3" Margin="6,0,0,0" />
+        </Grid>
+
+        <TextBlock x:Name="ErrorText" FontSize="11.5" Foreground="#C0392B" TextWrapping="Wrap"
+                   IsVisible="{Binding #ErrorText.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,10,0,0">
+            <Button Content="Hủy" Click="OnCancelClick" ToolTip.Tip="Bỏ qua, không tạo project" />
+            <Button Classes="primary" Content="Tạo project" Click="OnCreateClick" ToolTip.Tip="Xác nhận thông tin và chọn nơi lưu" />
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,0 +1,27 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{csproj,props,targets}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.cs]
+csharp_style_prefer_primary_constructors = false
+csharp_using_directive_placement = outside_namespace
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.VSTHRD100.severity = none

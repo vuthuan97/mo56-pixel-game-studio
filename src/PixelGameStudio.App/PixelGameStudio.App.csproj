@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.3.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.2" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PixelGameStudio.Core\PixelGameStudio.Core.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Rendering\PixelGameStudio.Rendering.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Validation\PixelGameStudio.Validation.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Domain\PixelGameStudio.Domain.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.ProjectSystem\PixelGameStudio.ProjectSystem.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Behaviors\PixelGameStudio.Behaviors.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Export\PixelGameStudio.Export.csproj" />
+    <ProjectReference Include="..\PixelGameStudio.Assets\PixelGameStudio.Assets.csproj" />
+  </ItemGroup>
+</Project>

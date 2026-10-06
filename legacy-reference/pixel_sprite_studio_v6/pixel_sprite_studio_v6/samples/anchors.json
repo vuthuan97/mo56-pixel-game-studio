@@ -1,0 +1,138 @@
+{
+  "Down": {
+    "head": [
+      16,
+      12
+    ],
+    "chest": [
+      16,
+      26
+    ],
+    "left_hand": [
+      9,
+      31
+    ],
+    "right_hand": [
+      23,
+      31
+    ],
+    "left_foot": [
+      12,
+      42
+    ],
+    "right_foot": [
+      20,
+      42
+    ],
+    "weapon": [
+      4,
+      29
+    ],
+    "accessory": [
+      20,
+      31
+    ]
+  },
+  "Up": {
+    "head": [
+      16,
+      12
+    ],
+    "chest": [
+      16,
+      26
+    ],
+    "left_hand": [
+      10,
+      30
+    ],
+    "right_hand": [
+      22,
+      30
+    ],
+    "left_foot": [
+      12,
+      42
+    ],
+    "right_foot": [
+      20,
+      42
+    ],
+    "weapon": [
+      4,
+      28
+    ],
+    "accessory": [
+      19,
+      31
+    ]
+  },
+  "Left": {
+    "head": [
+      15,
+      12
+    ],
+    "chest": [
+      15,
+      26
+    ],
+    "left_hand": [
+      8,
+      30
+    ],
+    "right_hand": [
+      21,
+      30
+    ],
+    "left_foot": [
+      11,
+      42
+    ],
+    "right_foot": [
+      19,
+      42
+    ],
+    "weapon": [
+      4,
+      29
+    ],
+    "accessory": [
+      19,
+      31
+    ]
+  },
+  "Right": {
+    "head": [
+      17,
+      12
+    ],
+    "chest": [
+      17,
+      26
+    ],
+    "left_hand": [
+      11,
+      30
+    ],
+    "right_hand": [
+      24,
+      30
+    ],
+    "left_foot": [
+      13,
+      42
+    ],
+    "right_foot": [
+      21,
+      42
+    ],
+    "weapon": [
+      5,
+      29
+    ],
+    "accessory": [
+      21,
+      31
+    ]
+  }
+}

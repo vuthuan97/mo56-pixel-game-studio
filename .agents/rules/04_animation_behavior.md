@@ -1,0 +1,4 @@
+- Pose = trạng thái rig.
+- Animation = chuỗi frame/pose.
+- Behavior = animation + item + event/effect/interaction.
+- Preset và custom behavior đều bắt buộc.

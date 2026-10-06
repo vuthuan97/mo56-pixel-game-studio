@@ -1,0 +1,5188 @@
+[
+ {
+  "file": "000_idle_0_Down.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "001_idle_0_Up.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Up",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 16,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "002_idle_0_Left.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Left",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    26,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "003_idle_0_Right.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Right",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "004_attack_1_Down.png",
+  "pose": "attack_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    24,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "005_attack_1_Up.png",
+  "pose": "attack_1",
+  "mode": "Normal",
+  "direction": "Up",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 16,
+   "visible_size": [
+    24,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "006_attack_1_Left.png",
+  "pose": "attack_1",
+  "mode": "Normal",
+  "direction": "Left",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    24,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "007_attack_1_Right.png",
+  "pose": "attack_1",
+  "mode": "Normal",
+  "direction": "Right",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    24,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "008_sword_dash_1_Down.png",
+  "pose": "sword_dash_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    23,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "009_sword_dash_1_Up.png",
+  "pose": "sword_dash_1",
+  "mode": "Normal",
+  "direction": "Up",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 16,
+   "visible_size": [
+    23,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "010_sword_dash_1_Left.png",
+  "pose": "sword_dash_1",
+  "mode": "Normal",
+  "direction": "Left",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    23,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "011_sword_dash_1_Right.png",
+  "pose": "sword_dash_1",
+  "mode": "Normal",
+  "direction": "Right",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    23,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "012_idle_1_Down.png",
+  "pose": "idle_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "013_walk_0_Down.png",
+  "pose": "walk_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "014_walk_2_Down.png",
+  "pose": "walk_2",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "015_attack_0_Down.png",
+  "pose": "attack_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "016_attack_2_Down.png",
+  "pose": "attack_2",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "017_attack_3_Down.png",
+  "pose": "attack_3",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    45
+   ],
+   "value_range": 232,
+   "warnings": [
+    "Silhouette gần chạm biên dọc."
+   ]
+  }
+ },
+ {
+  "file": "018_hurt_0_Down.png",
+  "pose": "hurt_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "019_cast_1_Down.png",
+  "pose": "cast_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "020_death_1_Down.png",
+  "pose": "death_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "021_sword_dash_0_Down.png",
+  "pose": "sword_dash_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "022_sword_dash_2_Down.png",
+  "pose": "sword_dash_2",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    23,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "023_brew_1_Down.png",
+  "pose": "brew_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "024_seal_2_Down.png",
+  "pose": "seal_2",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "025_smash_1_Down.png",
+  "pose": "smash_1",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "026_fan_0_Down.png",
+  "pose": "fan_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "027_idle_0_Down_Grayscale.png",
+  "pose": "idle_0",
+  "mode": "Grayscale",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "028_idle_0_Down_Silhouette.png",
+  "pose": "idle_0",
+  "mode": "Silhouette",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 1,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 0,
+   "warnings": [
+    "Độ tương phản sáng/tối thấp; sprite có thể khó đọc ở native 1x."
+   ]
+  }
+ },
+ {
+  "file": "029_idle_0_Down_PartDebug.png",
+  "pose": "idle_0",
+  "mode": "Part Debug",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 7,
+   "visible_size": [
+    25,
+    43
+   ],
+   "value_range": 129,
+   "warnings": []
+  }
+ },
+ {
+  "file": "030_idle_0_Down_AnchorDebug.png",
+  "pose": "idle_0",
+  "mode": "Anchor Debug",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 27,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 236,
+   "warnings": [
+    "Palette đang có 27 màu; nên cân nhắc giảm."
+   ]
+  }
+ },
+ {
+  "file": "031_body_type=Mảnh.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Mảnh",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "032_body_type=Đậm.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Đậm",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "033_skin_tone=Trung bình.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Trung bình",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "034_skin_tone=Ngăm.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Ngăm",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "035_head_shape=Gọn.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Gọn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "036_eye_style=Vui.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Vui",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "037_eye_style=Lạnh lùng.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Lạnh lùng",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "038_eye_style=Nghiêm túc.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Nghiêm túc",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "039_eye_style=Buồn ngủ.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Buồn ngủ",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "040_nose_style=Không.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Không",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "041_mouth_style=Cười.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Cười",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "042_mouth_style=Nghiêm.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Nghiêm",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "043_hair_style=Tóc dài.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc dài",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "044_hair_style=Tóc ngắn.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc ngắn",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "045_hair_style=Đuôi ngựa.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Đuôi ngựa",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "046_hair_style=Tóc xõa.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc xõa",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "047_hair_style=Tóc dựng.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc dựng",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "048_hair_style=Tóc lệch.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc lệch",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "049_hair_style=Hai búi.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Hai búi",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    28,
+    43
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "050_hair_style=Tóc mái dài.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc mái dài",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    42
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "051_hair_style=Tóc võ sĩ.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Tóc võ sĩ",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "052_hair_color=Trắng bạc.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Trắng bạc",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 236,
+   "warnings": []
+  }
+ },
+ {
+  "file": "053_hair_color=Đỏ.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đỏ",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "054_hair_color=Xanh lá.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Xanh lá",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "055_hair_color=Nâu.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Nâu",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "056_hair_color=Vàng.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Vàng",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "057_skin_variant=Lạnh.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Lạnh",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "058_skin_variant=Hỏa.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Hỏa",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "059_skin_variant=U tối.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "U tối",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "060_skin_variant=Mộc.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mộc",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "061_class_Đan tu.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Đan tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai vải",
+   "cape": "Áo choàng ngắn",
+   "main_hand": "Không",
+   "off_hand": "Hồ lô",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "062_class_Phù tu.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Phù tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai vải",
+   "cape": "Không",
+   "main_hand": "Không",
+   "off_hand": "Phù",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    23,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "063_class_Thể tu.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Thể tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai giáp",
+   "cape": "Không",
+   "main_hand": "Đao",
+   "off_hand": "Khiên",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 24,
+   "visible_size": [
+    30,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "064_class_Du hiệp.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Du hiệp",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Áo choàng ngắn",
+   "main_hand": "Quạt",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    25,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "065_weapon_Kiếm.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "066_weapon_Đao.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Đao",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    26,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "067_weapon_Thương.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Thương",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    26,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "068_weapon_Quạt.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Quạt",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 18,
+   "visible_size": [
+    25,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "069_weapon_Trượng.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Trượng",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 18,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 224,
+   "warnings": []
+  }
+ },
+ {
+  "file": "070_wpnstate_slash.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "slash"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "071_wpnstate_raise.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "raise"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "072_wpnstate_recover.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "recover"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "073_wpnstate_ready.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "ready"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "074_wpnstate_back.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "back"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "075_wpnstate_Quạt_slash.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "slash"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Quạt",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "076_wpnstate_Trượng_raise.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "raise"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Trượng",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 20,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "077_wpnstate_Đao_slash.png",
+  "pose": null,
+  "mode": "Normal",
+  "direction": "Down",
+  "poseOverride": {
+   "weapon_state": "slash"
+  },
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Đao",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    24,
+    44
+   ],
+   "value_range": 225,
+   "warnings": []
+  }
+ },
+ {
+  "file": "078_effect_Glow.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Glow",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "079_effect_Spark.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Spark",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    30,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "080_effect_Burst.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Burst",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    30,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "081_effect_Slash.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Slash",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "082_effect_Heal.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Heal",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "083_effect_Shield.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Shield",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "084_aura_Kim.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Kim",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    30,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "085_eq00.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Áo choàng ngắn",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "086_eq01.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Áo choàng dài",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "087_eq02.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần sáng",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "088_eq03.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Ủng giáp",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "089_eq04.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày vải",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "090_eq05.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Áo trong sáng",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "091_eq06.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Áo trong tối",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "092_eq07.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Giáp ngực nhẹ",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "093_eq08.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Giáp ngực nặng",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "094_eq09.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Giáp vai nhẹ",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "095_eq10.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Giáp vai nặng",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "096_eq11.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Bao tay vải",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "097_eq12.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Bao tay giáp",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "098_eq13.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai vải",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "099_eq14.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai giáp",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "100_eq15.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Băng trán",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "101_eq16.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Mũ vải",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "102_eq17.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Mũ giáp",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "103_eq18.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Khiên",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 22,
+   "visible_size": [
+    31,
+    44
+   ],
+   "value_range": 232,
+   "warnings": [
+    "Silhouette gần chạm biên ngang."
+   ]
+  }
+ },
+ {
+  "file": "104_eq19.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Phù",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    28,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "105_eq20.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Hồ lô",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    29,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "106_eq21.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Khuyên tai"
+  },
+  "qa": {
+   "palette_count": 21,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "107_eq22.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Không",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Hồ lô"
+  },
+  "qa": {
+   "palette_count": 23,
+   "visible_size": [
+    29,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "108_eq_cape_up.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Up",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Áo choàng dài",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 15,
+   "visible_size": [
+    27,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "109_eq_cape_left.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Left",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Kiếm tu",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Quần tối",
+   "boots": "Giày da",
+   "belt": "Đai ngọc",
+   "cape": "Áo choàng dài",
+   "main_hand": "Kiếm",
+   "off_hand": "Không",
+   "accessory": "Ngọc bội"
+  },
+  "qa": {
+   "palette_count": 19,
+   "visible_size": [
+    26,
+    44
+   ],
+   "value_range": 232,
+   "warnings": []
+  }
+ },
+ {
+  "file": "110_eq_none.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Không",
+   "effect": "Không",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Không",
+   "inner": "Không",
+   "outer": "Không",
+   "chest_armor": "Không",
+   "shoulder": "Không",
+   "gloves": "Không",
+   "pants": "Không",
+   "boots": "Không",
+   "belt": "Không",
+   "cape": "Không",
+   "main_hand": "Không",
+   "off_hand": "Không",
+   "accessory": "Không"
+  },
+  "qa": {
+   "palette_count": 13,
+   "visible_size": [
+    22,
+    44
+   ],
+   "value_range": 224,
+   "warnings": []
+  }
+ },
+ {
+  "file": "111_eq_heavy.png",
+  "pose": "idle_0",
+  "mode": "Normal",
+  "direction": "Down",
+  "spec": {
+   "gender": "Nam",
+   "class_type": "Kiếm tu",
+   "body_type": "Tiêu chuẩn",
+   "skin_tone": "Sáng",
+   "head_shape": "Tròn",
+   "eye_style": "Bình tĩnh",
+   "nose_style": "Chấm",
+   "mouth_style": "Trung tính",
+   "hair_style": "Búi cao",
+   "hair_color": "Đen tím",
+   "skin_variant": "Mặc định",
+   "aura": "Hỏa",
+   "effect": "Glow",
+   "element": "Kim"
+  },
+  "equipment": {
+   "head": "Mũ giáp",
+   "inner": "Áo trong tối",
+   "outer": "Thể tu",
+   "chest_armor": "Giáp ngực nặng",
+   "shoulder": "Giáp vai nặng",
+   "gloves": "Bao tay giáp",
+   "pants": "Quần sáng",
+   "boots": "Ủng giáp",
+   "belt": "Đai giáp",
+   "cape": "Áo choàng dài",
+   "main_hand": "Đao",
+   "off_hand": "Khiên",
+   "accessory": "Hồ lô"
+  },
+  "qa": {
+   "palette_count": 32,
+   "visible_size": [
+    30,
+    44
+   ],
+   "value_range": 232,
+   "warnings": [
+    "Palette đang có 32 màu; nên cân nhắc giảm."
+   ]
+  }
+ }
+]

@@ -1,0 +1,79 @@
+{
+  "character": {
+    "name": "Lăng Hàn",
+    "gender": "Nam",
+    "class_type": "Kiếm tu",
+    "body_type": "Tiêu chuẩn",
+    "skin_tone": "Sáng",
+    "head_shape": "Tròn",
+    "eye_style": "Bình tĩnh",
+    "nose_style": "Chấm",
+    "mouth_style": "Trung tính",
+    "hair_style": "Búi cao",
+    "hair_color": "Đen tím",
+    "direction": "Down",
+    "skin_variant": "Mặc định",
+    "equipment": {
+      "head": "Không",
+      "inner": "Không",
+      "outer": "Kiếm tu",
+      "chest_armor": "Không",
+      "shoulder": "Không",
+      "gloves": "Không",
+      "pants": "Quần tối",
+      "boots": "Giày da",
+      "belt": "Đai ngọc",
+      "cape": "Không",
+      "main_hand": "Kiếm",
+      "off_hand": "Không",
+      "accessory": "Ngọc bội"
+    },
+    "aura": "Không",
+    "effect": "Không",
+    "element": "Kim"
+  },
+  "animations": {
+    "idle": [
+      "idle_0",
+      "idle_1"
+    ],
+    "walk": [
+      "walk_0",
+      "walk_1",
+      "walk_2",
+      "walk_3"
+    ],
+    "attack": [
+      "attack_0",
+      "attack_1",
+      "attack_2",
+      "attack_3"
+    ],
+    "class_sword_dash": [
+      "sword_dash_0",
+      "sword_dash_1",
+      "sword_dash_2"
+    ]
+  },
+  "directions": [
+    "Down",
+    "Up",
+    "Left",
+    "Right"
+  ],
+  "skill": {
+    "skill_id": "skill_01",
+    "name": "Kiếm Trảm",
+    "animation": "class_sword_dash",
+    "effect": "Slash",
+    "element": "Kim",
+    "hit_frame": 2
+  },
+  "ai_config": {
+    "provider": "OpenRouter",
+    "model": "",
+    "base_url": "",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "prompt_template": "Design one modular pixel-art asset for this game. Preserve 32x46 canvas, direction, anchors, slot, palette, and top-down readability."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "directions": [
+    "Down",
+    "Up",
+    "Left",
+    "Right"
+  ],
+  "animations": [
+    "idle",
+    "walk",
+    "attack",
+    "class_sword_dash"
+  ],
+  "fps": 6
+}

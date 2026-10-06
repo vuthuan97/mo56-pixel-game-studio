@@ -1,0 +1,8 @@
+MỞ TOÀN BỘ THƯ MỤC NÀY TRONG ZCODE.
+
+PROMPT ĐẦU TIÊN:
+Đọc docs/TECH_STACK.md trước.
+Đọc prompts/00_MASTER_REBUILD.md và thực hiện đúng nội dung. Bắt đầu Phase 0 bằng audit source legacy-reference/pixel_sprite_studio_v6. Không chỉ lập kế hoạch; hãy code, test và cập nhật TASK_LIST/CURRENT_STATE.
+
+CÁC LƯỢT SAU:
+Đọc prompts/01_CONTINUE_DEVELOPMENT.md và tiếp tục.

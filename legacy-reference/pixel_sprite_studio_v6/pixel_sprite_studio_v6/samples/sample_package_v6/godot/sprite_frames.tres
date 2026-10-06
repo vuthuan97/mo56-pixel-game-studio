@@ -1,0 +1,308 @@
+[gd_resource type="SpriteFrames" load_steps=53 format=3]
+
+[ext_resource type="Texture2D" path="../animations/Down/idle/idle_0.png" id="1_Down_idle_idle_0"]
+[ext_resource type="Texture2D" path="../animations/Down/idle/idle_1.png" id="2_Down_idle_idle_1"]
+[ext_resource type="Texture2D" path="../animations/Down/walk/walk_0.png" id="3_Down_walk_walk_0"]
+[ext_resource type="Texture2D" path="../animations/Down/walk/walk_1.png" id="4_Down_walk_walk_1"]
+[ext_resource type="Texture2D" path="../animations/Down/walk/walk_2.png" id="5_Down_walk_walk_2"]
+[ext_resource type="Texture2D" path="../animations/Down/walk/walk_3.png" id="6_Down_walk_walk_3"]
+[ext_resource type="Texture2D" path="../animations/Down/attack/attack_0.png" id="7_Down_attack_attack_0"]
+[ext_resource type="Texture2D" path="../animations/Down/attack/attack_1.png" id="8_Down_attack_attack_1"]
+[ext_resource type="Texture2D" path="../animations/Down/attack/attack_2.png" id="9_Down_attack_attack_2"]
+[ext_resource type="Texture2D" path="../animations/Down/attack/attack_3.png" id="10_Down_attack_attack_3"]
+[ext_resource type="Texture2D" path="../animations/Down/class_sword_dash/sword_dash_0.png" id="11_Down_class_sword_dash_sword_dash_0"]
+[ext_resource type="Texture2D" path="../animations/Down/class_sword_dash/sword_dash_1.png" id="12_Down_class_sword_dash_sword_dash_1"]
+[ext_resource type="Texture2D" path="../animations/Down/class_sword_dash/sword_dash_2.png" id="13_Down_class_sword_dash_sword_dash_2"]
+[ext_resource type="Texture2D" path="../animations/Up/idle/idle_0.png" id="14_Up_idle_idle_0"]
+[ext_resource type="Texture2D" path="../animations/Up/idle/idle_1.png" id="15_Up_idle_idle_1"]
+[ext_resource type="Texture2D" path="../animations/Up/walk/walk_0.png" id="16_Up_walk_walk_0"]
+[ext_resource type="Texture2D" path="../animations/Up/walk/walk_1.png" id="17_Up_walk_walk_1"]
+[ext_resource type="Texture2D" path="../animations/Up/walk/walk_2.png" id="18_Up_walk_walk_2"]
+[ext_resource type="Texture2D" path="../animations/Up/walk/walk_3.png" id="19_Up_walk_walk_3"]
+[ext_resource type="Texture2D" path="../animations/Up/attack/attack_0.png" id="20_Up_attack_attack_0"]
+[ext_resource type="Texture2D" path="../animations/Up/attack/attack_1.png" id="21_Up_attack_attack_1"]
+[ext_resource type="Texture2D" path="../animations/Up/attack/attack_2.png" id="22_Up_attack_attack_2"]
+[ext_resource type="Texture2D" path="../animations/Up/attack/attack_3.png" id="23_Up_attack_attack_3"]
+[ext_resource type="Texture2D" path="../animations/Up/class_sword_dash/sword_dash_0.png" id="24_Up_class_sword_dash_sword_dash_0"]
+[ext_resource type="Texture2D" path="../animations/Up/class_sword_dash/sword_dash_1.png" id="25_Up_class_sword_dash_sword_dash_1"]
+[ext_resource type="Texture2D" path="../animations/Up/class_sword_dash/sword_dash_2.png" id="26_Up_class_sword_dash_sword_dash_2"]
+[ext_resource type="Texture2D" path="../animations/Left/idle/idle_0.png" id="27_Left_idle_idle_0"]
+[ext_resource type="Texture2D" path="../animations/Left/idle/idle_1.png" id="28_Left_idle_idle_1"]
+[ext_resource type="Texture2D" path="../animations/Left/walk/walk_0.png" id="29_Left_walk_walk_0"]
+[ext_resource type="Texture2D" path="../animations/Left/walk/walk_1.png" id="30_Left_walk_walk_1"]
+[ext_resource type="Texture2D" path="../animations/Left/walk/walk_2.png" id="31_Left_walk_walk_2"]
+[ext_resource type="Texture2D" path="../animations/Left/walk/walk_3.png" id="32_Left_walk_walk_3"]
+[ext_resource type="Texture2D" path="../animations/Left/attack/attack_0.png" id="33_Left_attack_attack_0"]
+[ext_resource type="Texture2D" path="../animations/Left/attack/attack_1.png" id="34_Left_attack_attack_1"]
+[ext_resource type="Texture2D" path="../animations/Left/attack/attack_2.png" id="35_Left_attack_attack_2"]
+[ext_resource type="Texture2D" path="../animations/Left/attack/attack_3.png" id="36_Left_attack_attack_3"]
+[ext_resource type="Texture2D" path="../animations/Left/class_sword_dash/sword_dash_0.png" id="37_Left_class_sword_dash_sword_dash_0"]
+[ext_resource type="Texture2D" path="../animations/Left/class_sword_dash/sword_dash_1.png" id="38_Left_class_sword_dash_sword_dash_1"]
+[ext_resource type="Texture2D" path="../animations/Left/class_sword_dash/sword_dash_2.png" id="39_Left_class_sword_dash_sword_dash_2"]
+[ext_resource type="Texture2D" path="../animations/Right/idle/idle_0.png" id="40_Right_idle_idle_0"]
+[ext_resource type="Texture2D" path="../animations/Right/idle/idle_1.png" id="41_Right_idle_idle_1"]
+[ext_resource type="Texture2D" path="../animations/Right/walk/walk_0.png" id="42_Right_walk_walk_0"]
+[ext_resource type="Texture2D" path="../animations/Right/walk/walk_1.png" id="43_Right_walk_walk_1"]
+[ext_resource type="Texture2D" path="../animations/Right/walk/walk_2.png" id="44_Right_walk_walk_2"]
+[ext_resource type="Texture2D" path="../animations/Right/walk/walk_3.png" id="45_Right_walk_walk_3"]
+[ext_resource type="Texture2D" path="../animations/Right/attack/attack_0.png" id="46_Right_attack_attack_0"]
+[ext_resource type="Texture2D" path="../animations/Right/attack/attack_1.png" id="47_Right_attack_attack_1"]
+[ext_resource type="Texture2D" path="../animations/Right/attack/attack_2.png" id="48_Right_attack_attack_2"]
+[ext_resource type="Texture2D" path="../animations/Right/attack/attack_3.png" id="49_Right_attack_attack_3"]
+[ext_resource type="Texture2D" path="../animations/Right/class_sword_dash/sword_dash_0.png" id="50_Right_class_sword_dash_sword_dash_0"]
+[ext_resource type="Texture2D" path="../animations/Right/class_sword_dash/sword_dash_1.png" id="51_Right_class_sword_dash_sword_dash_1"]
+[ext_resource type="Texture2D" path="../animations/Right/class_sword_dash/sword_dash_2.png" id="52_Right_class_sword_dash_sword_dash_2"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_Down_idle_idle_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("2_Down_idle_idle_1")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_Down_walk_walk_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("4_Down_walk_walk_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("5_Down_walk_walk_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("6_Down_walk_walk_3")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_Down_attack_attack_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("8_Down_attack_attack_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("9_Down_attack_attack_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("10_Down_attack_attack_3")
+}],
+"loop": true,
+"name": &"attack_down",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_Down_class_sword_dash_sword_dash_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("12_Down_class_sword_dash_sword_dash_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("13_Down_class_sword_dash_sword_dash_2")
+}],
+"loop": true,
+"name": &"class_sword_dash_down",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_Up_idle_idle_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("15_Up_idle_idle_1")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_Up_walk_walk_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("17_Up_walk_walk_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("18_Up_walk_walk_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("19_Up_walk_walk_3")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_Up_attack_attack_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("21_Up_attack_attack_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("22_Up_attack_attack_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("23_Up_attack_attack_3")
+}],
+"loop": true,
+"name": &"attack_up",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_Up_class_sword_dash_sword_dash_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("25_Up_class_sword_dash_sword_dash_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("26_Up_class_sword_dash_sword_dash_2")
+}],
+"loop": true,
+"name": &"class_sword_dash_up",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_Left_idle_idle_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("28_Left_idle_idle_1")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_Left_walk_walk_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("30_Left_walk_walk_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("31_Left_walk_walk_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("32_Left_walk_walk_3")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_Left_attack_attack_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("34_Left_attack_attack_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("35_Left_attack_attack_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("36_Left_attack_attack_3")
+}],
+"loop": true,
+"name": &"attack_left",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_Left_class_sword_dash_sword_dash_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("38_Left_class_sword_dash_sword_dash_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("39_Left_class_sword_dash_sword_dash_2")
+}],
+"loop": true,
+"name": &"class_sword_dash_left",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_Right_idle_idle_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("41_Right_idle_idle_1")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_Right_walk_walk_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("43_Right_walk_walk_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("44_Right_walk_walk_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("45_Right_walk_walk_3")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_Right_attack_attack_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("47_Right_attack_attack_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("48_Right_attack_attack_2")
+},{
+"duration": 1.0,
+"texture": ExtResource("49_Right_attack_attack_3")
+}],
+"loop": true,
+"name": &"attack_right",
+"speed": 6.0
+},
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("50_Right_class_sword_dash_sword_dash_0")
+},{
+"duration": 1.0,
+"texture": ExtResource("51_Right_class_sword_dash_sword_dash_1")
+},{
+"duration": 1.0,
+"texture": ExtResource("52_Right_class_sword_dash_sword_dash_2")
+}],
+"loop": true,
+"name": &"class_sword_dash_right",
+"speed": 6.0
+}]

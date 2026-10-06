@@ -1,0 +1,6 @@
+- Domain/Core không phụ thuộc UI.
+- Renderer không chứa editor logic.
+- Exporter không đổi project state.
+- Data-driven.
+- ProjectStyleProfile là nguồn style chung.
+- Không embed PNG binary vào JSON.
