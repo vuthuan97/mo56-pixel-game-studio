@@ -1,5 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using Avalonia.Media.Imaging;
 
 namespace PixelGameStudio.App.ViewModels;
 
@@ -13,6 +15,9 @@ public partial class EquipmentSlotViewModel : ObservableObject
         SlotId = slotId;
         DisplayName = displayName;
         Options = new ObservableCollection<string>(options);
+        OptionItems = new ObservableCollection<EquipmentOptionViewModel>(
+            options.Select(id => new EquipmentOptionViewModel(id, id, null, "")));
+        AssignSelectedCommand = new RelayCommand(() => OnAssignSelected?.Invoke(SlotId));
     }
 
     public string SlotId { get; }
@@ -20,6 +25,14 @@ public partial class EquipmentSlotViewModel : ObservableObject
     public string DisplayName { get; }
 
     public ObservableCollection<string> Options { get; }
+
+    /// <summary>Same choices with display metadata for the thumbnail selector.</summary>
+    public ObservableCollection<EquipmentOptionViewModel> OptionItems { get; }
+
+    public IRelayCommand AssignSelectedCommand { get; }
+
+    /// <summary>Set by MainViewModel to bridge the contextual asset browser.</summary>
+    public Action<string>? OnAssignSelected { get; set; }
 
     [ObservableProperty]
     private string? _selectedOption;
@@ -34,4 +47,20 @@ public partial class EquipmentSlotViewModel : ObservableObject
             OnChanged?.Invoke(SlotId, value == NoneOption ? null : value);
         }
     }
+}
+
+public sealed class EquipmentOptionViewModel
+{
+    public EquipmentOptionViewModel(string id, string displayName, WriteableBitmap? thumbnail, string meta)
+    {
+        Id = id;
+        DisplayName = displayName;
+        Thumbnail = thumbnail;
+        Meta = meta;
+    }
+
+    public string Id { get; }
+    public string DisplayName { get; }
+    public WriteableBitmap? Thumbnail { get; }
+    public string Meta { get; }
 }

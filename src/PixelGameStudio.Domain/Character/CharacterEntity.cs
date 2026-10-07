@@ -66,10 +66,16 @@ public sealed class CharacterEntity
     /// <summary>RigDefinition.Id in the same project.</summary>
     public string RigId { get; set; } = string.Empty;
 
+    /// <summary>Per-character construction data; absent in old JSON is safe.</summary>
+    public CharacterBuildProfile Build { get; set; } = new();
+
     public List<PartAppearance> Appearance { get; set; } = [];
 
     /// <summary>Equipped items keyed by slot id; a slot holds at most one item.</summary>
     public List<EquippedItem> Equipment { get; set; } = [];
+
+    /// <summary>Action template ids explicitly generated/selected for this character.</summary>
+    public List<string> ActionIds { get; set; } = [];
 
     public string? RoleId { get; set; }
 

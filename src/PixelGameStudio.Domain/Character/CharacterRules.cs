@@ -33,6 +33,19 @@ public static class CharacterRules
             issues.Add($"Character '{character.Id}' thiếu tên.");
         }
 
+        if (character.Build is null)
+        {
+            issues.Add($"Character '{character.Id}': build profile is missing.");
+        }
+        else if (character.Build.HeadHeightPx is < 8 or > 24 ||
+                 character.Build.TorsoHeightPx is < 8 or > 24 ||
+                 character.Build.ArmLengthPx is < 6 or > 20 ||
+                 character.Build.LegLengthPx is < 8 or > 24 ||
+                 character.Build.FootWidthPx is < 2 or > 10)
+        {
+            issues.Add($"Character '{character.Id}': build proportions exceed the safe native range.");
+        }
+
         RigDefinition? rig = project.Rigs.FirstOrDefault(r => r.Id.Equals(character.RigId, StringComparison.Ordinal));
         if (rig is null)
         {

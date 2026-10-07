@@ -1,8 +1,11 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Security.Cryptography;
+using System.Text;
 using PixelGameStudio.Assets.Composition;
 using PixelGameStudio.Domain;
 using PixelGameStudio.Domain.Animation;
+using PixelGameStudio.Domain.Behaviors;
 using PixelGameStudio.Domain.Character;
 using PixelGameStudio.Rendering;
 
@@ -85,6 +88,7 @@ public sealed class ExportService
         var manifest = new Dictionary<string, object?>
         {
             ["character"] = new { character.Id, character.Name, rig = character.RigId },
+            ["actions"] = BuildActionManifest(project, character),
             ["view"] = project.View.Perspective,
             ["directions"] = views,
             ["animation"] = animation?.Id,
@@ -210,14 +214,17 @@ public sealed class ExportService
     {
         var package = new Dictionary<string, object?>
         {
-            ["schemaVersion"] = 1,
+            ["schemaVersion"] = 2,
             ["character"] = new
             {
                 character.Id,
                 character.Name,
                 rig = character.RigId,
                 equipment = character.Equipment.Select(e => new { slot = e.SlotId, asset = e.AssetId }).ToList(),
+                build = character.Build,
+                actions = character.ActionIds,
             },
+            ["actions"] = BuildActionManifest(project, character),
             ["view"] = new { perspective = project.View.Perspective, directions = views },
             ["animation"] = animation is null
                 ? null
@@ -246,5 +253,33 @@ public sealed class ExportService
         File.WriteAllText(
             Path.Combine(outputDirectory, "package.json"),
             JsonSerializer.Serialize(package, ManifestJsonOptions));
+    }
+
+    private static IReadOnlyList<object> BuildActionManifest(Project project, CharacterEntity character)
+    {
+        return character.ActionIds.Select(actionId =>
+        {
+            string generatedId = $"action.{actionId}";
+            AnimationDefinition? animation = project.Animations.FirstOrDefault(item => item.Id == generatedId);
+            BehaviorDefinition? behavior = project.Behaviors.FirstOrDefault(item => item.Id == $"beh.{actionId}");
+            return (object)new
+            {
+                id = actionId,
+                animation = animation?.Id ?? behavior?.AnimationId,
+                sourceFingerprint = Fingerprint(new
+                {
+                    character.Build,
+                    character.Appearance,
+                    character.Equipment,
+                    animation,
+                }),
+            };
+        }).ToList();
+    }
+
+    private static string Fingerprint(object value)
+    {
+        byte[] bytes = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, ManifestJsonOptions));
+        return Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
     }
 }

@@ -59,3 +59,6 @@ JSON UTF-8 (camelCase, indent, giữ tiếng Việt). Cấu trúc (schemaVersion
 - **View/direction**: key từ ViewProfile (TopDown4/8, Diagonal4, SideView2, Frontal, Custom); asset khai báo `views` phải ⊆ ViewProfile.
 - **Forward-compat**: field lạ bị bỏ qua khi load; `schemaVersion` lớn hơn app hỗ trợ → từ chối mở.
 - **Ghi atomic**: temp file + move; Save xong dọn `autosave/`.
+## MO56 persisted fields
+
+Existing project files remain readable when `CharacterEntity.build` and `actionIds` are absent; deserialization supplies safe defaults. New files persist those fields and ProjectStore keeps its atomic save/autosave behavior. Unknown fields continue to be ignored for forward compatibility.

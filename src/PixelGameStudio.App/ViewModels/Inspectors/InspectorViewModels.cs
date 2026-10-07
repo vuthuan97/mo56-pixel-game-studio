@@ -101,6 +101,8 @@ public class ProjectInspectorViewModel : InspectorViewModel
 
     public int DirectionCount => ProjectObject.View.Directions.Count;
 
+    public ValidationInspectorViewModel Validation => Main.ValidationInspector;
+
     private Project ProjectObject => Main.ProjectObject;
 }
 
@@ -278,6 +280,12 @@ public class AnimationInspectorViewModel : InspectorViewModel
 
     public int FrameCount => Animation?.Frames.Count ?? 0;
 
+    public int CurrentFrameDurationTicks
+    {
+        get => Main.CurrentFrameDurationTicks;
+        set => Main.CurrentFrameDurationTicks = value;
+    }
+
     // Proxies to the timeline editor state on MainViewModel (the Animation
     // DataTemplate binds through this inspector).
     public IReadOnlyList<string> PosePartOptions => Main.PosePartOptions;
@@ -343,10 +351,44 @@ public class BehaviorInspectorViewModel : InspectorViewModel
     public BehaviorInspectorViewModel(MainViewModel main)
         : base(main)
     {
+        main.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName is nameof(MainViewModel.SelectedActionTemplate)
+                or nameof(MainViewModel.IsActionGenerationRunning)
+                or nameof(MainViewModel.ActionGenerationProgress)
+                or nameof(MainViewModel.ActionGenerationStatus))
+            {
+                OnPropertyChanged(nameof(SelectedActionTemplate));
+                OnPropertyChanged(nameof(IsActionGenerationRunning));
+                OnPropertyChanged(nameof(ActionGenerationProgress));
+                OnPropertyChanged(nameof(ActionGenerationStatus));
+            }
+        };
     }
 
     private BehaviorDefinition? Behavior => Main.ProjectObject.Behaviors
         .FirstOrDefault(b => b.Id == Main.SelectedBehavior?.Id);
+
+    public System.Collections.ObjectModel.ObservableCollection<ActionTemplateItemViewModel> ActionTemplates =>
+        Main.ActionTemplateItems;
+
+    public ActionTemplateItemViewModel? SelectedActionTemplate
+    {
+        get => Main.SelectedActionTemplate;
+        set
+        {
+            Main.SelectedActionTemplate = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public System.Windows.Input.ICommand GenerateActionTemplateCommand => Main.GenerateActionTemplateCommand;
+
+    public System.Windows.Input.ICommand CancelActionGenerationCommand => Main.CancelActionGenerationCommand;
+
+    public bool IsActionGenerationRunning => Main.IsActionGenerationRunning;
+    public double ActionGenerationProgress => Main.ActionGenerationProgress;
+    public string ActionGenerationStatus => Main.ActionGenerationStatus;
 
     public IReadOnlyList<string> AnimationOptions => Main.AnimationOptions.ToList();
 
@@ -579,6 +621,142 @@ public class CharacterInspectorViewModel : ObservableObject
 
     public System.Windows.Input.ICommand AddCharacterCommand => Main.AddCharacterCommand;
 
+    public System.Windows.Input.ICommand DuplicateCharacterCommand => Main.DuplicateCharacterCommand;
+
+    public System.Windows.Input.ICommand DeleteCharacterCommand => Main.DeleteCharacterCommand;
+
+    public RigInspectorViewModel Rig => Main.RigInspector;
+
+    public IReadOnlyList<string> GenderOptions { get; } = ["Unspecified", "Female", "Male", "Non-binary"];
+
+    public string Gender
+    {
+        get => Main.CurrentCharacter?.Build?.Gender ?? "Unspecified";
+        set
+        {
+            if (Gender != value) UpdateBuild(build => build.Gender = value);
+        }
+    }
+
+    public string BodyType
+    {
+        get => Main.CurrentCharacter?.Build?.BodyType ?? "Standard";
+        set
+        {
+            if (BodyType != value) UpdateBuild(build => build.BodyType = value);
+        }
+    }
+
+    public IReadOnlyList<string> BodyTypeOptions { get; } = ["Standard", "Slim", "Broad", "Child"];
+
+    public int HeadHeightPx
+    {
+        get => Main.CurrentCharacter?.Build?.HeadHeightPx ?? CharacterBuildProfile.DefaultHeadHeightPx;
+        set
+        {
+            if (HeadHeightPx != value) UpdateBuild(build => build.HeadHeightPx = value);
+        }
+    }
+
+    public double HeadHeightSlider
+    {
+        get => HeadHeightPx;
+        set => HeadHeightPx = (int)Math.Round(value);
+    }
+
+    public int TorsoHeightPx
+    {
+        get => Main.CurrentCharacter?.Build?.TorsoHeightPx ?? CharacterBuildProfile.DefaultTorsoHeightPx;
+        set
+        {
+            if (TorsoHeightPx != value) UpdateBuild(build => build.TorsoHeightPx = value);
+        }
+    }
+
+    public double TorsoHeightSlider
+    {
+        get => TorsoHeightPx;
+        set => TorsoHeightPx = (int)Math.Round(value);
+    }
+
+    public int ArmLengthPx
+    {
+        get => Main.CurrentCharacter?.Build?.ArmLengthPx ?? CharacterBuildProfile.DefaultArmLengthPx;
+        set
+        {
+            if (ArmLengthPx != value) UpdateBuild(build => build.ArmLengthPx = value);
+        }
+    }
+
+    public double ArmLengthSlider
+    {
+        get => ArmLengthPx;
+        set => ArmLengthPx = (int)Math.Round(value);
+    }
+
+    public int LegLengthPx
+    {
+        get => Main.CurrentCharacter?.Build?.LegLengthPx ?? CharacterBuildProfile.DefaultLegLengthPx;
+        set
+        {
+            if (LegLengthPx != value) UpdateBuild(build => build.LegLengthPx = value);
+        }
+    }
+
+    public double LegLengthSlider
+    {
+        get => LegLengthPx;
+        set => LegLengthPx = (int)Math.Round(value);
+    }
+
+    public int FootWidthPx
+    {
+        get => Main.CurrentCharacter?.Build?.FootWidthPx ?? CharacterBuildProfile.DefaultFootWidthPx;
+        set
+        {
+            if (FootWidthPx != value) UpdateBuild(build => build.FootWidthPx = value);
+        }
+    }
+
+    public double FootWidthSlider
+    {
+        get => FootWidthPx;
+        set => FootWidthPx = (int)Math.Round(value);
+    }
+
+    private void UpdateBuild(Action<CharacterBuildProfile> update)
+    {
+        CharacterEntity? character = Main.CurrentCharacter;
+        if (character is null)
+        {
+            return;
+        }
+
+        character.Build ??= new CharacterBuildProfile();
+        Main.Checkpoint();
+        update(character.Build);
+        character.Build.Normalize();
+        Main.MarkDirty();
+        RefreshBuildProperties();
+        Main.RenderPreviewCommand.Execute(null);
+    }
+
+    private void RefreshBuildProperties()
+    {
+        OnPropertyChanged(nameof(Gender));
+        OnPropertyChanged(nameof(BodyType));
+        OnPropertyChanged(nameof(HeadHeightPx));
+        OnPropertyChanged(nameof(HeadHeightSlider));
+        OnPropertyChanged(nameof(TorsoHeightPx));
+        OnPropertyChanged(nameof(TorsoHeightSlider));
+        OnPropertyChanged(nameof(ArmLengthPx));
+        OnPropertyChanged(nameof(ArmLengthSlider));
+        OnPropertyChanged(nameof(LegLengthPx));
+        OnPropertyChanged(nameof(LegLengthSlider));
+        OnPropertyChanged(nameof(FootWidthPx));
+        OnPropertyChanged(nameof(FootWidthSlider));
+    }
+
     /// <summary>Re-reads every character-derived field (called when the selected character changes).</summary>
     public void RefreshFromCharacter()
     {
@@ -590,6 +768,7 @@ public class CharacterInspectorViewModel : ObservableObject
         OnPropertyChanged(nameof(HairStyle));
         OnPropertyChanged(nameof(SkinTone));
         OnPropertyChanged(nameof(CharacterDisplayItems));
+        RefreshBuildProperties();
     }
 
     public string Name
@@ -606,7 +785,6 @@ public class CharacterInspectorViewModel : ObservableObject
 
             Main.Checkpoint();
             character.Name = value;
-            Main.ProjectName = value;
             Main.MarkDirty();
             OnPropertyChanged();
         }
@@ -647,8 +825,8 @@ public class CharacterInspectorViewModel : ObservableObject
         {
             foreach (string slug in byValue.Keys.OrderBy(k => k, StringComparer.Ordinal))
             {
-                string display = AppearanceCatalog.DisplayFor(catalog, slug);
-                if (!names.Contains(display, StringComparer.Ordinal))
+                string? display = AppearanceCatalog.DisplayFor(catalog, slug);
+                if (display is not null && !names.Contains(display, StringComparer.Ordinal))
                 {
                     names.Add(display);
                 }

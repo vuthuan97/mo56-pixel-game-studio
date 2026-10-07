@@ -140,7 +140,9 @@ public sealed class RigSpriteComposer
 
             PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, appearance, view);
             (int absX, int absY) = AbsoluteOffset(rig, part.Id);
-            ops.Add(new DrawOp(part.ZIndex, order++, part.Id, pixels, absX + pose.OffsetX, absY + pose.OffsetY));
+            (int buildX, int buildY) = character.Build?.PartOffset(part.Id) ?? (0, 0);
+            ops.Add(new DrawOp(part.ZIndex, order++, part.Id, pixels,
+                absX + buildX + pose.OffsetX, absY + buildY + pose.OffsetY));
         }
 
         foreach (EquippedItem item in character.Equipment)
@@ -177,10 +179,13 @@ public sealed class RigSpriteComposer
             PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, null, view);
             AnchorPoint? anchor = rig.FindAnchor(slot.AnchorId);
             (int absX, int absY) = anchor is null ? (0, 0) : AbsoluteOffset(rig, anchor.PartId);
+            (int buildX, int buildY) = anchor is null || character.Build is null
+                ? (0, 0)
+                : character.Build.PartOffset(anchor.PartId);
             int z = slotPose.ZIndexOverride ?? slot.ZIndex;
             ops.Add(new DrawOp(z, order++, $"slot.{item.SlotId}", pixels,
-                absX + (anchor?.OffsetX ?? 0) + slotPose.OffsetX,
-                absY + (anchor?.OffsetY ?? 0) + slotPose.OffsetY));
+                absX + buildX + (anchor?.OffsetX ?? 0) + slotPose.OffsetX,
+                absY + buildY + (anchor?.OffsetY ?? 0) + slotPose.OffsetY));
         }
 
         return ops;

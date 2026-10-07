@@ -4,18 +4,16 @@ using Avalonia.Data.Converters;
 
 namespace PixelGameStudio.App.Converters;
 
-/// <summary>Maps top-level workspace ids to their Vietnamese labels.</summary>
-public sealed class WorkspaceDisplayNameConverter : IValueConverter
+public sealed class CharacterSectionDisplayNameConverter : IValueConverter
 {
-    public static readonly WorkspaceDisplayNameConverter Instance = new();
+    public static readonly CharacterSectionDisplayNameConverter Instance = new();
 
     private static readonly Dictionary<string, string> Map = new(StringComparer.Ordinal)
     {
-        ["Project"] = "Dự án",
-        ["Character"] = "Nhân vật",
-        ["Library"] = "Vật phẩm / Đạo cụ",
-        ["Background"] = "Bối cảnh",
-        ["Export"] = "Xuất",
+        ["Frame"] = "Bộ khung",
+        ["Equipment"] = "Trang bị",
+        ["Animation"] = "Hoạt ảnh",
+        ["Actions"] = "Hành động",
     };
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

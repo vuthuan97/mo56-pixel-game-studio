@@ -19,8 +19,10 @@ using PixelGameStudio.ProjectSystem;
 using PixelGameStudio.Validation;
 using PixelGameStudio.Rendering;
 using PixelGameStudio.Rendering.Procedural;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace PixelGameStudio.App.ViewModels;
 
@@ -77,6 +79,22 @@ public partial class MainViewModel : ObservableObject
     private string? _assetTagFilter;
 
     public ObservableCollection<AssetItemViewModel> AssetItems { get; } = [];
+
+    public ObservableCollection<ActionTemplateItemViewModel> ActionTemplateItems { get; } = [];
+
+    [ObservableProperty]
+    private ActionTemplateItemViewModel? _selectedActionTemplate;
+
+    [ObservableProperty]
+    private bool _isActionGenerationRunning;
+
+    [ObservableProperty]
+    private double _actionGenerationProgress;
+
+    [ObservableProperty]
+    private string _actionGenerationStatus = string.Empty;
+
+    private CancellationTokenSource? _actionGenerationCancellation;
 
     public MainViewModel()
     {
@@ -141,6 +159,7 @@ public partial class MainViewModel : ObservableObject
         AnimationOptions.Clear();
         TimelineFrames.Clear();
         BehaviorItems.Clear();
+        ActionTemplateItems.Clear();
         SelectedAnimationId = null;
         IsPlaying = false;
         ProvisionProjectContent();
@@ -279,6 +298,7 @@ public partial class MainViewModel : ObservableObject
         RefreshAssets();
         RefreshAnimationOptions();
         RefreshBehaviorItems();
+        RefreshActionTemplates();
         RebuildEquipmentSlots();
         RebuildTimeline();
         OnPropertyChanged(nameof(Inspector));
@@ -688,6 +708,7 @@ public partial class MainViewModel : ObservableObject
     {
         CharacterInspector.RefreshFromCharacter();
         RebuildEquipmentSlots();
+        RefreshActionTemplates();
         if (value is not null)
         {
             RenderPreview();
@@ -743,6 +764,173 @@ public partial class MainViewModel : ObservableObject
         Status = $"Đã thêm '{character.Name}' — combo Nhân vật để chuyển giữa các nhân vật.";
     }
 
+    [RelayCommand]
+    public void DuplicateCharacter()
+    {
+        if (_project is null || CurrentCharacter is null)
+        {
+            return;
+        }
+
+        Checkpoint();
+        CharacterEntity copy = JsonSerializer.Deserialize<CharacterEntity>(
+            JsonSerializer.Serialize(CurrentCharacter)) ?? throw new InvalidOperationException("Cannot duplicate character.");
+        int n = _project.Characters.Count + 1;
+        string id = $"char.hero{n}";
+        while (_project.Characters.Any(c => c.Id.Equals(id, StringComparison.Ordinal)))
+        {
+            n++;
+            id = $"char.hero{n}";
+        }
+
+        copy.Id = id;
+        copy.Name = $"{CurrentCharacter.Name} (copy)";
+        _project.Characters.Add(copy);
+        RefreshCharacterOptions();
+        SelectedCharacterId = copy.Id;
+        MarkDirty();
+        RebuildEquipmentSlots();
+        RenderPreview();
+        Status = $"Duplicated '{copy.Name}'.";
+    }
+
+    public void RefreshActionTemplates()
+    {
+        ActionTemplateItems.Clear();
+        if (_project is null || CurrentCharacter is null)
+        {
+            SelectedActionTemplate = null;
+            return;
+        }
+
+        foreach (ActionAvailability item in ActionTemplateCatalog.Evaluate(_project, CurrentCharacter))
+        {
+            ActionTemplateItems.Add(new ActionTemplateItemViewModel(
+                item.Template.Id,
+                item.Template.DisplayName,
+                item.Template.Group,
+                item.IsAvailable,
+                item.Reason));
+        }
+
+        SelectedActionTemplate ??= ActionTemplateItems.FirstOrDefault();
+    }
+
+    public void GenerateActionTemplate()
+    {
+        if (_project is null || CurrentCharacter is null || SelectedActionTemplate is null)
+        {
+            Status = "Select an action template first.";
+            return;
+        }
+
+        try
+        {
+            Checkpoint();
+            AnimationDefinition animation = ActionTemplateCatalog.Generate(
+                _project, CurrentCharacter, SelectedActionTemplate.Id);
+            MarkDirty();
+            RefreshAnimationOptions();
+            SelectedAnimationId = animation.Id;
+            RefreshBehaviorItems();
+            RefreshActionTemplates();
+            RebuildTimeline();
+            Status = $"Generated action '{animation.DisplayName}' with {animation.Frames.Count} real frames.";
+        }
+        catch (Exception ex)
+        {
+            Status = $"Action generation failed: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    public async Task GenerateActionTemplateAsync()
+    {
+        if (_project is null || CurrentCharacter is null || SelectedActionTemplate is null)
+        {
+            ActionGenerationStatus = "Select an available action template first.";
+            return;
+        }
+
+        if (IsActionGenerationRunning)
+        {
+            return;
+        }
+
+        _actionGenerationCancellation?.Dispose();
+        _actionGenerationCancellation = new CancellationTokenSource();
+        CancellationToken cancellationToken = _actionGenerationCancellation.Token;
+        string templateId = SelectedActionTemplate.Id;
+        Project project = _project;
+        CharacterEntity character = CurrentCharacter;
+        IsActionGenerationRunning = true;
+        ActionGenerationProgress = 0;
+        Checkpoint();
+        ActionGenerationStatus = "Generating poses and frames…";
+
+        try
+        {
+            var progress = new Progress<double>(value =>
+            {
+                ActionGenerationProgress = value;
+                ActionGenerationStatus = $"Generating… {value:P0}";
+            });
+            AnimationDefinition animation = await Task.Run(
+                () => ActionTemplateCatalog.Generate(project, character, templateId, cancellationToken, progress),
+                cancellationToken);
+            MarkDirty();
+            RefreshAnimationOptions();
+            SelectedAnimationId = animation.Id;
+            RefreshBehaviorItems();
+            RefreshActionTemplates();
+            RebuildTimeline();
+            ActionGenerationProgress = 1;
+            ActionGenerationStatus = $"Generated {animation.DisplayName} ({animation.Frames.Count} frames).";
+        }
+        catch (OperationCanceledException)
+        {
+            ActionGenerationStatus = "Generation cancelled; no partial action was committed.";
+        }
+        catch (Exception ex)
+        {
+            ActionGenerationStatus = $"Generation failed: {ex.Message}";
+        }
+        finally
+        {
+            IsActionGenerationRunning = false;
+            _actionGenerationCancellation?.Dispose();
+            _actionGenerationCancellation = null;
+        }
+    }
+
+    [RelayCommand]
+    public void CancelActionGeneration() => _actionGenerationCancellation?.Cancel();
+
+    [RelayCommand]
+    public void DeleteCharacter()
+    {
+        if (_project is null || CurrentCharacter is null)
+        {
+            return;
+        }
+
+        if (_project.Characters.Count <= 1)
+        {
+            Status = "Project must keep at least one character.";
+            return;
+        }
+
+        string removedName = CurrentCharacter.Name;
+        Checkpoint();
+        _project.Characters.Remove(CurrentCharacter);
+        RefreshCharacterOptions();
+        SelectedCharacterId = _project.Characters.FirstOrDefault()?.Id;
+        MarkDirty();
+        RebuildEquipmentSlots();
+        RenderPreview();
+        Status = $"Deleted '{removedName}'.";
+    }
+
     private void RebuildEquipmentSlots()
     {
         EquipmentSlots.Clear();
@@ -756,9 +944,9 @@ public partial class MainViewModel : ObservableObject
         foreach (EquipmentSlotDef slot in rig.EquipmentSlots)
         {
             var options = new List<string> { EquipmentSlotViewModel.NoneOption };
-            options.AddRange(_assetLibrary
-                .Search(_project, tags: [$"slot:{slot.Id}"])
-                .Select(a => a.Id));
+            IReadOnlyList<AssetDefinition> slotAssets = _assetLibrary
+                .Search(_project, tags: [$"slot:{slot.Id}"]);
+            options.AddRange(slotAssets.Select(a => a.Id));
 
             EquippedItem? equipped = character.Equipment.FirstOrDefault(e => e.SlotId == slot.Id);
             string? current = equipped is not null &&
@@ -771,7 +959,45 @@ public partial class MainViewModel : ObservableObject
             {
                 SelectedOption = current ?? EquipmentSlotViewModel.NoneOption,
             };
+            vm.OptionItems.Clear();
+            vm.OptionItems.Add(new EquipmentOptionViewModel(
+                EquipmentSlotViewModel.NoneOption,
+                EquipmentSlotViewModel.NoneOption,
+                null,
+                "empty"));
+            foreach (AssetDefinition asset in slotAssets)
+            {
+                string? thumbPath = null;
+                try
+                {
+                    thumbPath = _thumbnailCache.GetOrCreate(_project, _projectRoot ?? string.Empty, asset, 48);
+                }
+                catch
+                {
+                    // Missing thumbnails must not prevent equipment selection.
+                }
+
+                WriteableBitmap? thumbnail = null;
+                if (!string.IsNullOrWhiteSpace(thumbPath))
+                {
+                    try
+                    {
+                        thumbnail = PngCodec.Decode(File.OpenRead(thumbPath)).ToWriteableBitmap();
+                    }
+                    catch
+                    {
+                        thumbnail = null;
+                    }
+                }
+
+                vm.OptionItems.Add(new EquipmentOptionViewModel(
+                    asset.Id,
+                    asset.DisplayName,
+                    thumbnail,
+                    string.Join(", ", asset.Tags)));
+            }
             vm.OnChanged = UpdateEquipment;
+            vm.OnAssignSelected = AssignSelectedAssetToSlot;
             EquipmentSlots.Add(vm);
         }
     }
@@ -793,6 +1019,39 @@ public partial class MainViewModel : ObservableObject
 
         MarkDirty();
         RenderPreview();
+    }
+
+    private void AssignSelectedAssetToSlot(string slotId)
+    {
+        if (_project is null || CurrentCharacter is null || SelectedAsset is null)
+        {
+            Status = "Select an asset in the contextual browser first.";
+            return;
+        }
+
+        EquipmentSlotDef? slot = _project.Rigs
+            .FirstOrDefault(rig => rig.Id == CurrentCharacter.RigId)?.FindSlot(slotId);
+        if (slot is null)
+        {
+            return;
+        }
+
+        AssetDefinition? selectedDefinition = _project.Assets.FirstOrDefault(asset => asset.Id == SelectedAsset.Id);
+        if (selectedDefinition is null)
+        {
+            Status = $"Asset '{SelectedAsset.Id}' is no longer in the project library.";
+            return;
+        }
+
+        if (slot.AllowedTags.Any(tag => !selectedDefinition.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase)))
+        {
+            Status = $"Asset '{SelectedAsset.Id}' does not match slot '{slot.DisplayName}'.";
+            return;
+        }
+
+        UpdateEquipment(slotId, SelectedAsset.Id);
+        RebuildEquipmentSlots();
+        Status = $"Assigned '{selectedDefinition.DisplayName}' to '{slot.DisplayName}'.";
     }
 
     [RelayCommand]
@@ -1084,6 +1343,21 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private int _currentFrameIndex;
+
+    partial void OnCurrentFrameIndexChanged(int value)
+    {
+        RebuildTimelineSelection();
+        RenderPreview();
+        OnPropertyChanged(nameof(CurrentFrameDurationTicks));
+    }
+
+    partial void OnSelectedAnimationIdChanged(string? value)
+    {
+        CurrentFrameIndex = 0;
+        RebuildTimeline();
+        RenderPreview();
+        OnPropertyChanged(nameof(CurrentFrameDurationTicks));
+    }
 
     [ObservableProperty]
     private bool _isPlaying;
@@ -1452,6 +1726,7 @@ public partial class MainViewModel : ObservableObject
         }
 
         Checkpoint();
+        PoseDefinition poseToEdit = EnsureEditableFramePose(pose);
         var states = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (string pair in PoseEditState.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
         {
@@ -1462,13 +1737,63 @@ public partial class MainViewModel : ObservableObject
             }
         }
 
-        pose.Parts[partId] = new PartPose(PoseEditOffsetX, PoseEditOffsetY, PoseEditHidden)
+        poseToEdit.Parts[partId] = new PartPose(PoseEditOffsetX, PoseEditOffsetY, PoseEditHidden)
         {
             States = states,
         };
         MarkDirty();
         RenderPreview();
         Status = $"Đã áp pose cho '{partId}' trên pose '{pose.Id}' (frame #{CurrentFrameIndex}).";
+    }
+
+    private PoseDefinition EnsureEditableFramePose(PoseDefinition pose)
+    {
+        if (_project is null || CurrentFrame is null)
+        {
+            return pose;
+        }
+
+        int references = _project.Animations
+            .SelectMany(animation => animation.Frames)
+            .Count(frame => frame.PoseId.Equals(pose.Id, StringComparison.Ordinal));
+        if (references <= 1)
+        {
+            return pose;
+        }
+
+        int suffix = 1;
+        string cloneId;
+        do
+        {
+            cloneId = $"{pose.Id}.edit{suffix++}";
+        }
+        while (_project.Poses.Any(candidate => candidate.Id.Equals(cloneId, StringComparison.Ordinal)));
+
+        PoseDefinition clone = pose.Clone();
+        clone.Id = cloneId;
+        clone.DisplayName = $"{pose.DisplayName} (frame edit)";
+        _project.Poses.Add(clone);
+        CurrentFrame.PoseId = clone.Id;
+        return clone;
+    }
+
+    public int CurrentFrameDurationTicks
+    {
+        get => CurrentFrame?.DurationTicks ?? 1;
+        set
+        {
+            if (CurrentFrame is null || CurrentFrame.DurationTicks == value)
+            {
+                return;
+            }
+
+            Checkpoint();
+            CurrentFrame.DurationTicks = Math.Clamp(value, 1, 120);
+            MarkDirty();
+            RebuildTimeline();
+            OnPropertyChanged();
+            NotifyAnimationInterval();
+        }
     }
 
     // ---- Marker editor (current frame) ----
@@ -1706,12 +2031,16 @@ public partial class MainViewModel : ObservableObject
     // ------------------------------------------------------------------
 
     public static IReadOnlyList<string> WorkspaceOptions { get; } =
-    [
-        "Project", "Character", "Rig", "Equipment", "Animation", "Behavior", "Validation", "Export",
-    ];
+    ["Project", "Character", "Library", "Background", "Export"];
+
+    public static IReadOnlyList<string> CharacterSectionOptions { get; } =
+    ["Frame", "Equipment", "Animation", "Actions"];
 
     [ObservableProperty]
     private string _selectedWorkspace = "Character";
+
+    [ObservableProperty]
+    private string _selectedCharacterSection = "Frame";
 
     [ObservableProperty]
     private bool _isDirty;
@@ -1735,6 +2064,8 @@ public partial class MainViewModel : ObservableObject
 
     public ValidationInspectorViewModel ValidationInspector { get; }
 
+    public RigInspectorViewModel RigInspector => _rigInspector;
+
     private readonly ProjectInspectorViewModel _projectInspector;
     private readonly RigInspectorViewModel _rigInspector;
     private readonly AnimationInspectorViewModel _animationInspector;
@@ -1742,22 +2073,42 @@ public partial class MainViewModel : ObservableObject
     private readonly ValidationInspectorViewModel _validationInspector;
     private readonly ExportInspectorViewModel _exportInspector;
 
+    public WorkspacePlaceholderViewModel LibraryInspector { get; } = new(
+        "Library / Items",
+        "This workspace is reserved for a future standalone item and prop editor. The existing browser remains available contextually in Character.");
+
+    public WorkspacePlaceholderViewModel BackgroundInspector { get; } = new(
+        "Background",
+        "This workspace is reserved for the future background, terrain, tree and building editors.");
+
     public CharacterInspectorViewModel CharacterInspector { get; }
 
     public object? Inspector => SelectedWorkspace switch
     {
         "Project" => _projectInspector,
-        "Character" => CharacterInspector,
-        "Rig" => _rigInspector,
-        "Equipment" => EquipmentInspector,
-        "Animation" => _animationInspector,
-        "Behavior" => _behaviorInspector,
-        "Validation" => _validationInspector,
+        "Character" => SelectedCharacterSection switch
+        {
+            "Equipment" => EquipmentInspector,
+            "Animation" => _animationInspector,
+            "Actions" => _behaviorInspector,
+            _ => CharacterInspector,
+        },
+        "Library" => LibraryInspector,
+        "Background" => BackgroundInspector,
         "Export" => _exportInspector,
         _ => null,
     };
 
-    public bool TimelineVisible => SelectedWorkspace is "Animation" or "Behavior";
+    public bool CharacterWorkspaceVisible => SelectedWorkspace == "Character";
+
+    public bool TimelineVisible => SelectedWorkspace == "Character" && SelectedCharacterSection == "Animation";
+
+    public bool ContextBrowserVisible => SelectedWorkspace == "Character" &&
+                                         SelectedCharacterSection is "Equipment" or "Actions";
+
+    public GridLength LeftDockWidth => ContextBrowserVisible ? new GridLength(280) : new GridLength(0);
+
+    public GridLength LeftDockSplitterWidth => ContextBrowserVisible ? new GridLength(6) : new GridLength(0);
 
     /// <summary>Direct access for inspector wrappers; throws when no project is open.</summary>
     public Project ProjectObject => _project ?? throw new InvalidOperationException("Chưa có project.");
@@ -1771,11 +2122,24 @@ public partial class MainViewModel : ObservableObject
     partial void OnSelectedWorkspaceChanged(string value)
     {
         OnPropertyChanged(nameof(Inspector));
+        OnPropertyChanged(nameof(CharacterWorkspaceVisible));
         OnPropertyChanged(nameof(TimelineVisible));
-        if (value is "Validation")
+        OnPropertyChanged(nameof(ContextBrowserVisible));
+        OnPropertyChanged(nameof(LeftDockWidth));
+        OnPropertyChanged(nameof(LeftDockSplitterWidth));
+        if (value is "Project")
         {
             _validationInspector.Run();
         }
+    }
+
+    partial void OnSelectedCharacterSectionChanged(string value)
+    {
+        OnPropertyChanged(nameof(Inspector));
+        OnPropertyChanged(nameof(TimelineVisible));
+        OnPropertyChanged(nameof(ContextBrowserVisible));
+        OnPropertyChanged(nameof(LeftDockWidth));
+        OnPropertyChanged(nameof(LeftDockSplitterWidth));
     }
 
     public void Checkpoint()

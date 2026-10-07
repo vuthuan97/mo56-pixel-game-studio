@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PixelGameStudio.App.Views.CharacterActionsView">
+    <StackPanel Spacing="10">
+        <Border Classes="card">
+            <StackPanel Spacing="5">
+                <TextBlock Classes="caption" Text="ACTION TEMPLATE LIBRARY" />
+                <ListBox Height="180" ItemsSource="{Binding ActionTemplates}" SelectedItem="{Binding SelectedActionTemplate}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="1">
+                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Reason}" FontSize="10" Foreground="{StaticResource TextFaintBrush}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Classes="primary" Content="Generate action" Command="{Binding GenerateActionTemplateCommand}"
+                        IsEnabled="{Binding SelectedActionTemplate.IsAvailable}" />
+                <ProgressBar Minimum="0" Maximum="1" Value="{Binding ActionGenerationProgress}" Height="6"
+                             IsVisible="{Binding IsActionGenerationRunning}" />
+                <StackPanel Orientation="Horizontal" Spacing="5" IsVisible="{Binding IsActionGenerationRunning}">
+                    <TextBlock Text="{Binding ActionGenerationStatus}" />
+                    <Button Classes="subtle" Content="Cancel" Command="{Binding CancelActionGenerationCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Classes="card">
+            <StackPanel Spacing="5">
+                <TextBlock Classes="caption" Text="BEHAVIOR" />
+                <TextBox Text="{Binding DisplayName, Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding GroupOptions}" SelectedItem="{Binding Group}" />
+                <ComboBox ItemsSource="{Binding AnimationOptions}" SelectedItem="{Binding AnimationId}" />
+                <ComboBox ItemsSource="{Binding SlotOptions}" SelectedItem="{Binding HeldItemSlotId}" />
+                <ComboBox ItemsSource="{Binding AnchorOptions}" SelectedItem="{Binding InteractionAnchorId}" />
+                <TextBlock Text="{Binding MarkersText}" TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

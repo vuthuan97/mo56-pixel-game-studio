@@ -48,3 +48,9 @@ Panel.resize được bằng **GridSplitter**. Tab workspace: Project / Characte
 - **"Canvas của PNG khác canvas project"** khi import: PNG không đúng kích thước native của project — resize ngoài (nearest) hoặc tạo project mới với canvas phù hợp.
 - **Preview nhảy cảnh báo compose**: mở tab Validation để xem chi tiết (asset thiếu, view thiếu…).
 - **"No precompiled XAML"** khi tự build sau khi sửa XAML: chạy `dotnet build -t:Rebuild` một lần (lỗi AVLN bị incremental build nuốt).
+## MO56 Character workspace
+
+- `Frame` holds character identity, appearance variants and build parameters. Gender/body type use selectors; head, torso, arm, leg and foot values use one-pixel sliders.
+- `Equipment` reads slots from the selected rig. Filter/select an asset in the contextual browser, then use `Use selected` on a slot; incompatible tags are rejected.
+- `Animation` owns the selectable timeline, duration ticks and pose editor. Shared poses clone on first edit.
+- `Actions` shows availability reasons and generates dedicated poses/animations. Generation can be cancelled atomically.

@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PixelGameStudio.App.ViewModels"
+             x:Class="PixelGameStudio.App.Views.CharacterEquipmentView">
+    <StackPanel Spacing="10">
+        <Border Classes="card">
+            <StackPanel Spacing="5">
+                <TextBlock Classes="caption" Text="EQUIPMENT" />
+                <ComboBox ItemsSource="{Binding CharacterDisplayItems}"
+                          SelectedValueBinding="{Binding Id}"
+                          SelectedValue="{Binding SelectedCharacter}"
+                          DisplayMemberBinding="{Binding DisplayName}" />
+                <Button Classes="subtle" Content="Create starter content" Command="{Binding CreateStarterCommand}" />
+            </StackPanel>
+        </Border>
+        <Border Classes="card">
+            <StackPanel Spacing="5">
+                <TextBlock Classes="caption" Text="DATA-DRIVEN SLOTS" />
+                <ItemsControl ItemsSource="{Binding Slots}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:EquipmentSlotViewModel">
+                            <Grid ColumnDefinitions="96,*,Auto" Margin="0,0,0,6">
+                                <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Text="{Binding DisplayName}" />
+                                <ComboBox Grid.Column="1" ItemsSource="{Binding OptionItems}"
+                                          SelectedValueBinding="{Binding Id}" SelectedValue="{Binding SelectedOption}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <Image Width="28" Height="28" Source="{Binding Thumbnail}" Stretch="Uniform" />
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding DisplayName}" />
+                                                    <TextBlock FontSize="9" Foreground="{StaticResource TextFaintBrush}" Text="{Binding Meta}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <Button Grid.Column="2" Classes="subtle" Content="Use selected" Command="{Binding AssignSelectedCommand}" Margin="4,0,0,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

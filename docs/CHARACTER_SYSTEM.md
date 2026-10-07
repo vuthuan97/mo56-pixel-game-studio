@@ -44,3 +44,8 @@ RigDefinition (cây PartNode + anchors + slots)
 - `SpriteAnalyzer`: palette count, visible bounds, value range (ngưỡng từ StyleProfile).
 - `CharacterQaService.CheckCharacter`: coverage view per part, compose thử → contrast/noise (tỷ lệ pixel đơn lẻ), nền đặc vs trong suốt; asset on-disk khớp khai báo.
 - Preview: Native 1x/2x/4x/10x nearest-neighbor + **Game preview** 360×640 (nền + lưới + NPC silhouette).
+## MO56 character build and actions
+
+`CharacterEntity.Build` stores gender, body type and bounded native-pixel head/torso/arm/leg/foot dimensions per character. The composer applies only clamped integer part/anchor deltas, so changing one character cannot alter another character.
+
+`ActionTemplateCatalog` evaluates required rig slots/anchors before generation. A generated action owns its `PoseDefinition` objects and `AnimationDefinition`; it is not an alias of `idle` or `walk`. `ActionIds` records the generated selections on the character.

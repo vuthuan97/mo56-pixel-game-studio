@@ -59,3 +59,6 @@ Mỗi layer = **full canvas** với một part/slot (tên = part id hoặc `slot
 | IncludeSpritesheet | Spritesheet + sheet entry trong manifest |
 | IncludeLayers | Thư mục layers per frame |
 | IncludeGodot | sprite_frames.tres + gdscript + readme (cần chọn animation) |
+## MO56 action metadata
+
+`package.json` and `manifest.json` include the selected character build, selected action ids, generated animation bindings and a SHA-256 `sourceFingerprint` for each action. Exporting two characters uses separate output directories and resolves each character's appearance/equipment independently.

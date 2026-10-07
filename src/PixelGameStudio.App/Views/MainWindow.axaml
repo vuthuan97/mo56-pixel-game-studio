@@ -3,6 +3,7 @@
         xmlns:vm="using:PixelGameStudio.App.ViewModels"
         xmlns:ins="using:PixelGameStudio.App.ViewModels.Inspectors"
         xmlns:ch="using:PixelGameStudio.Domain.Character"
+        xmlns:views="using:PixelGameStudio.App.Views"
         xmlns:c="using:PixelGameStudio.App.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -256,13 +257,14 @@
                                 ToolTip.Tip="Đổi chỗ frame hiện tại với frame sau nó" />
                     </StackPanel>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <ItemsControl ItemsSource="{Binding TimelineFrames}" Margin="0,0,8,0">
-                            <ItemsControl.ItemsPanel>
+                        <ListBox ItemsSource="{Binding TimelineFrames}" SelectedIndex="{Binding CurrentFrameIndex, Mode=TwoWay}"
+                                 Background="Transparent" BorderThickness="0" Margin="0,0,8,0">
+                            <ListBox.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" Spacing="4" />
                                 </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="vm:FrameItemViewModel">
                                     <Border Width="92" CornerRadius="5" Padding="8,5" BorderThickness="1"
                                             Classes="frameCard" Classes.current="{Binding IsCurrent}">
@@ -276,8 +278,8 @@
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                     </ScrollViewer>
                 </DockPanel>
             </StackPanel>
@@ -286,15 +288,15 @@
         <!-- ============ MAIN 3-COLUMN DOCK LAYOUT (Godot/Unity-style) ============ -->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280" MinWidth="220" />
+                <ColumnDefinition Width="{Binding LeftDockWidth}" MinWidth="0" />
+                <ColumnDefinition Width="{Binding LeftDockSplitterWidth}" />
+                <ColumnDefinition Width="2*" MinWidth="320" />
                 <ColumnDefinition Width="6" />
-                <ColumnDefinition Width="*" MinWidth="320" />
-                <ColumnDefinition Width="6" />
-                <ColumnDefinition Width="330" MinWidth="250" />
+                <ColumnDefinition Width="3*" MinWidth="250" />
             </Grid.ColumnDefinitions>
 
             <!-- LEFT DOCK: Assets + Behavior Library -->
-            <Grid Grid.Column="0" Margin="8,8,0,8">
+            <Grid Grid.Column="0" Margin="8,8,0,8" IsVisible="{Binding ContextBrowserVisible}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="230" />
@@ -374,7 +376,7 @@
                 </Border>
             </Grid>
 
-            <GridSplitter Grid.Column="1" Background="Transparent" />
+            <GridSplitter Grid.Column="1" Background="Transparent" IsVisible="{Binding ContextBrowserVisible}" />
 
             <!-- CENTER: preview options bar + canvas (Aseprite-style checkerboard) -->
             <Grid Grid.Column="2">
@@ -441,9 +443,52 @@
                                        Text="{Binding SelectedWorkspace, Converter={x:Static c:WorkspaceDisplayNameConverter.Instance}}" />
                         </StackPanel>
                     </Border>
+                    <Border DockPanel.Dock="Top" Padding="8,4" Background="{StaticResource BarBrush}"
+                            BorderBrush="{StaticResource HairlineBrush}" BorderThickness="0,0,0,1"
+                            IsVisible="{Binding CharacterWorkspaceVisible}">
+                        <ListBox Background="Transparent" BorderThickness="0"
+                                 ItemsSource="{Binding CharacterSectionOptions}"
+                                 SelectedItem="{Binding SelectedCharacterSection}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="2" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static c:CharacterSectionDisplayNameConverter.Instance}}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.Styles>
+                                <Style Selector="ListBoxItem">
+                                    <Setter Property="Padding" Value="8,4" />
+                                    <Setter Property="MinHeight" Value="26" />
+                                    <Setter Property="CornerRadius" Value="4" />
+                                </Style>
+                                <Style Selector="ListBoxItem:selected">
+                                    <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Style>
+                            </ListBox.Styles>
+                        </ListBox>
+                    </Border>
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" Padding="10,10,10,10">
                         <ContentControl Content="{Binding Inspector}">
                             <ContentControl.DataTemplates>
+
+                                <!-- Future top-level workspaces stay honest and explicit. -->
+                                <DataTemplate DataType="ins:WorkspacePlaceholderViewModel">
+                                    <Border Classes="card" Margin="4">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock Classes="caption" Text="WORKSPACE" />
+                                            <TextBlock FontSize="16" FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                                       Text="{Binding Title}" />
+                                            <TextBlock Classes="note" TextWrapping="Wrap"
+                                                       Text="{Binding Description}" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
 
                                 <!-- Project -->
                                 <DataTemplate DataType="ins:ProjectInspectorViewModel">
@@ -451,6 +496,12 @@
                                         <Border Classes="card">
                                             <StackPanel Spacing="4">
                                                 <TextBlock Classes="caption" Text="HỒ SƠ GAME" />
+                                                <Button Classes="subtle" Content="Chạy kiểm tra / Art QA" Click="OnRunValidationClick"
+                                                        HorizontalContentAlignment="Center" Margin="0,6,0,0" />
+                                                <TextBlock Text="{Binding Validation.Summary}" TextWrapping="Wrap"
+                                                           Foreground="{StaticResource TextSecondaryBrush}" />
+                                                <ListBox Background="Transparent" BorderThickness="0" MinHeight="60"
+                                                         ItemsSource="{Binding Validation.Issues}" />
                                                 <ComboBox ItemsSource="{Binding GenreOptions}" SelectedItem="{Binding Genre}"
                                                           ToolTip.Tip="Thể loại game của project" />
                                             </StackPanel>
@@ -486,7 +537,8 @@
                                 </DataTemplate>
 
                                 <!-- Character -->
-                                <DataTemplate DataType="ins:CharacterInspectorViewModel">
+                                <!-- Legacy Character template retained for migration reference.
+                                <DataTemplate x:Key="LegacyCharacterInspectorTemplate">
                                     <StackPanel Spacing="10">
                                         <Border Classes="card">
                                             <StackPanel Spacing="4">
@@ -495,7 +547,13 @@
                                                           ItemsSource="{Binding CharacterDisplayItems}"
                                                           SelectedValueBinding="{Binding Id}"
                                                           SelectedValue="{Binding SelectedCharacter}"
-                                                          DisplayMemberBinding="{Binding DisplayName}" />
+                                                           DisplayMemberBinding="{Binding DisplayName}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="4" Margin="0,2,0,0">
+                                                    <Button Classes="subtle" Content="Nhân bản" Command="{Binding DuplicateCharacterCommand}"
+                                                            ToolTip.Tip="Nhân bản nhân vật đang chọn" />
+                                                    <Button Classes="subtle" Content="Xóa" Command="{Binding DeleteCharacterCommand}"
+                                                            ToolTip.Tip="Xóa nhân vật đang chọn" />
+                                                </StackPanel>
                                                 <Button Classes="subtle" Content="＋ Thêm nhân vật" Command="{Binding AddCharacterCommand}"
                                                         HorizontalContentAlignment="Center" Margin="0,6,0,0"
                                                         ToolTip.Tip="Tạo thêm một nhân vật mới trong project (v1: nhiều nhân vật / project)" />
@@ -503,9 +561,69 @@
                                                 <TextBox Text="{Binding Name, Mode=TwoWay}" />
                                                 <TextBlock Classes="fieldLabel" Text="Ghi chú" />
                                                 <TextBox Text="{Binding Notes, Mode=TwoWay}" AcceptsReturn="True" Height="80" />
-                                            </StackPanel>
-                                        </Border>
-                                        <Border Classes="card">
+                                                <TextBlock Classes="caption" Margin="0,8,0,0" Text="BUILD CHARACTER" />
+                                                <Grid ColumnDefinitions="74,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
+                                                    <TextBlock Classes="fieldLabel" Text="Gender" />
+                                                    <ComboBox Grid.Column="1" ItemsSource="{Binding GenderOptions}" SelectedItem="{Binding Gender}" />
+                                                    <TextBlock Grid.Row="1" Classes="fieldLabel" Text="Body type" />
+                                                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BodyTypeOptions}" SelectedItem="{Binding BodyType}" />
+                                                    <TextBlock Grid.Row="2" Classes="fieldLabel" Text="Head px" />
+                                                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                        <Slider Width="130" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True"
+                                                                Value="{Binding HeadHeightSlider, Mode=TwoWay}" />
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding HeadHeightPx, StringFormat='{}{0} px'}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Row="3" Classes="fieldLabel" Text="Torso px" />
+                                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                        <Slider Width="130" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True"
+                                                                Value="{Binding TorsoHeightSlider, Mode=TwoWay}" />
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding TorsoHeightPx, StringFormat='{}{0} px'}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Row="4" Classes="fieldLabel" Text="Arm px" />
+                                                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                        <Slider Width="130" Minimum="6" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True"
+                                                                Value="{Binding ArmLengthSlider, Mode=TwoWay}" />
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding ArmLengthPx, StringFormat='{}{0} px'}" />
+                                                    </StackPanel>
+                                                    <TextBlock Grid.Row="5" Classes="fieldLabel" Text="Leg / foot" />
+                                                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                        <Slider Width="105" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True"
+                                                                Value="{Binding LegLengthSlider, Mode=TwoWay}" />
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding LegLengthPx, StringFormat='{}{0}'}" />
+                                                        <Slider Width="70" Minimum="2" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
+                                                                Value="{Binding FootWidthSlider, Mode=TwoWay}" />
+                                                        <TextBlock VerticalAlignment="Center" Text="{Binding FootWidthPx, StringFormat='{}{0}'}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                             </StackPanel>
+                                         </Border>
+                                         <Border Classes="card">
+                                             <StackPanel Spacing="6">
+                                                 <TextBlock Classes="caption" Text="CẤU TRÚC NÂNG CAO" />
+                                                 <TextBlock Classes="note" Text="{Binding Rig.RigDisplayName}" />
+                                                 <ListBox Background="Transparent" BorderThickness="0" MinHeight="90"
+                                                          ItemsSource="{Binding Rig.Parts}" SelectedItem="{Binding Rig.SelectedPart}">
+                                                     <ListBox.ItemTemplate>
+                                                         <DataTemplate>
+                                                             <StackPanel Orientation="Horizontal" Spacing="8">
+                                                                 <TextBlock Width="24" Foreground="{StaticResource TextFaintBrush}" Text="{Binding ZIndex}" />
+                                                                 <TextBlock Foreground="{StaticResource TextPrimaryBrush}" Text="{Binding DisplayName}" />
+                                                             </StackPanel>
+                                                         </DataTemplate>
+                                                     </ListBox.ItemTemplate>
+                                                 </ListBox>
+                                                 <TextBox Text="{Binding Rig.PartDisplayName, Mode=TwoWay}" />
+                                                 <StackPanel Orientation="Horizontal" Spacing="6">
+                                                     <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0" Text="Z" />
+                                                     <TextBox Width="48" Text="{Binding Rig.PartZIndex}" />
+                                                     <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="4,0,0,0" Text="dX" />
+                                                     <TextBox Width="48" Text="{Binding Rig.PartOffsetX}" />
+                                                     <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="4,0,0,0" Text="dY" />
+                                                     <TextBox Width="48" Text="{Binding Rig.PartOffsetY}" />
+                                                 </StackPanel>
+                                             </StackPanel>
+                                          </Border>
+                                         <Border Classes="card">
                                             <StackPanel Spacing="6">
                                                 <TextBlock Classes="caption" Text="NGOẠI HÌNH" />
                                                 <Grid ColumnDefinitions="58,*">
@@ -536,6 +654,11 @@
                                             </StackPanel>
                                         </Border>
                                     </StackPanel>
+                                </DataTemplate>
+
+                                -->
+                                <DataTemplate DataType="ins:CharacterInspectorViewModel">
+                                    <views:CharacterFrameView />
                                 </DataTemplate>
 
                                 <!-- Rig -->
@@ -586,7 +709,8 @@
                                 </DataTemplate>
 
                                 <!-- Equipment -->
-                                <DataTemplate DataType="ins:EquipmentInspectorViewModel">
+                                <!-- Legacy Equipment template retained for migration reference.
+                                <DataTemplate x:Key="LegacyEquipmentInspectorTemplate">
                                     <StackPanel Spacing="10">
                                         <Border Classes="card">
                                             <StackPanel Spacing="6">
@@ -607,11 +731,31 @@
                                                 <ItemsControl ItemsSource="{Binding Slots}">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate x:DataType="vm:EquipmentSlotViewModel">
-                                                            <Grid ColumnDefinitions="96,*" Margin="0,0,0,6">
+                                                            <Grid ColumnDefinitions="96,*,Auto" Margin="0,0,0,6">
                                                                 <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Margin="0"
                                                                            Text="{Binding DisplayName}" />
-                                                                <ComboBox Grid.Column="1" ItemsSource="{Binding Options}"
-                                                                          SelectedItem="{Binding SelectedOption}" />
+                                                                <ComboBox Grid.Column="1" ItemsSource="{Binding OptionItems}"
+                                                                          SelectedValueBinding="{Binding Id}"
+                                                                          SelectedValue="{Binding SelectedOption}">
+                                                                    <ComboBox.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                                                                <Border Width="30" Height="30" Background="{StaticResource SubtleBrush}"
+                                                                                        BorderBrush="{StaticResource HairlineBrush}" BorderThickness="1">
+                                                                                    <Image Source="{Binding Thumbnail}" Stretch="Uniform" Margin="2" />
+                                                                                </Border>
+                                                                                <StackPanel VerticalAlignment="Center">
+                                                                                    <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis" />
+                                                                                    <TextBlock Text="{Binding Meta}" FontSize="9" Foreground="{StaticResource TextFaintBrush}"
+                                                                                               TextTrimming="CharacterEllipsis" />
+                                                                                </StackPanel>
+                                                                            </StackPanel>
+                                                                        </DataTemplate>
+                                                                    </ComboBox.ItemTemplate>
+                                                                </ComboBox>
+                                                                <Button Grid.Column="2" Classes="subtle" Content="Use selected"
+                                                                        Command="{Binding AssignSelectedCommand}" Margin="4,0,0,0"
+                                                                        ToolTip.Tip="Assign the selected contextual-browser asset to this slot" />
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
@@ -621,8 +765,14 @@
                                     </StackPanel>
                                 </DataTemplate>
 
+                                -->
+                                <DataTemplate DataType="ins:EquipmentInspectorViewModel">
+                                    <views:CharacterEquipmentView />
+                                </DataTemplate>
+
                                 <!-- Animation -->
-                                <DataTemplate DataType="ins:AnimationInspectorViewModel">
+                                <!-- Legacy Animation template retained for migration reference.
+                                <DataTemplate x:Key="LegacyAnimationInspectorTemplate">
                                     <StackPanel Spacing="10">
                                         <Border Classes="card">
                                             <StackPanel Spacing="4">
@@ -637,6 +787,10 @@
                                                 </StackPanel>
                                                 <TextBlock Classes="note" Margin="0,4,0,0"
                                                            Text="{Binding DurationSeconds, StringFormat='Độ dài: {0:0.00}s — {1} frame'}" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                                                    <TextBlock VerticalAlignment="Center" Classes="fieldLabel" Text="Current frame ticks" />
+                                                    <TextBox Width="64" Text="{Binding CurrentFrameDurationTicks, Mode=TwoWay}" />
+                                                </StackPanel>
                                             </StackPanel>
                                         </Border>
                                         <Border Classes="card">
@@ -678,9 +832,47 @@
                                     </StackPanel>
                                 </DataTemplate>
 
+                                -->
+                                <DataTemplate DataType="ins:AnimationInspectorViewModel">
+                                    <views:CharacterAnimationView />
+                                </DataTemplate>
+
                                 <!-- Behavior -->
-                                <DataTemplate DataType="ins:BehaviorInspectorViewModel">
+                                <!-- Legacy Behavior template retained for migration reference.
+                                <DataTemplate x:Key="LegacyBehaviorInspectorTemplate">
                                     <StackPanel Spacing="10">
+                                        <Border Classes="card">
+                                            <StackPanel Spacing="6">
+                                                <TextBlock Classes="caption" Text="ACTION TEMPLATE LIBRARY" />
+                                                <ListBox Height="150" ItemsSource="{Binding ActionTemplates}"
+                                                         SelectedItem="{Binding SelectedActionTemplate}"
+                                                         Background="Transparent" BorderThickness="0">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Grid ColumnDefinitions="*,Auto" Margin="0,2">
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                                                                    <TextBlock Text="{Binding Group}" FontSize="10" Foreground="{StaticResource TextFaintBrush}" />
+                                                                </StackPanel>
+                                                                <TextBlock Grid.Column="1" Text="{Binding Reason}" FontSize="10"
+                                                                           Foreground="{StaticResource TextSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                                <Button Classes="primary" Content="Generate action" Command="{Binding GenerateActionTemplateCommand}"
+                                                        IsEnabled="{Binding SelectedActionTemplate.IsAvailable}"
+                                                        HorizontalContentAlignment="Center"
+                                                        ToolTip.Tip="Create dedicated poses and animation frames for the selected action" />
+                                                <ProgressBar Minimum="0" Maximum="1" Value="{Binding ActionGenerationProgress}"
+                                                             IsVisible="{Binding IsActionGenerationRunning}" Height="6" />
+                                                <StackPanel Orientation="Horizontal" Spacing="6"
+                                                            IsVisible="{Binding IsActionGenerationRunning}">
+                                                    <TextBlock VerticalAlignment="Center" Text="{Binding ActionGenerationStatus}" />
+                                                    <Button Classes="subtle" Content="Cancel" Command="{Binding CancelActionGenerationCommand}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Border>
                                         <Border Classes="card">
                                             <StackPanel Spacing="4">
                                                 <TextBlock Classes="caption" Text="GẮN BEHAVIOR" />
@@ -707,6 +899,11 @@
                                             </StackPanel>
                                         </Border>
                                     </StackPanel>
+                                </DataTemplate>
+
+                                -->
+                                <DataTemplate DataType="ins:BehaviorInspectorViewModel">
+                                    <views:CharacterActionsView />
                                 </DataTemplate>
 
                                 <!-- Validation -->

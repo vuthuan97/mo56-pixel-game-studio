@@ -1,5 +1,7 @@
 # Trạng thái hiện tại
 
+> MO56 layout upgrade: Phases A-G have working code paths. The editor exposes five top-level tabs and four Character subtabs; Frame/Equipment data, selectable timeline editing, action generation, per-character persistence, isolated export and acceptance evidence are covered by tests/docs.
+
 > Cập nhật 2026-10-03 — **hoàn thành TASK_LIST V1: Phase 0-13 đầy đủ** (prompts 00-05 đối chiếu trọn).
 
 > Cập nhật bổ sung: workflow Character Studio hiện không còn gắn Role/môn phái; các type role cũ chỉ giữ lại để đọc project legacy, không được cài tự động, không xuất ra package và không xuất hiện trong UI.
