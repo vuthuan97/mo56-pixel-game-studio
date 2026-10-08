@@ -1,62 +1,18 @@
-# MO56 Layout / Actions Upgrade - completed task list
+# MO56 Layout / Actions Upgrade — audit 2026-10-08
 
-Source prompt: `prompts/NANGCAP_DIEUCHINH/MO56_LAYOUT_ACTIONS_UPGRADE.md`.
-[x] means implemented and verified by build/tests/docs.
+Checklist nguồn: `prompts/NANGCAP_DIEUCHINH/MO56_LAYOUT_ACTIONS_UPGRADE.md`. Branch `main`, commit nền `027e1c5`; working tree có thay đổi trước và trong lượt này. **55/57** mục có đủ bằng chứng `[x]`; **2/57** mục còn mở. Tick một mục chỉ khi cả câu đã code/build/test hoặc dùng được; 66 behavior preset legacy không được tính là 66 action có chuyển động riêng.
 
-## Phase A - audit and migration
+## Bằng chứng mới trong lượt này
 
-- [x] Repository rules, architecture/style/current-state docs and MO56 prompt reviewed.
-- [x] Baseline and post-change test/build evidence recorded.
-- [x] Workspace mapping, preset policy and migration policy documented.
-- [x] Existing Role data remains readable but is not exposed in the UI.
+- **Phase A:** đã đọc rules/spec/prototype liên quan, audit branch/UI/schema/service. Bảng audit trong `docs/LAYOUT_ACTIONS_UPGRADE.md`: 66 preset = 27 chưa có AnimationId + 39 chia sẻ 6 animation (attack 13, idle 11, cast 6, hurt 4, walk 4, death 1). Quan hệ template/lựa chọn/output và migration ID cũ đã ghi rõ.
+- **Phase B:** thanh chọn/tạo/nhân bản/đổi tên/xóa nhân vật nằm trên cả bốn editor; layout 2*:3* với splitter/min-width/cuộn riêng giữ nguyên. Inspector routing đã tách thành `WorkspaceInspectorRouter`; preview có hướng/zoom/nền Ô caro/Sáng/Tối, phát/frame; Art QA thu gọn, debug ở combo Chế độ; test backdrop chỉ đổi UI, không đổi alpha nguồn. Status bar phân biệt dirty/chờ autosave/đã có autosave. Save/Undo/Redo **giữ ở menu Tệp/Chỉnh sửa** theo yêu cầu người dùng trước đây. Build xác nhận router; test UI native vẫn chưa chạy được trong headless.
+- **Phase C:** Bộ khung đã tách nhóm Thân/Khuôn mặt/Tóc/Tay/Chân, rig nâng cao ở riêng; các binding/slider giữ nguyên và XAML build qua. Gender và BodyType tác động silhouette, lưu/đọc qua ProjectStore. Slot rig data-driven, thumbnail, lựa chọn trống/tháo, filter tag, import và gán asset theo ngữ cảnh đã được đối chiếu cùng test V1. Test custom slot với asset theo bốn hướng, undo/redo và isolation hai nhân vật đã qua.
+- **Phase D:** timeline chuyển từ dock dưới vào `CharacterAnimationView` bên phải; playback dùng `DurationTicks / FPS`, non-loop dừng ở frame cuối. Có nút tạo/nhân bản animation (deep clone pose) và lưu thành behavior template. Mẫu tự biên soạn hiện trong catalog Hành động; tạo output riêng theo nhân vật bằng clone frame/pose thật, source fingerprint báo stale. Test save/load/isolation qua.
+- **Phase E:** `SelectedActionIds` lưu checkbox trước khi tạo; tìm kiếm/lọc/checkbox/thumbnail/xem thử và tạo nhiều mục có progress/cancel. Output mới dùng ID riêng theo character, không đụng behavior template dùng chung. `GeneratedActionBindings` lưu output ID/fingerprint; đổi nguồn báo cần tạo lại. Mặc định giữ animation chỉnh tay; nút tạo version mới hoặc thay thế chủ đích (chặn pose dùng chung/legacy). Test deterministic, cancellation, regeneration và undo/redo. Footer Tạo cố định dưới inspector; danh mục có 42 template data-driven và các mẫu tự biên soạn, preview hiện frame đầu; chuỗi frame dùng output animation thật.
+- **Phase F:** batch export chọn nhiều nhân vật/animation/hướng, flags frames/sheet/layers/Godot, package tách trong `characters/{id}/...`; bỏ qua cặp action sai owner, từ chối export một nhân vật sai owner, animation/pose/hướng lỗi và Godot thiếu PNG. Test autosave/recovery phục hồi Build/SelectedActionIds/ActionIds/binding và output; package resolve version animation mới.
+- **Phase G:** `LayoutActionsUpgradeTests` có save/load hai nhân vật khác lựa chọn, compatibility/determinism/template isolation, regeneration giữ bản chỉnh tay/cancel/replace/undo/redo, batch export frame map/duration/loop/markers/layers/Godot, custom slot/animation/action, preview backdrop và motion families. `dotnet build PixelGameStudio.sln --nologo` thành công 0 warning/0 error; `dotnet test PixelGameStudio.sln --no-build --nologo` đạt **806/806** (1 Export + 39 Domain + 640 Rendering + 126 ProjectSystem). Computer Use native pipe không kết nối được sau khởi tạo/thử lại/reset; chưa kiểm tra UI native.
 
-## Phase B - shell and Character workspace
+## Còn mở — thực hiện tiếp
 
-- [x] Top-level workspaces are Project, Character, Library, Background and Export.
-- [x] Library and Background are honest future-feature placeholders.
-- [x] Character sections are Frame, Equipment, Animation and Actions.
-- [x] Timeline is scoped to Character / Animation.
-- [x] Contextual asset/behavior browser is visible for Equipment and Actions.
-- [x] Character create, rename, select, duplicate and delete flows are available.
-- [x] Character sections use physical Avalonia Views.
-- [x] 40/60 layout, minimum sizes and 1280x800 / 1024x640 acceptance contract are documented.
-
-## Phase C - Frame and Equipment
-
-- [x] Frame owns identity, appearance, rig advanced controls and build parameters.
-- [x] Gender, body type, head/torso/arm/leg/foot dimensions persist per character.
-- [x] Integer-step sliders drive numeric build parameters and display current values.
-- [x] Renderer applies bounded build deltas to parts and equipment anchors.
-- [x] Equipment uses data-driven rig slots, thumbnails, tags, remove/empty and contextual assignment.
-- [x] Two-character appearance/build/equipment/export isolation is tested.
-
-## Phase D - Animation
-
-- [x] Animation section owns timeline editing and direct frame selection.
-- [x] Current-frame duration ticks are editable.
-- [x] Shared poses use clone-on-write when edited.
-- [x] Non-loop playback stops on the last frame.
-- [x] Undo checkpoints cover animation mutations.
-
-## Phase E - Actions
-
-- [x] ActionTemplateCatalog provides data-driven templates and availability reasons.
-- [x] Generator creates dedicated poses and animations; unsupported actions are never aliased to idle/walk.
-- [x] Rig slot/anchor compatibility is validated.
-- [x] Generation supports progress, cancellation with atomic commit and undo.
-- [x] UI exposes a progress bar and Cancel action.
-
-## Phase F - persistence and export
-
-- [x] Selected action ids, generated animation bindings and source fingerprints persist per character/export package.
-- [x] Legacy characters without new build/action fields migrate to safe defaults.
-- [x] Autosave/recovery behavior remains covered by ProjectStore tests.
-- [x] Multi-character export writes isolated packages.
-
-## Phase G - verification and documentation
-
-- [x] Full regression suite: 776 tests passed.
-- [x] App build: 0 warnings, 0 errors.
-- [x] UI acceptance contract is documented in `docs/MO56_UI_ACCEPTANCE.md`; native screenshot capture was unavailable because the Computer Use pipe is unavailable.
-- [x] Current-state, MO56, user, character, project and export documentation updated.
-
+1. **B:** kiểm tra native 1280×800 và 1024×640; Computer Use hiện không kết nối.
+2. **G:** nghiệm thu UI với project mới/cũ; `docs/MO56_UI_ACCEPTANCE.md` hiện chỉ có bằng chứng XAML/build, **chưa** có tương tác native.

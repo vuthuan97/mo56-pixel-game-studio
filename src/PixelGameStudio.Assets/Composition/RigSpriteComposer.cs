@@ -138,7 +138,7 @@ public sealed class RigSpriteComposer
                 continue;
             }
 
-            PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, appearance, view);
+            PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, appearance, view, part.Id, character.Build);
             (int absX, int absY) = AbsoluteOffset(rig, part.Id);
             (int buildX, int buildY) = character.Build?.PartOffset(part.Id) ?? (0, 0);
             ops.Add(new DrawOp(part.ZIndex, order++, part.Id, pixels,
@@ -176,7 +176,7 @@ public sealed class RigSpriteComposer
                 continue;
             }
 
-            PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, null, view);
+            PixelBuffer pixels = LoadAndPrepare(project, projectRoot, cache, asset, null, view, null, null);
             AnchorPoint? anchor = rig.FindAnchor(slot.AnchorId);
             (int absX, int absY) = anchor is null ? (0, 0) : AbsoluteOffset(rig, anchor.PartId);
             (int buildX, int buildY) = anchor is null || character.Build is null
@@ -262,7 +262,9 @@ public sealed class RigSpriteComposer
         Dictionary<string, PixelBuffer> cache,
         AssetDefinition asset,
         PartAppearance? appearance,
-        string view)
+        string view,
+        string? partId,
+        CharacterBuildProfile? build)
     {
         if (!cache.TryGetValue(asset.Id, out PixelBuffer? pixels))
         {
@@ -292,7 +294,99 @@ public sealed class RigSpriteComposer
             prepared = PixelOps.MirrorX(prepared);
         }
 
-        return prepared;
+        return partId is null || build is null
+            ? prepared
+            : ApplyBuildShape(prepared, build, partId);
+    }
+
+    /// <summary>Applies the same build-profile transform used by the saved-project composer.</summary>
+    public static PixelBuffer ApplyBuildShape(PixelBuffer source, CharacterBuildProfile build, string partId)
+    {
+        build.Normalize();
+        (double scaleX, double scaleY, bool anchorBottom) = partId switch
+        {
+            "head" or "face" or "hair_front" or "hair_back" =>
+                (1, build.HeadHeightPx / (double)CharacterBuildProfile.DefaultHeadHeightPx, true),
+            "torso" => (BodyWidthScale(build.BodyType, build.Gender),
+                build.TorsoHeightPx / (double)CharacterBuildProfile.DefaultTorsoHeightPx, false),
+            "arm_left" or "arm_right" => (1,
+                build.ArmLengthPx / (double)CharacterBuildProfile.DefaultArmLengthPx, false),
+            "leg_left" or "leg_right" => (build.FootWidthPx / (double)CharacterBuildProfile.DefaultFootWidthPx,
+                build.LegLengthPx / (double)CharacterBuildProfile.DefaultLegLengthPx, false),
+            _ => (1, 1, false),
+        };
+
+        if (Math.Abs(scaleX - 1) < 0.001 && Math.Abs(scaleY - 1) < 0.001)
+        {
+            return source;
+        }
+
+        (int left, int top, int right, int bottom)? bounds = OpaqueBounds(source);
+        if (bounds is null)
+        {
+            return source;
+        }
+
+        (int x1, int y1, int x2, int y2) = bounds.Value;
+        int sourceWidth = x2 - x1 + 1;
+        int sourceHeight = y2 - y1 + 1;
+        int targetWidth = Math.Max(1, (int)Math.Round(sourceWidth * scaleX, MidpointRounding.AwayFromZero));
+        int targetHeight = Math.Max(1, (int)Math.Round(sourceHeight * scaleY, MidpointRounding.AwayFromZero));
+        var crop = new PixelBuffer(sourceWidth, sourceHeight);
+        for (int y = 0; y < sourceHeight; y++)
+        {
+            for (int x = 0; x < sourceWidth; x++)
+            {
+                crop[x, y] = source[x1 + x, y1 + y];
+            }
+        }
+
+        PixelBuffer resized = PixelOps.NearestResize(crop, targetWidth, targetHeight);
+        var result = new PixelBuffer(source.Width, source.Height);
+        int targetX = x1 + ((sourceWidth - targetWidth) / 2);
+        int targetY = anchorBottom ? y2 - targetHeight + 1 : y1;
+        PixelOps.Composite(result, resized, targetX, targetY);
+        return result;
+    }
+
+    private static double BodyWidthScale(string bodyType, string gender) => bodyType switch
+    {
+        "Slim" => 0.82 * GenderWidthScale(gender),
+        "Broad" => 1.18 * GenderWidthScale(gender),
+        "Child" => 0.86 * GenderWidthScale(gender),
+        _ => GenderWidthScale(gender),
+    };
+
+    private static double GenderWidthScale(string gender) => gender switch
+    {
+        "Female" => 0.92,
+        "Male" => 1.04,
+        _ => 1,
+    };
+
+    private static (int Left, int Top, int Right, int Bottom)? OpaqueBounds(PixelBuffer source)
+    {
+        int left = source.Width;
+        int top = source.Height;
+        int right = -1;
+        int bottom = -1;
+        for (int y = 0; y < source.Height; y++)
+        {
+            for (int x = 0; x < source.Width; x++)
+            {
+                if (source[x, y].A == 0)
+                {
+                    continue;
+                }
+
+                left = Math.Min(left, x);
+                top = Math.Min(top, y);
+                right = Math.Max(right, x);
+                bottom = Math.Max(bottom, y);
+            }
+        }
+
+        return right < 0 ? null : (left, top, right, bottom);
     }
 
     private static (int X, int Y) AbsoluteOffset(RigDefinition rig, string partId)

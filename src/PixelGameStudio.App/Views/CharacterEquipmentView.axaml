@@ -6,10 +6,6 @@
         <Border Classes="card">
             <StackPanel Spacing="5">
                 <TextBlock Classes="caption" Text="EQUIPMENT" />
-                <ComboBox ItemsSource="{Binding CharacterDisplayItems}"
-                          SelectedValueBinding="{Binding Id}"
-                          SelectedValue="{Binding SelectedCharacter}"
-                          DisplayMemberBinding="{Binding DisplayName}" />
                 <Button Classes="subtle" Content="Create starter content" Command="{Binding CreateStarterCommand}" />
             </StackPanel>
         </Border>

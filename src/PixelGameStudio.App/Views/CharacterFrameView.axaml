@@ -7,15 +7,6 @@
         <Border Classes="card">
             <StackPanel Spacing="5">
                 <TextBlock Classes="caption" Text="CHARACTER / FRAME" />
-                <ComboBox ItemsSource="{Binding CharacterDisplayItems}"
-                          SelectedValueBinding="{Binding Id}"
-                          SelectedValue="{Binding SelectedCharacter}"
-                          DisplayMemberBinding="{Binding DisplayName}" />
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <Button Classes="subtle" Content="Duplicate" Command="{Binding DuplicateCharacterCommand}" />
-                    <Button Classes="subtle" Content="Delete" Command="{Binding DeleteCharacterCommand}" />
-                </StackPanel>
-                <Button Classes="subtle" Content="+ Add character" Command="{Binding AddCharacterCommand}" />
                 <TextBlock Classes="fieldLabel" Text="Name" />
                 <TextBox Text="{Binding Name, Mode=TwoWay}" />
                 <TextBlock Classes="fieldLabel" Text="Notes" />
@@ -23,53 +14,66 @@
             </StackPanel>
         </Border>
         <Border Classes="card">
-            <StackPanel Spacing="5">
-                <TextBlock Classes="caption" Text="BUILD PARAMETERS" />
-                <Grid ColumnDefinitions="70,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="5">
-                    <TextBlock Classes="fieldLabel" Text="Gender" />
-                    <ComboBox Grid.Column="1" ItemsSource="{Binding GenderOptions}" SelectedItem="{Binding Gender}" />
-                    <TextBlock Grid.Row="1" Classes="fieldLabel" Text="Body" />
-                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding BodyTypeOptions}" SelectedItem="{Binding BodyType}" />
-                    <TextBlock Grid.Row="2" Classes="fieldLabel" Text="Head" />
-                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Spacing="5">
-                        <Slider Width="150" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding HeadHeightSlider, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding HeadHeightPx, StringFormat='{}{0} px'}" />
-                    </StackPanel>
-                    <TextBlock Grid.Row="3" Classes="fieldLabel" Text="Torso" />
-                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Spacing="5">
-                        <Slider Width="150" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding TorsoHeightSlider, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding TorsoHeightPx, StringFormat='{}{0} px'}" />
-                    </StackPanel>
-                    <TextBlock Grid.Row="4" Classes="fieldLabel" Text="Arm" />
-                    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Spacing="5">
-                        <Slider Width="150" Minimum="6" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ArmLengthSlider, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding ArmLengthPx, StringFormat='{}{0} px'}" />
-                    </StackPanel>
-                    <TextBlock Grid.Row="5" Classes="fieldLabel" Text="Leg / foot" />
-                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Spacing="5">
-                        <Slider Width="105" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LegLengthSlider, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding LegLengthPx}" />
-                        <Slider Width="70" Minimum="2" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding FootWidthSlider, Mode=TwoWay}" />
-                        <TextBlock VerticalAlignment="Center" Text="{Binding FootWidthPx}" />
-                    </StackPanel>
-                </Grid>
+            <StackPanel Spacing="6">
+                <TextBlock Classes="caption" Text="THÂN" />
+                <TextBlock Classes="fieldLabel" Text="Giới tính" />
+                <ComboBox ItemsSource="{Binding GenderOptions}" SelectedItem="{Binding Gender}" />
+                <TextBlock Classes="fieldLabel" Text="Vóc dáng" />
+                <ComboBox ItemsSource="{Binding BodyTypeOptions}" SelectedItem="{Binding BodyType}" />
+                <TextBlock Classes="fieldLabel" Text="Kiểu thân" />
+                <ComboBox ItemsSource="{Binding BodyVariantOptions}" SelectedItem="{Binding BodyVariant}" />
+                <TextBlock Classes="fieldLabel" Text="Màu da" />
+                <ComboBox ItemsSource="{Binding SkinToneOptions}" SelectedItem="{Binding SkinTone}" />
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Width="78" VerticalAlignment="Center" Text="Thân cao" />
+                    <Slider Width="150" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding TorsoHeightSlider, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding TorsoHeightPx, StringFormat='{}{0} px'}" />
+                </StackPanel>
             </StackPanel>
         </Border>
         <Border Classes="card">
-            <StackPanel Spacing="5">
-                <TextBlock Classes="caption" Text="APPEARANCE" />
-                <Grid ColumnDefinitions="60,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
-                    <TextBlock Classes="fieldLabel" Text="Body" />
-                    <ComboBox Grid.Column="1" ItemsSource="{Binding BodyVariantOptions}" SelectedItem="{Binding BodyVariant}" />
-                    <TextBlock Grid.Row="1" Classes="fieldLabel" Text="Eyes" />
-                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding EyeStyleOptions}" SelectedItem="{Binding EyeStyle}" />
-                    <TextBlock Grid.Row="2" Classes="fieldLabel" Text="Mouth" />
-                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding MouthStyleOptions}" SelectedItem="{Binding MouthStyle}" />
-                    <TextBlock Grid.Row="3" Classes="fieldLabel" Text="Hair" />
-                    <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding HairStyleOptions}" SelectedItem="{Binding HairStyle}" />
-                    <TextBlock Grid.Row="4" Classes="fieldLabel" Text="Skin" />
-                    <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding SkinToneOptions}" SelectedItem="{Binding SkinTone}" />
-                </Grid>
+            <StackPanel Spacing="6">
+                <TextBlock Classes="caption" Text="KHUÔN MẶT" />
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Width="78" VerticalAlignment="Center" Text="Đầu cao" />
+                    <Slider Width="150" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding HeadHeightSlider, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding HeadHeightPx, StringFormat='{}{0} px'}" />
+                </StackPanel>
+                <TextBlock Classes="fieldLabel" Text="Mắt" />
+                <ComboBox ItemsSource="{Binding EyeStyleOptions}" SelectedItem="{Binding EyeStyle}" />
+                <TextBlock Classes="fieldLabel" Text="Miệng" />
+                <ComboBox ItemsSource="{Binding MouthStyleOptions}" SelectedItem="{Binding MouthStyle}" />
+            </StackPanel>
+        </Border>
+        <Border Classes="card">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="caption" Text="TÓC" />
+                <ComboBox ItemsSource="{Binding HairStyleOptions}" SelectedItem="{Binding HairStyle}" />
+            </StackPanel>
+        </Border>
+        <Border Classes="card">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="caption" Text="TAY" />
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Width="78" VerticalAlignment="Center" Text="Chiều dài" />
+                    <Slider Width="150" Minimum="6" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ArmLengthSlider, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding ArmLengthPx, StringFormat='{}{0} px'}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Border Classes="card">
+            <StackPanel Spacing="6">
+                <TextBlock Classes="caption" Text="CHÂN" />
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Width="78" VerticalAlignment="Center" Text="Chiều dài" />
+                    <Slider Width="150" Minimum="8" Maximum="24" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding LegLengthSlider, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding LegLengthPx, StringFormat='{}{0} px'}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Width="78" VerticalAlignment="Center" Text="Bàn chân" />
+                    <Slider Width="150" Minimum="2" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding FootWidthSlider, Mode=TwoWay}" />
+                    <TextBlock VerticalAlignment="Center" Text="{Binding FootWidthPx, StringFormat='{}{0} px'}" />
+                </StackPanel>
             </StackPanel>
         </Border>
         <Border Classes="card">
@@ -88,14 +92,20 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <TextBox Text="{Binding Rig.PartDisplayName, Mode=TwoWay}" />
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <TextBlock Text="Z" />
-                    <TextBox Width="48" Text="{Binding Rig.PartZIndex}" />
-                    <TextBlock Text="dX" />
-                    <TextBox Width="48" Text="{Binding Rig.PartOffsetX}" />
-                    <TextBlock Text="dY" />
-                    <TextBox Width="48" Text="{Binding Rig.PartOffsetY}" />
-                </StackPanel>
+                <Grid ColumnDefinitions="30,*,48" RowDefinitions="Auto,Auto,Auto" RowSpacing="4">
+                    <TextBlock VerticalAlignment="Center" Text="Z" />
+                    <Slider Grid.Column="1" Minimum="0" Maximum="32" TickFrequency="1" IsSnapToTickEnabled="True"
+                            Value="{Binding Rig.PartZIndexSlider, Mode=TwoWay}" />
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Rig.PartZIndex}" />
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="dX" />
+                    <Slider Grid.Row="1" Grid.Column="1" Minimum="-32" Maximum="32" TickFrequency="1" IsSnapToTickEnabled="True"
+                            Value="{Binding Rig.PartOffsetXSlider, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Rig.PartOffsetX}" />
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" Text="dY" />
+                    <Slider Grid.Row="2" Grid.Column="1" Minimum="-32" Maximum="32" TickFrequency="1" IsSnapToTickEnabled="True"
+                            Value="{Binding Rig.PartOffsetYSlider, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding Rig.PartOffsetY}" />
+                </Grid>
             </StackPanel>
         </Border>
     </StackPanel>

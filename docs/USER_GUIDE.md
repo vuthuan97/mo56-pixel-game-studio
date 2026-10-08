@@ -4,25 +4,25 @@ Hướng dẫn sử dụng V1 (Xưởng tạo nhân vật). Ứng dụng: `src/P
 
 ## 1. Quy trình nhanh (5 phút có nhân vật hoàn chỉnh)
 
-1. **File → Save Project As…** — chọn thư mục trống (project cần vị trí lưu trước khi import/tạo nội dung).
-2. Tab **Equipment** → **Tạo nội dung mẫu** — sinh ~310 asset humanoid (part/equipment/variants × 4 hướng) + rig + nhân vật "Nhân vật mẫu".
-3. Menu **Animation → Cài preset** — 16 pose + 6 animation + 66 behavior.
-4. Tab **Animation** → chọn `walk` → **Play/Stop** (F5), bật **Onion skin**; nút **Thêm/Copy/Paste/Xóa/đổi chỗ** để chỉnh frame.
-5. Tab **Character** → đổi Tóc/Da/Body/Eye/Mouth (combos Appearance). Bộ tóc gồm tóc dài, tóc ngắn, tóc nam và **Không tóc**.
-6. Tab **Validation** → **Chạy validation**; tab **Export** → chọn animation → **Export…**.
+1. Menu **Tệp → Lưu project vào thư mục khác…** — chọn thư mục cho project trước khi import PNG/tạo asset.
+2. Tab **Nhân vật → Trang bị** → **Create starter content** để tạo rig/asset mẫu.
+3. Menu **Hoạt ảnh → Cài preset** — 16 pose, 6 animation và 66 behavior tham khảo (không phải 66 chuyển động riêng).
+4. Tab **Nhân vật → Hoạt ảnh** → chọn `walk`, phát/dừng (F5), bật onion skin hoặc sửa frame ngay trong panel phải. **Tạo hoạt ảnh** bắt đầu từ pose đang xem; **Nhân bản** tách riêng pose khỏi bản gốc; **Lưu mẫu behavior** đưa animation vào thư viện behavior và catalog Hành động để tạo bản riêng cho từng nhân vật.
+5. Tab **Nhân vật → Bộ khung** → đổi Tóc/Da/Body/Eye/Mouth; thanh trên cùng cho phép chọn/tạo/nhân bản/đổi tên/xóa nhân vật.
+6. Tab **Nhân vật → Hành động** → chọn checkbox, xem thử, bấm **Tạo**. Tab **Xuất** → chọn nhiều nhân vật/hoạt ảnh/hướng và định dạng, rồi chọn thư mục xuất.
 
 ## 2. Bố cục cửa sổ
 
 | Vùng | Nội dung |
 |---|---|
-| Toolbar trên | Menu File/Edit/Animation; workspace bar 8 tab; New/Open/Save/Save As/Undo/Redo; project summary |
-| Browser trái | Asset/Entity Browser (thumbnail, tìm kiếm, tag filter, import/xóa) + Behavior Library |
+| Thanh trên | Menu Tệp/Chỉnh sửa/Hoạt ảnh; 5 tab Dự án, Nhân vật, Vật phẩm/Đạo cụ, Bối cảnh, Xuất; thanh nhân vật chỉ trong tab Nhân vật |
+| Browser trái | Asset/Behavior Browser theo ngữ cảnh, chỉ mở trong Trang bị/Hành động |
 | Preview giữa | Direction/Pose/Mode (Normal/Grayscale/Silhouette/Part Debug/Anchor Debug)/Scale; **Game preview** (viewport 360×640, nền, lưới 32px, NPC silhouette) |
 | Inspector phải | Nội dung đổi theo workspace tab |
-| Timeline dưới | Frame strip + markers; frame ops; play/step; onion skin (workspace Animation) |
+| Timeline | Trong panel phải của Nhân vật → Hoạt ảnh; frame ops, play/step, onion skin |
 | Status bar | Trạng thái + chỉ báo "● có thay đổi chưa lưu" |
 
-Panel.resize được bằng **GridSplitter**. Tab workspace: Project / Character / Rig / Equipment / Animation / Behavior / Validation / Export.
+Panel.resize được bằng **GridSplitter**. Nhân vật có 4 tab con: Bộ khung / Trang bị / Hoạt ảnh / Hành động. Vật phẩm và Bối cảnh là trang chờ tính năng.
 
 ## 3. Phím tắt
 
@@ -46,11 +46,12 @@ Panel.resize được bằng **GridSplitter**. Tab workspace: Project / Characte
 ## 5. Xử lý sự cố
 
 - **"Canvas của PNG khác canvas project"** khi import: PNG không đúng kích thước native của project — resize ngoài (nearest) hoặc tạo project mới với canvas phù hợp.
-- **Preview nhảy cảnh báo compose**: mở tab Validation để xem chi tiết (asset thiếu, view thiếu…).
+- **Preview nhảy cảnh báo compose**: mở tab Dự án để chạy kiểm tra chi tiết (asset thiếu, view thiếu…).
 - **"No precompiled XAML"** khi tự build sau khi sửa XAML: chạy `dotnet build -t:Rebuild` một lần (lỗi AVLN bị incremental build nuốt).
 ## MO56 Character workspace
 
 - `Frame` holds character identity, appearance variants and build parameters. Gender/body type use selectors; head, torso, arm, leg and foot values use one-pixel sliders.
 - `Equipment` reads slots from the selected rig. Filter/select an asset in the contextual browser, then use `Use selected` on a slot; incompatible tags are rejected.
-- `Animation` owns the selectable timeline, duration ticks and pose editor. Shared poses clone on first edit.
-- `Actions` shows availability reasons and generates dedicated poses/animations. Generation can be cancelled atomically.
+- `Animation` owns the selectable timeline, duration ticks and pose editor. Playback honors each frame's duration; shared poses clone on first edit.
+- `Actions` có tìm kiếm/lọc, checkbox lựa chọn lưu theo nhân vật, thumbnail, xem thử và Tạo. Tick checkbox không tạo animation. Một số hành động yêu cầu slot/anchor; lý do không tương thích hiện trên thẻ. Có thể hủy giữa chừng mà không để action hiện tại dang dở. Khi nguồn đổi, thẻ báo cần tạo lại; nút **Tạo** giữ bản chỉnh tay, **Tạo bản mới** thêm version, **Thay thế bản đã tạo** ghi đè có chủ đích (bị chặn nếu pose dùng chung/legacy).
+- `Export` chọn nhiều nhân vật/animation/hướng; mỗi package nằm trong `characters/{characterId}/animation-{animationId}/` hoặc `default-pose/`. Godot chỉ sinh cho package có animation.

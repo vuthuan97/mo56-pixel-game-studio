@@ -77,10 +77,23 @@ public sealed class CharacterEntity
     /// <summary>Action template ids explicitly generated/selected for this character.</summary>
     public List<string> ActionIds { get; set; } = [];
 
+    /// <summary>Template choices in the Actions editor; selection alone does not generate output.</summary>
+    public List<string> SelectedActionIds { get; set; } = [];
+
+    /// <summary>Owned output and source snapshot for each generated action.</summary>
+    public List<GeneratedActionBinding> GeneratedActionBindings { get; set; } = [];
+
     public string? RoleId { get; set; }
 
     public string Notes { get; set; } = string.Empty;
 
     public PartAppearance? AppearanceOf(string partId) =>
         Appearance.FirstOrDefault(a => a.PartId.Equals(partId, StringComparison.Ordinal));
+}
+
+public sealed class GeneratedActionBinding
+{
+    public string TemplateId { get; set; } = string.Empty;
+    public string AnimationId { get; set; } = string.Empty;
+    public string SourceFingerprint { get; set; } = string.Empty;
 }

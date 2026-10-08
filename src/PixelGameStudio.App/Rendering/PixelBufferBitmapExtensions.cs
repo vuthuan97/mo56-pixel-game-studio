@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using PixelGameStudio.Core.Primitives;
 using PixelGameStudio.Rendering;
 
 namespace PixelGameStudio.App.Rendering;
@@ -12,6 +13,16 @@ namespace PixelGameStudio.App.Rendering;
 /// </summary>
 public static class PixelBufferBitmapExtensions
 {
+    /// <summary>Returns one premultiplied BGRA8888 pixel in native little-endian layout.</summary>
+    public static uint PackPremultipliedBgra(Rgba32 pixel)
+    {
+        byte a = pixel.A;
+        uint b = (uint)((pixel.B * a) / 255);
+        uint g = (uint)((pixel.G * a) / 255);
+        uint r = (uint)((pixel.R * a) / 255);
+        return ((uint)a << 24) | (r << 16) | (g << 8) | b;
+    }
+
     public static WriteableBitmap ToWriteableBitmap(this PixelBuffer buffer, double dpi = 96)
     {
         var bitmap = new WriteableBitmap(
@@ -33,11 +44,11 @@ public static class PixelBufferBitmapExtensions
                     {
                         var p = buffer[x, y];
                         // straight alpha → premultiplied BGRA expected by the bitmap
-                        byte a = p.A;
-                        uint b = (uint)((p.B * a) / 255);
-                        uint g = (uint)((p.G * a) / 255);
-                        uint r = (uint)((p.R * a) / 255);
-                        line[x] = ((uint)a << 24) | (b << 16) | (g << 8) | r;
+                        // PixelFormat.Bgra8888 is laid out as B, G, R, A in
+                        // little-endian memory. PackPremultipliedBgra keeps
+                        // the straight-alpha PixelBuffer contract at the UI
+                        // boundary without swapping red and blue.
+                        line[x] = PackPremultipliedBgra(p);
                     }
                 }
             }

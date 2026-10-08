@@ -51,6 +51,19 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private string _selectedDirection = "Down";
 
+    partial void OnSelectedDirectionChanged(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            SelectedDirection = _project?.View.Directions.FirstOrDefault()
+                ?? _project?.View.DefaultDirection
+                ?? "Down";
+            return;
+        }
+
+        RenderPreview();
+    }
+
     [ObservableProperty]
     private string _selectedPose = "idle_0";
 
@@ -81,6 +94,27 @@ public partial class MainViewModel : ObservableObject
     public ObservableCollection<AssetItemViewModel> AssetItems { get; } = [];
 
     public ObservableCollection<ActionTemplateItemViewModel> ActionTemplateItems { get; } = [];
+
+    public ObservableCollection<ActionTemplateItemViewModel> FilteredActionTemplateItems { get; } = [];
+
+    public ObservableCollection<string> ActionGenerationResults { get; } = [];
+
+    public IReadOnlyList<string> ActionGroupOptions { get; } =
+        ["Tất cả", .. ActionTemplateCatalog.All.Select(template => template.Group).Distinct(StringComparer.Ordinal)];
+
+    [ObservableProperty]
+    private string _actionQuery = string.Empty;
+
+    [ObservableProperty]
+    private string _selectedActionGroup = "Tất cả";
+
+    partial void OnActionQueryChanged(string value) => RefreshFilteredActionTemplates();
+
+    partial void OnSelectedActionGroupChanged(string value) => RefreshFilteredActionTemplates();
+
+    public int SelectedActionCount => CurrentCharacter?.SelectedActionIds.Count ?? 0;
+
+    public string SelectedActionCountText => $"Đã chọn {SelectedActionCount} hành động";
 
     [ObservableProperty]
     private ActionTemplateItemViewModel? _selectedActionTemplate;
@@ -114,6 +148,15 @@ public partial class MainViewModel : ObservableObject
         _validationInspector = ValidationInspector;
         CharacterInspector = new CharacterInspectorViewModel(this);
         EquipmentInspector = new EquipmentInspectorViewModel(this);
+        _workspaceInspectorRouter = new WorkspaceInspectorRouter(
+            _projectInspector,
+            CharacterInspector,
+            EquipmentInspector,
+            _animationInspector,
+            _behaviorInspector,
+            _exportInspector,
+            LibraryInspector,
+            BackgroundInspector);
         PropertyChanged += (_, e) =>
         {
             switch (e.PropertyName)
@@ -159,10 +202,15 @@ public partial class MainViewModel : ObservableObject
         AnimationOptions.Clear();
         TimelineFrames.Clear();
         BehaviorItems.Clear();
+        foreach (ActionTemplateItemViewModel item in ActionTemplateItems)
+        {
+            item.Thumbnail?.Dispose();
+        }
         ActionTemplateItems.Clear();
         SelectedAnimationId = null;
         IsPlaying = false;
         ProvisionProjectContent();
+        ExportInspector.RefreshChoices();
         Status = _projectRoot is null
             ? "Đã tạo project mới với nhân vật nền — lưu project để sinh asset thân mặc định, hoặc dùng 'Tạo nội dung mẫu'."
             : "Đã tạo project mới với nhân vật nền.";
@@ -205,7 +253,10 @@ public partial class MainViewModel : ObservableObject
     private static void ApplyReferenceCharacterStyle(Project project)
     {
         project.Style.CharacterRenderer = "ReferenceGrid";
-        project.Style.CharacterRendererVersion = 2;
+        // The factory writes the version only after files are generated
+        // successfully. New unsaved projects therefore do not claim to have a
+        // current asset library yet.
+        project.Style.CharacterRendererVersion = 0;
         project.Style.OutlineStyle = "Selective1px";
         project.Style.OutlineColorHex = "#191126FF";
         project.Style.LightDirection = "TopLeft";
@@ -327,7 +378,7 @@ public partial class MainViewModel : ObservableObject
         {
             Checkpoint();
             bool libraryExists = _project.Assets.Any(a =>
-                a.Id.StartsWith("part.torso.", StringComparison.OrdinalIgnoreCase));
+                a.Tags.Contains("source:starter-template", StringComparer.OrdinalIgnoreCase));
             StarterContentResult result = StarterContentFactory.CreateBaseBody(
                 _project, _projectRoot, _assetLibrary, CurrentCharacter, generateFiles: !libraryExists);
             _store.Save(_project, _projectRoot);
@@ -507,6 +558,7 @@ public partial class MainViewModel : ObservableObject
             ProvisionProjectContent();
             RefreshCharacterOptions();
             SelectedCharacterId = _project.Characters.FirstOrDefault()?.Id;
+            ExportInspector.RefreshChoices();
             IReadOnlyList<string> issues = _project.Validate();
             Status = issues.Count == 0
                 ? $"Đã mở project '{_project.Name}' từ '{rootDirectory}'."
@@ -533,6 +585,7 @@ public partial class MainViewModel : ObservableObject
                 ProjectName = recovered.Name;
                 UpdateSummary();
                 RefreshAssets();
+                ExportInspector.RefreshChoices();
                 Status = $"Đã khôi phục bản autosave của '{recovered.Name}'.";
             }
         }
@@ -689,15 +742,11 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        bool hasFaceCombinations = _project.Assets.Any(a =>
-            a.Id.StartsWith("part.face.combo.", StringComparison.OrdinalIgnoreCase));
-        bool hasModernHair = _project.Assets.Any(a =>
-            a.Id.StartsWith("part.hair_front.hui-cua.", StringComparison.OrdinalIgnoreCase)) &&
-            _project.Assets.Any(a =>
-                a.Id.StartsWith("part.hair_front.khong-toc.", StringComparison.OrdinalIgnoreCase));
         bool rendererNeedsRefresh = _project.Style.CharacterRenderer.Equals("ReferenceGrid", StringComparison.OrdinalIgnoreCase) &&
-                                    _project.Style.CharacterRendererVersion < 2;
-        if (!hasFaceCombinations || !hasModernHair || rendererNeedsRefresh)
+                                    _project.Style.CharacterRendererVersion < StarterContentFactory.ReferenceGridRendererVersion;
+        bool hasGeneratedLibrary = _project.Assets.Any(a =>
+            a.Tags.Contains("source:starter-template", StringComparer.OrdinalIgnoreCase));
+        if (!hasGeneratedLibrary || rendererNeedsRefresh)
         {
             StarterContentFactory.CreateBaseBody(_project, _projectRoot, _assetLibrary, CurrentCharacter);
             RefreshAssets();
@@ -784,6 +833,9 @@ public partial class MainViewModel : ObservableObject
         }
 
         copy.Id = id;
+        // Output animations belong to the source character; the duplicate keeps
+        // template choices but must generate its own poses/frames.
+        copy.ActionIds.Clear();
         copy.Name = $"{CurrentCharacter.Name} (copy)";
         _project.Characters.Add(copy);
         RefreshCharacterOptions();
@@ -796,24 +848,218 @@ public partial class MainViewModel : ObservableObject
 
     public void RefreshActionTemplates()
     {
+        string? selectedId = SelectedActionTemplate?.Id;
+        foreach (ActionTemplateItemViewModel old in ActionTemplateItems)
+        {
+            old.Thumbnail?.Dispose();
+        }
         ActionTemplateItems.Clear();
         if (_project is null || CurrentCharacter is null)
         {
             SelectedActionTemplate = null;
+            FilteredActionTemplateItems.Clear();
+            OnPropertyChanged(nameof(SelectedActionCount));
+            OnPropertyChanged(nameof(SelectedActionCountText));
             return;
         }
 
         foreach (ActionAvailability item in ActionTemplateCatalog.Evaluate(_project, CurrentCharacter))
         {
-            ActionTemplateItems.Add(new ActionTemplateItemViewModel(
+            var choice = new ActionTemplateItemViewModel(
                 item.Template.Id,
                 item.Template.DisplayName,
                 item.Template.Group,
                 item.IsAvailable,
-                item.Reason));
+                item.Reason,
+                CurrentCharacter.SelectedActionIds.Contains(item.Template.Id, StringComparer.Ordinal));
+            if (_projectRoot is not null)
+            {
+                try
+                {
+                    PixelBuffer pixels = ComposePreviewCharacter(_project, CurrentCharacter,
+                        ActionTemplateCatalog.CreatePreviewPose(item.Template.Id, _project));
+                    choice.Thumbnail = PixelOps.NearestScale(pixels, 2).ToWriteableBitmap();
+                }
+                catch
+                {
+                    // A missing art asset must not hide the template or its availability reason.
+                }
+            }
+            choice.PropertyChanged += (_, args) =>
+            {
+                if (args.PropertyName == nameof(ActionTemplateItemViewModel.IsSelected))
+                {
+                    SetActionSelected(choice.Id, choice.IsSelected);
+                }
+            };
+            ActionTemplateItems.Add(choice);
         }
 
-        SelectedActionTemplate ??= ActionTemplateItems.FirstOrDefault();
+        SelectedActionTemplate = ActionTemplateItems.FirstOrDefault(item => item.Id == selectedId)
+            ?? ActionTemplateItems.FirstOrDefault();
+        RefreshFilteredActionTemplates();
+        OnPropertyChanged(nameof(SelectedActionCount));
+        OnPropertyChanged(nameof(SelectedActionCountText));
+    }
+
+    private void RefreshFilteredActionTemplates()
+    {
+        FilteredActionTemplateItems.Clear();
+        foreach (ActionTemplateItemViewModel item in ActionTemplateItems)
+        {
+            if (SelectedActionGroup != "Tất cả" && item.Group != SelectedActionGroup)
+            {
+                continue;
+            }
+
+            if (!string.IsNullOrWhiteSpace(ActionQuery) &&
+                !item.DisplayName.Contains(ActionQuery, StringComparison.OrdinalIgnoreCase) &&
+                !item.Id.Contains(ActionQuery, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            FilteredActionTemplateItems.Add(item);
+        }
+    }
+
+    private void SetActionSelected(string templateId, bool selected)
+    {
+        CharacterEntity? character = CurrentCharacter;
+        if (character is null || character.SelectedActionIds.Contains(templateId, StringComparer.Ordinal) == selected)
+        {
+            return;
+        }
+
+        Checkpoint();
+        if (selected)
+        {
+            character.SelectedActionIds.Add(templateId);
+        }
+        else
+        {
+            character.SelectedActionIds.Remove(templateId);
+        }
+
+        MarkDirty();
+        OnPropertyChanged(nameof(SelectedActionCount));
+        OnPropertyChanged(nameof(SelectedActionCountText));
+    }
+
+    [RelayCommand]
+    public void PreviewActionTemplate()
+    {
+        if (_project is null || _projectRoot is null || CurrentCharacter is null ||
+            SelectedActionTemplate is null)
+        {
+            Status = "Cần lưu project và chọn nhân vật để xem thử hành động.";
+            return;
+        }
+
+        try
+        {
+            RenderComposedCharacter(_project, CurrentCharacter,
+                ActionTemplateCatalog.CreatePreviewPose(SelectedActionTemplate.Id, _project));
+            Status = $"Xem thử {SelectedActionTemplate.DisplayName} (không đổi lựa chọn).";
+        }
+        catch (Exception ex)
+        {
+            Status = $"Không xem thử được: {ex.Message}";
+        }
+    }
+
+    [RelayCommand]
+    public void SelectAllCompatibleActions()
+    {
+        foreach (ActionTemplateItemViewModel item in FilteredActionTemplateItems.Where(item => item.IsAvailable))
+        {
+            item.IsSelected = true;
+        }
+    }
+
+    [RelayCommand]
+    public async Task GenerateSelectedActionsAsync()
+    {
+        if (_project is null || CurrentCharacter is null || IsActionGenerationRunning)
+        {
+            return;
+        }
+
+        Project project = _project;
+        CharacterEntity character = CurrentCharacter;
+        string[] selectedIds = character.SelectedActionIds.Distinct(StringComparer.Ordinal).ToArray();
+        if (selectedIds.Length == 0)
+        {
+            ActionGenerationStatus = "Chưa chọn hành động nào.";
+            return;
+        }
+
+        _actionGenerationCancellation?.Dispose();
+        _actionGenerationCancellation = new CancellationTokenSource();
+        CancellationToken cancellationToken = _actionGenerationCancellation.Token;
+        ActionGenerationResults.Clear();
+        IsActionGenerationRunning = true;
+        ActionGenerationProgress = 0;
+        try
+        {
+            for (int i = 0; i < selectedIds.Length; i++)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                string templateId = selectedIds[i];
+                ActionAvailability? availability = ActionTemplateCatalog.Evaluate(project, character)
+                    .FirstOrDefault(item => item.Template.Id == templateId);
+                if (availability is null || !availability.IsAvailable)
+                {
+                    ActionGenerationResults.Add($"{templateId}: {availability?.Reason ?? "chưa có mẫu"}");
+                    continue;
+                }
+
+                Checkpoint();
+                int actionIndex = i;
+                var progress = new Progress<double>(value =>
+                    ActionGenerationProgress = (actionIndex + value) / selectedIds.Length);
+                try
+                {
+                    int priorAnimationCount = project.Animations.Count;
+                    AnimationDefinition animation = await Task.Run(() =>
+                        ActionTemplateCatalog.Generate(project, character, templateId, cancellationToken, progress),
+                        cancellationToken);
+                    if (project.Animations.Count > priorAnimationCount)
+                    {
+                        MarkDirty();
+                        ActionGenerationResults.Add($"{templateId}: tạo {animation.Frames.Count} frame → {animation.Id}");
+                    }
+                    else
+                    {
+                        ActionGenerationResults.Add($"{templateId}: giữ bản đã có {animation.Id} (không ghi đè).");
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    ActionGenerationResults.Add($"{templateId}: lỗi {ex.Message}");
+                }
+            }
+
+            ActionGenerationProgress = 1;
+            ActionGenerationStatus = $"Đã xử lý {ActionGenerationResults.Count}/{selectedIds.Length} hành động.";
+        }
+        catch (OperationCanceledException)
+        {
+            ActionGenerationStatus = "Đã hủy; hành động đang xử lý không ghi dữ liệu dang dở.";
+        }
+        finally
+        {
+            IsActionGenerationRunning = false;
+            _actionGenerationCancellation?.Dispose();
+            _actionGenerationCancellation = null;
+            RefreshAnimationOptions();
+            RefreshActionTemplates();
+            RebuildTimeline();
+        }
     }
 
     public void GenerateActionTemplate()
@@ -844,7 +1090,15 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async Task GenerateActionTemplateAsync()
+    public Task GenerateActionTemplateAsync() => GenerateActionWithModeAsync(ActionRegenerationMode.Preserve);
+
+    [RelayCommand]
+    public Task CreateNewActionVersionAsync() => GenerateActionWithModeAsync(ActionRegenerationMode.CreateNewVersion);
+
+    [RelayCommand]
+    public Task ReplaceGeneratedActionAsync() => GenerateActionWithModeAsync(ActionRegenerationMode.Replace);
+
+    private async Task GenerateActionWithModeAsync(ActionRegenerationMode mode)
     {
         if (_project is null || CurrentCharacter is null || SelectedActionTemplate is null)
         {
@@ -876,7 +1130,7 @@ public partial class MainViewModel : ObservableObject
                 ActionGenerationStatus = $"Generating… {value:P0}";
             });
             AnimationDefinition animation = await Task.Run(
-                () => ActionTemplateCatalog.Generate(project, character, templateId, cancellationToken, progress),
+                () => ActionTemplateCatalog.Generate(project, character, templateId, cancellationToken, progress, mode),
                 cancellationToken);
             MarkDirty();
             RefreshAnimationOptions();
@@ -885,7 +1139,9 @@ public partial class MainViewModel : ObservableObject
             RefreshActionTemplates();
             RebuildTimeline();
             ActionGenerationProgress = 1;
-            ActionGenerationStatus = $"Generated {animation.DisplayName} ({animation.Frames.Count} frames).";
+            ActionGenerationStatus = mode == ActionRegenerationMode.Preserve
+                ? $"Giữ bản đã có hoặc tạo {animation.DisplayName} ({animation.Frames.Count} frame), không ghi đè bản chỉnh tay."
+                : $"{(mode == ActionRegenerationMode.Replace ? "Đã thay thế" : "Đã tạo bản mới")} {animation.Id}.";
         }
         catch (OperationCanceledException)
         {
@@ -1066,9 +1322,9 @@ public partial class MainViewModel : ObservableObject
                 return;
             }
 
-            // Character exists but the project isn't saved yet — there are no
-            // asset files on disk, so the empty-base body renders as a blank canvas.
-            RenderBlankCanvas();
+            // A new project has no asset files yet, but its procedural starter
+            // source can still render the character and preview modes.
+            RenderUnsavedCharacter(_project!);
             return;
         }
 
@@ -1094,7 +1350,7 @@ public partial class MainViewModel : ObservableObject
         PixelBuffer output = GamePreview ? BuildGameScaleViewport(scaled) : scaled;
 
         WriteableBitmap? old = Preview;
-        Preview = output.ToWriteableBitmap();
+        Preview = (GamePreview ? output : PreviewBackdrop.Apply(output, SelectedPreviewBackground)).ToWriteableBitmap();
         OnPropertyChanged(nameof(Preview));
         old?.Dispose();
 
@@ -1133,7 +1389,7 @@ public partial class MainViewModel : ObservableObject
             }
 
             WriteableBitmap? old = Preview;
-            Preview = output.ToWriteableBitmap();
+            Preview = (GamePreview ? output : PreviewBackdrop.Apply(output, SelectedPreviewBackground)).ToWriteableBitmap();
             OnPropertyChanged(nameof(Preview));
             old?.Dispose();
             string animationTag = SelectedAnimationId is null ? "" : $" • {SelectedAnimationId}[{CurrentFrameIndex}]";
@@ -1295,12 +1551,96 @@ public partial class MainViewModel : ObservableObject
             : SelectedScale == 1 ? blank : PixelOps.NearestScale(blank, SelectedScale);
 
         WriteableBitmap? old = Preview;
-        Preview = output.ToWriteableBitmap();
+        Preview = (GamePreview ? output : PreviewBackdrop.Apply(output, SelectedPreviewBackground)).ToWriteableBitmap();
         OnPropertyChanged(nameof(Preview));
         old?.Dispose();
 
         string previewTag = GamePreview ? " • game-scale 360x640" : $" • {SelectedScale}x";
         Status = $"{ProjectName} • nhân vật thân trống{previewTag} — lưu project rồi import PNG/asset để lên hình.";
+    }
+
+    private void RenderUnsavedCharacter(Project project)
+    {
+        LegacyPose pose = LegacyPosePresets.Poses.GetValueOrDefault(SelectedPose) ?? LegacyPosePresets.Poses["idle_0"];
+        var spec = new LegacySpriteSpec
+        {
+            Direction = SelectedDirection,
+            CanvasWidth = project.Pixels.CanvasWidth,
+            CanvasHeight = project.Pixels.CanvasHeight,
+        };
+        foreach (string key in spec.Equipment.Keys.ToList())
+        {
+            spec.Equipment[key] = "Không";
+        }
+
+        ICharacterLayerRenderer renderer = project.Style.CharacterRenderer.Equals("ReferenceGrid", StringComparison.OrdinalIgnoreCase)
+            ? new ReferenceGridSpriteRenderer()
+            : _renderer;
+        List<(string Name, PixelBuffer Image)> layers = renderer.RenderLayers(spec, pose);
+        PixelBuffer composed = new(project.Pixels.CanvasWidth, project.Pixels.CanvasHeight);
+        CharacterBuildProfile? build = CurrentCharacter?.Build;
+        foreach ((string name, PixelBuffer sourceImage) in layers)
+        {
+            PixelBuffer image = sourceImage;
+            string? partId = name switch
+            {
+                "body" => "torso",
+                "left_arm" or "right_arm" or "left_leg" or "right_leg" or
+                "head" or "face" or "hair_front" or "hair_back" => name,
+                _ => null,
+            };
+            if (build is not null && partId is not null)
+            {
+                image = RigSpriteComposer.ApplyBuildShape(image, build, partId);
+                (int offsetX, int offsetY) = build.PartOffset(partId);
+                if (offsetX != 0 || offsetY != 0)
+                {
+                    var shifted = new PixelBuffer(image.Width, image.Height);
+                    PixelOps.Composite(shifted, image, offsetX, offsetY);
+                    image = shifted;
+                }
+            }
+
+            PixelOps.Composite(composed, image);
+        }
+
+        PixelBuffer output = SelectedMode switch
+        {
+            "Grayscale" => PixelOps.ToGrayscale(composed),
+            "Silhouette" => ToSilhouetteCopy(composed),
+            "Part Debug" => ComposeDebugLayers(project.Pixels.CanvasWidth, project.Pixels.CanvasHeight, layers),
+            "Anchor Debug" => AddAnchorDebug(project, composed, SelectedDirection),
+            _ => composed,
+        };
+        if (GamePreview)
+        {
+            output = BuildGameScaleViewport(output);
+        }
+        else if (SelectedScale != 1)
+        {
+            output = PixelOps.NearestScale(output, SelectedScale);
+        }
+
+        WriteableBitmap? old = Preview;
+        Preview = (GamePreview ? output : PreviewBackdrop.Apply(output, SelectedPreviewBackground)).ToWriteableBitmap();
+        OnPropertyChanged(nameof(Preview));
+        old?.Dispose();
+        string previewTag = GamePreview ? " • game-scale 360x640" : $" • {SelectedScale}x";
+        Status = $"{ProjectName} • {SelectedDirection} • {SelectedPose} • {SelectedMode}{previewTag} (procedural preview, nearest-neighbor)";
+    }
+
+    private static PixelBuffer ComposeDebugLayers(int width, int height,
+        IReadOnlyList<(string Name, PixelBuffer Image)> layers)
+    {
+        var result = new PixelBuffer(width, height);
+        foreach ((string name, PixelBuffer image) in layers)
+        {
+            PixelBuffer debug = image.Clone();
+            PixelOps.Recolor(debug, DebugColorForPart(name));
+            PixelOps.Composite(result, debug);
+        }
+
+        return result;
     }
 
     private PoseDefinition? GetCurrentPose()
@@ -1349,6 +1689,7 @@ public partial class MainViewModel : ObservableObject
         RebuildTimelineSelection();
         RenderPreview();
         OnPropertyChanged(nameof(CurrentFrameDurationTicks));
+        NotifyAnimationInterval();
     }
 
     partial void OnSelectedAnimationIdChanged(string? value)
@@ -1370,6 +1711,13 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private bool _gamePreview;
+
+    public IReadOnlyList<string> PreviewBackgroundOptions { get; } = ["Ô caro", "Sáng", "Tối"];
+
+    [ObservableProperty]
+    private string _selectedPreviewBackground = "Ô caro";
+
+    partial void OnSelectedPreviewBackgroundChanged(string value) => RenderPreview();
 
     [ObservableProperty]
     private string _gameBackground = "Cỏ";
@@ -1401,12 +1749,69 @@ public partial class MainViewModel : ObservableObject
         get
         {
             AnimationDefinition? animation = _project?.Animations.FirstOrDefault(a => a.Id == SelectedAnimationId);
-            return animation is { Fps: > 0 } ? 1000.0 / animation.Fps : 160;
+            return animation is { Fps: > 0, Frames.Count: > 0 } &&
+                   CurrentFrameIndex >= 0 && CurrentFrameIndex < animation.Frames.Count
+                ? AnimationPlayback.FrameDurationMilliseconds(animation, CurrentFrameIndex)
+                : 160;
         }
     }
 
     public bool HasCurrentFrameMarkers =>
         TimelineFrames.FirstOrDefault(f => f.Index == CurrentFrameIndex)?.HasMarkers == true;
+
+    [RelayCommand]
+    public void CreateAnimation()
+    {
+        if (_project is null || CurrentCharacter is null) return;
+        try
+        {
+            Checkpoint();
+            AnimationDefinition animation = CharacterAnimationEditor.Create(_project, CurrentCharacter, GetCurrentPose());
+            MarkDirty();
+            RefreshAnimationOptions();
+            SelectedAnimationId = animation.Id;
+            RebuildTimeline();
+            Status = $"Đã tạo hoạt ảnh {animation.Id}.";
+        }
+        catch (Exception ex) { Status = $"Không tạo được hoạt ảnh: {ex.Message}"; }
+    }
+
+    [RelayCommand]
+    public void DuplicateAnimation()
+    {
+        if (_project is null || CurrentCharacter is null) return;
+        AnimationDefinition? source = _project.Animations.FirstOrDefault(animation => animation.Id == SelectedAnimationId);
+        if (source is null) return;
+        try
+        {
+            Checkpoint();
+            AnimationDefinition animation = CharacterAnimationEditor.Duplicate(_project, CurrentCharacter, source);
+            MarkDirty();
+            RefreshAnimationOptions();
+            SelectedAnimationId = animation.Id;
+            RebuildTimeline();
+            Status = $"Đã nhân bản hoạt ảnh {animation.Id}; pose tách riêng khỏi bản gốc.";
+        }
+        catch (Exception ex) { Status = $"Không nhân bản được hoạt ảnh: {ex.Message}"; }
+    }
+
+    [RelayCommand]
+    public void SaveAnimationAsBehaviorTemplate()
+    {
+        if (_project is null) return;
+        AnimationDefinition? animation = _project.Animations.FirstOrDefault(item => item.Id == SelectedAnimationId);
+        if (animation is null) return;
+        try
+        {
+            Checkpoint();
+            BehaviorDefinition template = CharacterAnimationEditor.SaveAsBehaviorTemplate(_project, animation);
+            MarkDirty();
+            RefreshBehaviorItems();
+            RefreshActionTemplates();
+            Status = $"Đã lưu mẫu behavior {template.Id} cho hoạt ảnh {animation.Id}.";
+        }
+        catch (Exception ex) { Status = $"Không lưu được mẫu behavior: {ex.Message}"; }
+    }
 
     [RelayCommand]
     public void InstallPresets()
@@ -1496,20 +1901,8 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        int next = CurrentFrameIndex + 1;
-        if (next >= animation.Frames.Count)
-        {
-            if (!animation.Loop)
-            {
-                IsPlaying = false;
-                next = animation.Frames.Count - 1;
-            }
-            else
-            {
-                next = 0;
-            }
-        }
-
+        (int next, bool continuePlaying) = AnimationPlayback.Advance(animation, CurrentFrameIndex);
+        IsPlaying = continuePlaying;
         CurrentFrameIndex = next;
     }
 
@@ -2045,8 +2438,11 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private bool _isDirty;
 
+    private bool _autosaveMatchesCurrentState;
+
     partial void OnIsDirtyChanged(bool value)
     {
+        if (!value) _autosaveMatchesCurrentState = false;
         OnPropertyChanged(nameof(WindowTitle));
         OnPropertyChanged(nameof(DirtyIndicator));
     }
@@ -2055,7 +2451,9 @@ public partial class MainViewModel : ObservableObject
         ? "Pixel Game Studio — Quản lý project"
         : $"Pixel Game Studio — {ProjectName}{(IsDirty ? " ●" : "")}";
 
-    public string DirtyIndicator => IsDirty ? "● có thay đổi chưa lưu (autosave đang giữ bản khôi phục)" : "đã lưu";
+    public string DirtyIndicator => IsDirty
+        ? _autosaveMatchesCurrentState ? "● chưa lưu · đã có bản autosave" : "● chưa lưu · chờ autosave"
+        : "đã lưu";
 
     [ObservableProperty]
     private string? _selectedRigId;
@@ -2072,6 +2470,7 @@ public partial class MainViewModel : ObservableObject
     private readonly BehaviorInspectorViewModel _behaviorInspector;
     private readonly ValidationInspectorViewModel _validationInspector;
     private readonly ExportInspectorViewModel _exportInspector;
+    private readonly WorkspaceInspectorRouter _workspaceInspectorRouter;
 
     public WorkspacePlaceholderViewModel LibraryInspector { get; } = new(
         "Library / Items",
@@ -2083,23 +2482,11 @@ public partial class MainViewModel : ObservableObject
 
     public CharacterInspectorViewModel CharacterInspector { get; }
 
-    public object? Inspector => SelectedWorkspace switch
-    {
-        "Project" => _projectInspector,
-        "Character" => SelectedCharacterSection switch
-        {
-            "Equipment" => EquipmentInspector,
-            "Animation" => _animationInspector,
-            "Actions" => _behaviorInspector,
-            _ => CharacterInspector,
-        },
-        "Library" => LibraryInspector,
-        "Background" => BackgroundInspector,
-        "Export" => _exportInspector,
-        _ => null,
-    };
+    public object? Inspector => _workspaceInspectorRouter.Resolve(SelectedWorkspace, SelectedCharacterSection);
 
     public bool CharacterWorkspaceVisible => SelectedWorkspace == "Character";
+
+    public bool ActionsFooterVisible => SelectedWorkspace == "Character" && SelectedCharacterSection == "Actions";
 
     public bool TimelineVisible => SelectedWorkspace == "Character" && SelectedCharacterSection == "Animation";
 
@@ -2123,6 +2510,7 @@ public partial class MainViewModel : ObservableObject
     {
         OnPropertyChanged(nameof(Inspector));
         OnPropertyChanged(nameof(CharacterWorkspaceVisible));
+        OnPropertyChanged(nameof(ActionsFooterVisible));
         OnPropertyChanged(nameof(TimelineVisible));
         OnPropertyChanged(nameof(ContextBrowserVisible));
         OnPropertyChanged(nameof(LeftDockWidth));
@@ -2131,11 +2519,20 @@ public partial class MainViewModel : ObservableObject
         {
             _validationInspector.Run();
         }
+        else if (value is "Export")
+        {
+            ExportInspector.RefreshChoices();
+        }
     }
 
     partial void OnSelectedCharacterSectionChanged(string value)
     {
+        if (value == "Actions")
+        {
+            RefreshActionTemplates();
+        }
         OnPropertyChanged(nameof(Inspector));
+        OnPropertyChanged(nameof(ActionsFooterVisible));
         OnPropertyChanged(nameof(TimelineVisible));
         OnPropertyChanged(nameof(ContextBrowserVisible));
         OnPropertyChanged(nameof(LeftDockWidth));
@@ -2154,7 +2551,9 @@ public partial class MainViewModel : ObservableObject
 
     public void MarkDirty()
     {
+        _autosaveMatchesCurrentState = false;
         IsDirty = true;
+        OnPropertyChanged(nameof(DirtyIndicator));
     }
 
     [RelayCommand]
@@ -2169,7 +2568,7 @@ public partial class MainViewModel : ObservableObject
         if (restored is not null)
         {
             AdoptProject(restored, keepRoot: true);
-            IsDirty = true;
+            MarkDirty();
             Status = "Đã undo.";
         }
 
@@ -2189,7 +2588,7 @@ public partial class MainViewModel : ObservableObject
         if (restored is not null)
         {
             AdoptProject(restored, keepRoot: true);
-            IsDirty = true;
+            MarkDirty();
             Status = "Đã redo.";
         }
 
@@ -2220,6 +2619,7 @@ public partial class MainViewModel : ObservableObject
         RebuildTimeline();
         RefreshAnimationOptions();
         RefreshBehaviorItems();
+        ExportInspector.RefreshChoices();
         RenderPreview();
         OnPropertyChanged(nameof(Inspector));
     }
@@ -2253,8 +2653,21 @@ public partial class MainViewModel : ObservableObject
         }
 
         ExportResult result = _exportService.ExportCharacter(_project, _projectRoot, character, options, outputDirectory);
-        MarkDirty();
         return result;
+    }
+
+    public BatchExportResult ExportBatch(
+        IReadOnlyList<CharacterEntity> characters,
+        IReadOnlyList<string?> animationIds,
+        CharacterExportOptions options,
+        string outputDirectory)
+    {
+        if (_project is null || _projectRoot is null)
+        {
+            throw new InvalidOperationException("Chưa có project để export.");
+        }
+
+        return _exportService.ExportBatch(_project, _projectRoot, characters, animationIds, options, outputDirectory);
     }
 
     public void AutosaveNow()
@@ -2265,6 +2678,8 @@ public partial class MainViewModel : ObservableObject
         }
 
         _store.Autosave(_project, _projectRoot);
+        _autosaveMatchesCurrentState = true;
+        OnPropertyChanged(nameof(DirtyIndicator));
         Status = "Đã autosave (bản khôi phục) — nhớ Save Project để lưu chính thức.";
     }
 

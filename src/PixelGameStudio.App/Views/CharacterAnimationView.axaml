@@ -1,7 +1,57 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PixelGameStudio.App.ViewModels"
              x:Class="PixelGameStudio.App.Views.CharacterAnimationView">
     <StackPanel Spacing="10">
+        <Border Classes="card">
+            <StackPanel Spacing="7">
+                <TextBlock Classes="caption" Text="TIMELINE" />
+                <ComboBox ItemsSource="{Binding AnimationOptions}" SelectedItem="{Binding SelectedAnimationId}"
+                          ToolTip.Tip="Chọn animation để sửa frame" />
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="subtle" Content="＋ Tạo hoạt ảnh" Command="{Binding CreateAnimationCommand}" />
+                    <Button Classes="subtle" Content="Nhân bản" Command="{Binding DuplicateAnimationCommand}" />
+                    <Button Classes="subtle" Content="Lưu mẫu behavior" Command="{Binding SaveAnimationAsBehaviorTemplateCommand}"
+                            ToolTip.Tip="Lưu hoạt ảnh đã biên soạn thành mẫu trong thư viện behavior" />
+                </WrapPanel>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="subtle" Content="◀" Command="{Binding StepBackCommand}" />
+                    <Button Classes="primary" Content="Phát / Dừng" Command="{Binding TogglePlayCommand}" />
+                    <Button Classes="subtle" Content="▶" Command="{Binding StepNextCommand}" />
+                    <CheckBox Content="Onion skin" IsChecked="{Binding ShowOnionSkin}" Margin="8,0,0,0" />
+                </WrapPanel>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"
+                              MinHeight="74">
+                    <ListBox ItemsSource="{Binding TimelineFrames}" SelectedIndex="{Binding CurrentFrameIndex, Mode=TwoWay}"
+                             Background="Transparent" BorderThickness="0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="4" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:FrameItemViewModel">
+                                <Border Width="90" CornerRadius="5" Padding="7,5" BorderThickness="1"
+                                        Classes="frameCard" Classes.current="{Binding IsCurrent}">
+                                    <StackPanel>
+                                        <TextBlock FontSize="11" Text="{Binding PoseId}" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock FontSize="9" Text="{Binding Markers}" TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="subtle" Content="Thêm" Command="{Binding AddFrameCommand}" />
+                    <Button Classes="subtle" Content="Copy" Command="{Binding CopyFrameCommand}" />
+                    <Button Classes="subtle" Content="Paste" Command="{Binding PasteFrameCommand}" />
+                    <Button Classes="subtle" Content="Xóa" Command="{Binding DeleteFrameCommand}" />
+                    <Button Classes="subtle" Content="◀ Đổi chỗ" Command="{Binding MoveFrameLeftCommand}" />
+                    <Button Classes="subtle" Content="Đổi chỗ ▶" Command="{Binding MoveFrameRightCommand}" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
         <Border Classes="card">
             <StackPanel Spacing="5">
                 <TextBlock Classes="caption" Text="ANIMATION" />

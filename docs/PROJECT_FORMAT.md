@@ -38,7 +38,12 @@ JSON UTF-8 (camelCase, indent, giữ tiếng Việt). Cấu trúc (schemaVersion
   "rigs":     [ { "id", "displayName", "parts": [ PartNode ], "anchors": [ AnchorPoint ],
                   "equipmentSlots": [ EquipmentSlotDef ] } ],
   "characters": [ { "id", "name", "rigId", "appearance": [ PartAppearance ],
-                    "equipment": [ { "slotId", "assetId", "viewAssets": {} } ], "roleId", "notes" } ],
+                    "equipment": [ { "slotId", "assetId", "viewAssets": {} } ],
+                    "build": { "gender", "bodyType", "headHeightPx", "torsoHeightPx",
+                               "armLengthPx", "legLengthPx", "footWidthPx" },
+                    "selectedActionIds": [], "actionIds": [],
+                    "generatedActionBindings": [ { "templateId", "animationId", "sourceFingerprint" } ],
+                    "roleId", "notes" } ],
   "poses":      [ { "id", "displayName", "parts": { partId: { offsetX, offsetY, hidden, states } },
                     "slots": { slotId: { offsetX, offsetY, hidden, zIndexOverride, states } }, "stateValues": {} } ],
   "animations": [ { "id", "displayName", "fps", "loop",
@@ -61,4 +66,4 @@ JSON UTF-8 (camelCase, indent, giữ tiếng Việt). Cấu trúc (schemaVersion
 - **Ghi atomic**: temp file + move; Save xong dọn `autosave/`.
 ## MO56 persisted fields
 
-Existing project files remain readable when `CharacterEntity.build` and `actionIds` are absent; deserialization supplies safe defaults. New files persist those fields and ProjectStore keeps its atomic save/autosave behavior. Unknown fields continue to be ignored for forward compatibility.
+Old project files remain readable when `build`, `selectedActionIds`, `actionIds` and `generatedActionBindings` are absent; deserialization supplies safe defaults. `selectedActionIds` stores action checkboxes before generation; `actionIds` records generated actions; `generatedActionBindings` pins output animation ID and SHA-256 source fingerprint per character. New generated animation ids are `action.{templateId}.{first16Sha256HexOfCharacterId}` and pose ids append `.{frameIndex}`; explicit new versions append `.v2`, `.v3` etc. Old project-wide `action.{templateId}` remains readable and is never overwritten automatically. The legacy `roleId` remains readable but is not exposed by the current Character UI. ProjectStore keeps atomic save/autosave; unknown fields are ignored for forward compatibility.

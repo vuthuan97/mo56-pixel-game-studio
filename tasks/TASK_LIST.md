@@ -1,5 +1,16 @@
 # TASK LIST — Pixel Game Studio V1
 
+## Renderer and Frame follow-up — completed 2026-10-07
+- [x] ReferenceGrid v3 uses canvas-fitted explicit head/neck/torso/shoulder/hip/leg/foot regions and keeps integer pixel coordinates.
+- [x] Left/right leg layers are independent; movement no longer restores the old shared pants image.
+- [x] Base body uses skin palette; clothing, pants, shoes, armour and weapons remain equipment assets.
+- [x] Down/Up/Left/Right, body, eye, mouth, male/bald hair and arm/leg state variants produce distinct art.
+- [x] Full-canvas generated equipment is normalized and carries zero-anchor/provenance metadata; LegacySpriteRenderer remains the reference renderer.
+- [x] Starter refresh is versioned, thumbnail-invalidating and refuses to overwrite unproven imported/manual assets.
+- [x] Preview BGRA8888 channel packing and premultiplied-alpha behavior are covered by regression tests.
+- [x] Frame/Rig numeric values have integer-step sliders; build values are applied to composed body-part silhouettes.
+- [x] Unsaved project preview also honors Normal/Grayscale/Silhouette/Part Debug/Anchor Debug modes.
+
 Quy ước: `[ ]` chưa làm, `[~]` đang làm, `[x]` hoàn thành và đã kiểm tra.
 
 ## Phase 0 — Audit prototype và nền tảng

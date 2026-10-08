@@ -1,6 +1,8 @@
 # Trạng thái hiện tại
 
-> MO56 layout upgrade: Phases A-G have working code paths. The editor exposes five top-level tabs and four Character subtabs; Frame/Equipment data, selectable timeline editing, action generation, per-character persistence, isolated export and acceptance evidence are covered by tests/docs.
+> 2026-10-07 — ReferenceGrid renderer v3 and starter-art refresh are complete. Body/limb layers are separated from equipment, directions and appearance variants render distinct art, build sliders affect the composed silhouette, preview BGRA packing is corrected, and unsaved preview modes use the same renderer path. See `docs/CHARACTER_RENDERER_REPAIR.md`.
+
+> MO56 layout upgrade (audit 2026-10-08): **55/57** mục checklist gốc đã được xác minh; **2** mục còn mở. Inspector routing đã tách khỏi MainViewModel; timeline nằm trong tab Hoạt ảnh bên phải và dùng DurationTicks/FPS; thanh nhân vật dùng chung bốn tab; Bộ khung chia nhóm Thân/Khuôn mặt/Tóc/Tay/Chân; preview có nền Ô caro/Sáng/Tối, phát/frame và Art QA thu gọn; checkbox Hành động lưu trước khi tạo; output action có ID và binding/fingerprint riêng theo nhân vật, hỗ trợ giữ bản chỉnh tay/tạo version mới/thay thế có chủ đích; footer Tạo cố định; tab Xuất chọn nhiều nhân vật/animation/hướng và xuất package riêng. Custom slot/undo hai nhân vật đã được kiểm thử, Hoạt ảnh có tạo/nhân bản và lưu behavior template vào catalog Hành động; catalog có 42 template với các nhóm chuyển động thật. Chưa nghiệm thu UI native 1280×800/1024×640. Xem `tasks/LAYOUT_ACTIONS_UPGRADE_TASK_LIST.md`; không xem Phase A–G là đã hoàn thành.
 
 > Cập nhật 2026-10-03 — **hoàn thành TASK_LIST V1: Phase 0-13 đầy đủ** (prompts 00-05 đối chiếu trọn).
 

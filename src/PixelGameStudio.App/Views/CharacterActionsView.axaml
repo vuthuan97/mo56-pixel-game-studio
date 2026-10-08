@@ -5,24 +5,42 @@
         <Border Classes="card">
             <StackPanel Spacing="5">
                 <TextBlock Classes="caption" Text="ACTION TEMPLATE LIBRARY" />
-                <ListBox Height="180" ItemsSource="{Binding ActionTemplates}" SelectedItem="{Binding SelectedActionTemplate}">
+                <TextBox Watermark="Tìm hành động…" Text="{Binding ActionQuery, Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding ActionGroupOptions}" SelectedItem="{Binding SelectedActionGroup}" />
+                <Button Classes="subtle" Content="Chọn tất cả mục tương thích đang lọc"
+                        Command="{Binding SelectAllCompatibleActionsCommand}" />
+                <ListBox Height="250" ItemsSource="{Binding FilteredActionTemplates}" SelectedItem="{Binding SelectedActionTemplate}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Spacing="1">
-                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
-                                <TextBlock Text="{Binding Reason}" FontSize="10" Foreground="{StaticResource TextFaintBrush}" />
-                            </StackPanel>
+                            <Grid ColumnDefinitions="Auto,48,*" Margin="0,3">
+                                <CheckBox VerticalAlignment="Center" IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                          IsEnabled="{Binding IsAvailable}" />
+                                <Image Grid.Column="1" Width="40" Height="48" Stretch="Uniform"
+                                       Source="{Binding Thumbnail}" />
+                                <StackPanel Grid.Column="2" Spacing="1">
+                                    <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding Group}" FontSize="10" />
+                                    <TextBlock Text="{Binding Reason}" FontSize="10"
+                                               Foreground="{StaticResource TextFaintBrush}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Classes="primary" Content="Generate action" Command="{Binding GenerateActionTemplateCommand}"
-                        IsEnabled="{Binding SelectedActionTemplate.IsAvailable}" />
+                <Button Classes="subtle" Content="Xem thử mục đang trỏ" Command="{Binding PreviewActionTemplateCommand}" />
+                <WrapPanel Orientation="Horizontal">
+                    <Button Classes="subtle" Content="Tạo bản mới của mục đang trỏ"
+                            Command="{Binding CreateNewActionVersionCommand}" />
+                    <Button Classes="subtle" Content="Thay thế bản đã tạo (ghi đè)"
+                            Command="{Binding ReplaceGeneratedActionCommand}" />
+                </WrapPanel>
                 <ProgressBar Minimum="0" Maximum="1" Value="{Binding ActionGenerationProgress}" Height="6"
                              IsVisible="{Binding IsActionGenerationRunning}" />
                 <StackPanel Orientation="Horizontal" Spacing="5" IsVisible="{Binding IsActionGenerationRunning}">
                     <TextBlock Text="{Binding ActionGenerationStatus}" />
                     <Button Classes="subtle" Content="Cancel" Command="{Binding CancelActionGenerationCommand}" />
                 </StackPanel>
+                <ItemsControl ItemsSource="{Binding ActionGenerationResults}" />
             </StackPanel>
         </Border>
         <Border Classes="card">

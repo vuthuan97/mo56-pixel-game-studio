@@ -5,6 +5,7 @@ using System.Text;
 using PixelGameStudio.Assets.Composition;
 using PixelGameStudio.Domain;
 using PixelGameStudio.Domain.Animation;
+using PixelGameStudio.Domain.Assets;
 using PixelGameStudio.Domain.Behaviors;
 using PixelGameStudio.Domain.Character;
 using PixelGameStudio.Rendering;
@@ -37,6 +38,13 @@ public sealed class CharacterExportOptions
 /// <summary>Summary of one export run.</summary>
 public sealed record ExportResult(string OutputDirectory, int FrameCount, int SheetCount);
 
+/// <summary>Results for a batch, one isolated package per character/animation.</summary>
+public sealed record BatchExportResult(IReadOnlyList<ExportResult> Packages, IReadOnlyList<string> Skipped)
+{
+    public int FrameCount => Packages.Sum(package => package.FrameCount);
+    public int SheetCount => Packages.Sum(package => package.SheetCount);
+}
+
 /// <summary>
 /// Exports a composed character to game-ready files: per-frame PNGs, packed
 /// spritesheets (via PixelPrimitives.SpritesheetPack, with an explicit frame
@@ -55,6 +63,88 @@ public sealed class ExportService
     private readonly RigSpriteComposer _composer;
 
     public ExportService(RigSpriteComposer composer) => _composer = composer;
+
+    public BatchExportResult ExportBatch(
+        Project project,
+        string projectRoot,
+        IReadOnlyList<CharacterEntity> characters,
+        IReadOnlyList<string?> animationIds,
+        CharacterExportOptions options,
+        string outputDirectory)
+    {
+        ArgumentNullException.ThrowIfNull(project);
+        ArgumentNullException.ThrowIfNull(characters);
+        ArgumentNullException.ThrowIfNull(animationIds);
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentException.ThrowIfNullOrWhiteSpace(outputDirectory);
+        if (characters.Count == 0 || animationIds.Count == 0)
+        {
+            throw new InvalidOperationException("Cần chọn ít nhất một nhân vật và một hoạt ảnh để xuất.");
+        }
+
+        if (characters.Select(character => character.Id).Distinct(StringComparer.Ordinal).Count() != characters.Count ||
+            animationIds.Distinct(StringComparer.Ordinal).Count() != animationIds.Count)
+        {
+            throw new InvalidOperationException("Danh sách nhân vật hoặc hoạt ảnh xuất có mục trùng.");
+        }
+
+        var plan = new List<(CharacterEntity Character, string? AnimationId)>();
+        var skipped = new List<string>();
+        // Only pair a generated action with its owner; shared animations are
+        // exported for every selected character.
+        foreach (CharacterEntity character in characters)
+        {
+            if (!AssetRules.IsValidId(character.Id) ||
+                !project.Characters.Any(item => ReferenceEquals(item, character)))
+            {
+                throw new InvalidOperationException($"Nhân vật '{character.Id}' không thuộc project hiện tại.");
+            }
+
+            foreach (string? animationId in animationIds)
+            {
+                if (animationId is not null &&
+                    (!AssetRules.IsValidId(animationId) ||
+                     !project.Animations.Any(animation => animation.Id == animationId)))
+                {
+                    throw new InvalidOperationException($"Animation '{animationId}' không hợp lệ hoặc không tồn tại.");
+                }
+
+                if (animationId?.StartsWith("action.", StringComparison.Ordinal) == true &&
+                    !IsOwnedActionAnimation(character, animationId))
+                {
+                    skipped.Add($"{character.Id}: bỏ qua '{animationId}' (thuộc nhân vật khác).");
+                    continue;
+                }
+
+                plan.Add((character, animationId));
+            }
+        }
+
+        if (plan.Count == 0)
+        {
+            throw new InvalidOperationException("Không có cặp nhân vật/hoạt ảnh tương thích để xuất.");
+        }
+
+        var packages = new List<ExportResult>();
+        foreach ((CharacterEntity character, string? animationId) in plan)
+        {
+            string packageDirectory = Path.Combine(outputDirectory, "characters", character.Id,
+                animationId is null ? "default-pose" : $"animation-{animationId}");
+            var packageOptions = new CharacterExportOptions
+            {
+                Views = options.Views,
+                AnimationId = animationId,
+                IncludeFrames = options.IncludeFrames,
+                IncludeSpritesheet = options.IncludeSpritesheet,
+                IncludeLayers = options.IncludeLayers,
+                IncludeGodot = options.IncludeGodot,
+                IncludeManifest = options.IncludeManifest,
+            };
+            packages.Add(ExportCharacter(project, projectRoot, character, packageOptions, packageDirectory));
+        }
+
+        return new BatchExportResult(packages, skipped);
+    }
 
     public ExportResult ExportCharacter(
         Project project,
@@ -77,10 +167,54 @@ public sealed class ExportService
             throw new InvalidOperationException("ViewProfile của project không có direction nào để export.");
         }
 
+        foreach (string view in views)
+        {
+            if (!project.View.Directions.Contains(view, StringComparer.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException($"Direction '{view}' không thuộc ViewProfile của project.");
+            }
+        }
+
         AnimationDefinition? animation = options.AnimationId is null
             ? null
             : project.Animations.FirstOrDefault(a => a.Id == options.AnimationId)
               ?? throw new InvalidOperationException($"Animation '{options.AnimationId}' không tồn tại.");
+
+        if (options.IncludeGodot && animation is not null && !options.IncludeFrames)
+        {
+            throw new InvalidOperationException("Gói Godot cần xuất từng frame PNG để tham chiếu sprite.");
+        }
+
+        if (animation is not null && animation.Id.StartsWith("action.", StringComparison.Ordinal) &&
+            !IsOwnedActionAnimation(character, animation.Id))
+        {
+            throw new InvalidOperationException($"Animation '{animation.Id}' không thuộc nhân vật '{character.Id}'.");
+        }
+
+        // Validate the entire sequence before creating output files. A missing pose
+        // must never silently become the character's default pose in the export.
+        List<PoseDefinition>? animationPoses = null;
+        if (animation is not null)
+        {
+            if (animation.Fps is < 1 or > 60 || animation.Frames.Count == 0)
+            {
+                throw new InvalidOperationException($"Animation '{animation.Id}' có FPS hoặc danh sách frame không hợp lệ.");
+            }
+
+            animationPoses = new List<PoseDefinition>(animation.Frames.Count);
+            for (int i = 0; i < animation.Frames.Count; i++)
+            {
+                AnimationFrame frame = animation.Frames[i];
+                if (frame.DurationTicks < 1)
+                {
+                    throw new InvalidOperationException($"Animation '{animation.Id}' frame {i} có DurationTicks không hợp lệ.");
+                }
+
+                PoseDefinition pose = project.Poses.FirstOrDefault(p => p.Id == frame.PoseId)
+                    ?? throw new InvalidOperationException($"Animation '{animation.Id}' frame {i} thiếu pose '{frame.PoseId}'.");
+                animationPoses.Add(pose);
+            }
+        }
 
         Directory.CreateDirectory(outputDirectory);
         int frameCount = 0;
@@ -110,10 +244,8 @@ public sealed class ExportService
             {
                 for (int i = 0; i < animation.Frames.Count; i++)
                 {
-                    string poseId = animation.Frames[i].PoseId;
-                    PoseDefinition? pose = project.Poses.FirstOrDefault(p => p.Id == poseId);
                     PixelBuffer composed = _composer.Compose(project, projectRoot, character,
-                        new CompositionOptions { View = view, Pose = pose });
+                        new CompositionOptions { View = view, Pose = animationPoses![i] });
                     frames.Add(($"{view.ToLowerInvariant()}_{i:00}", composed));
                 }
             }
@@ -160,7 +292,7 @@ public sealed class ExportService
                     CompositionOptions layerOptions = new()
                     {
                         View = view,
-                        Pose = animation is null ? null : project.Poses.FirstOrDefault(p => p.Id == animation.Frames[i].PoseId),
+                        Pose = animation is null ? null : animationPoses![i],
                         ApplyOutline = false,
                     };
                     IReadOnlyList<(string Name, PixelBuffer Image)> layers =
@@ -259,14 +391,19 @@ public sealed class ExportService
     {
         return character.ActionIds.Select(actionId =>
         {
-            string generatedId = $"action.{actionId}";
-            AnimationDefinition? animation = project.Animations.FirstOrDefault(item => item.Id == generatedId);
+            GeneratedActionBinding? binding = character.GeneratedActionBindings
+                .FirstOrDefault(item => item.TemplateId == actionId);
+            string generatedId = CharacterActionIds.Animation(character.Id, actionId);
+            AnimationDefinition? animation = project.Animations.FirstOrDefault(item => item.Id == binding?.AnimationId)
+                ?? project.Animations.FirstOrDefault(item => item.Id == generatedId)
+                ?? project.Animations.FirstOrDefault(item =>
+                    item.Id == CharacterActionIds.LegacyAnimation(actionId));
             BehaviorDefinition? behavior = project.Behaviors.FirstOrDefault(item => item.Id == $"beh.{actionId}");
             return (object)new
             {
                 id = actionId,
                 animation = animation?.Id ?? behavior?.AnimationId,
-                sourceFingerprint = Fingerprint(new
+                sourceFingerprint = binding?.SourceFingerprint ?? Fingerprint(new
                 {
                     character.Build,
                     character.Appearance,
@@ -275,6 +412,18 @@ public sealed class ExportService
                 }),
             };
         }).ToList();
+    }
+
+    private static bool IsOwnedActionAnimation(CharacterEntity character, string animationId)
+    {
+        return character.GeneratedActionBindings.Any(item => item.AnimationId == animationId) ||
+            character.ActionIds.Any(actionId =>
+            {
+                string scoped = CharacterActionIds.Animation(character.Id, actionId);
+                return animationId == scoped ||
+                       animationId.StartsWith(scoped + ".v", StringComparison.Ordinal) ||
+                       animationId == CharacterActionIds.LegacyAnimation(actionId);
+            });
     }
 
     private static string Fingerprint(object value)

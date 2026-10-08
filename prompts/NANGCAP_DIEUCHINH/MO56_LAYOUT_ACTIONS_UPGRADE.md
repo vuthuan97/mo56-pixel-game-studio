@@ -82,6 +82,7 @@ Chỉnh pose phải có semantics rõ: nếu pose đang dùng chung, chỉnh ri�
 
 ### 8. Hành động: chọn và Tạo
 
+
 Giữ mô hình Behavior hiện có trong domain, hiển thị nhãn Hành động trên UI. Phân biệt rõ danh mục template dùng chung, hành động đã chọn cho từng nhân vật và animation/pose đã tạo.
 
 UI: tìm kiếm, lọc nhóm, thẻ thumbnail, checkbox chọn nhiều, click xem thử riêng; footer cố định Đã chọn N hành động + nút Tạo. Chọn toàn bộ chỉ áp dụng các mục tương thích đang lọc; không tự tạo khi tick checkbox.
@@ -125,78 +126,78 @@ Cuối lượt báo cáo: code đã thay đổi, phase hoàn thành, build/test 
 
 ## TASK LIST NÂNG CẤP
 
-Quy ước: [ ] chưa làm; [~] đang làm; [x] đã code và kiểm chứng. Tất cả mục dưới đây là yêu cầu mới, chưa được xác minh hoàn thành.
+Quy ước: [ ] chưa hoàn thành hoặc chưa đủ bằng chứng; [~] đang làm; [x] đã code và kiểm chứng. Đối chiếu ngày 2026-10-08 tại `main` / `027e1c5`; bằng chứng và khoảng trống ghi ở `tasks/LAYOUT_ACTIONS_UPGRADE_TASK_LIST.md`. Build/test xanh không thay cho nghiệm thu UI hoặc chứng minh chuyển động thật.
 
 ### Phase A — Audit và thiết kế migration
-- [ ] Đọc rules/spec/current state; audit UI, services, schema và branch hiện tại.
-- [ ] Lập mapping workspace cũ → tab chính/tab con mới, gồm asset browser và Art QA.
-- [ ] Audit preset: animation thật, alias, thiếu template; ghi bảng kết quả.
-- [ ] Chốt quan hệ template/character selection/generated animation và chính sách shared pose.
-- [ ] Ghi baseline build/test, tạo task list riêng và đặc tả layout trong docs.
+- [x] Đọc rules/spec/current state; audit UI, services, schema và branch hiện tại.
+- [x] Lập mapping workspace cũ → tab chính/tab con mới, gồm asset browser và Art QA.
+- [x] Audit preset: animation thật, alias, thiếu template; ghi bảng kết quả.
+- [x] Chốt quan hệ template/character selection/generated animation và chính sách shared pose.
+- [x] Ghi baseline build/test, tạo task list riêng và đặc tả layout trong docs.
 
 ### Phase B — Shell và workspace Nhân vật
-- [ ] Tạo 5 tab chính đúng thứ tự; placeholder trung thực cho hai tab tương lai.
-- [ ] Tách View/ViewModel theo workspace, tái sử dụng service hiện có.
-- [ ] Thanh project Lưu/Undo/Redo/dirty và trạng thái autosave.
-- [ ] Thanh quản lý nhiều nhân vật: chọn/tạo/nhân bản/đổi tên/xóa.
-- [ ] Layout 40/60 với splitter, min-width và cuộn riêng.
-- [ ] Preview chung: hướng/zoom/nền/play/frame; Art QA/debug thu gọn.
-- [ ] Bốn tab con; giữ lựa chọn và ngữ cảnh khi chuyển tab.
+- [x] Tạo 5 tab chính đúng thứ tự; placeholder trung thực cho hai tab tương lai.
+- [x] Tách View/ViewModel theo workspace, tái sử dụng service hiện có.
+- [x] Thanh project Lưu/Undo/Redo/dirty và trạng thái autosave.
+- [x] Thanh quản lý nhiều nhân vật: chọn/tạo/nhân bản/đổi tên/xóa.
+- [x] Layout 40/60 với splitter, min-width và cuộn riêng.
+- [x] Preview chung: hướng/zoom/nền/play/frame; Art QA/debug thu gọn.
+- [x] Bốn tab con; giữ lựa chọn và ngữ cảnh khi chuyển tab.
 - [ ] Kiểm tra 1280x800 và 1024x640; không mất chức năng cũ.
 
 ### Phase C — Bộ khung và Trang bị
-- [ ] Di chuyển appearance/rig controls vào đúng nhóm.
-- [ ] Core/template giới tính và vóc dáng hoạt động thật, lưu/đọc được.
-- [ ] Tay/chân: cấu hình độ dài và liên kết anchor/render pixel nguyên.
-- [ ] Phân biệt ngoại hình mặc định với pose frame.
-- [ ] Trang bị theo slot data-driven, thumbnail/chọn/tháo/filter/import.
-- [ ] Preview đúng bốn hướng được hỗ trợ; slot tùy chỉnh hoạt động.
-- [ ] Undo/redo và isolation giữa hai nhân vật.
+- [x] Di chuyển appearance/rig controls vào đúng nhóm.
+- [x] Core/template giới tính và vóc dáng hoạt động thật, lưu/đọc được.
+- [x] Tay/chân: cấu hình độ dài và liên kết anchor/render pixel nguyên.
+- [x] Phân biệt ngoại hình mặc định với pose frame.
+- [x] Trang bị theo slot data-driven, thumbnail/chọn/tháo/filter/import.
+- [x] Preview đúng bốn hướng được hỗ trợ; slot tùy chỉnh hoạt động.
+- [x] Undo/redo và isolation giữa hai nhân vật.
 
 ### Phase D — Hoạt ảnh
-- [ ] Timeline nằm trong panel phải của tab Hoạt ảnh.
-- [ ] Giữ add/copy/paste/delete/reorder/duration/FPS/loop/markers.
-- [ ] Play/pause/step và onion skin liên kết preview trái.
-- [ ] Chỉnh pose riêng frame không sửa shared pose ngoài ý muốn.
-- [ ] Tạo/nhân bản hoạt ảnh, lưu pose và mẫu hành động tùy chỉnh.
-- [ ] Non-loop và thời lượng frame được kiểm chứng.
+- [x] Timeline nằm trong panel phải của tab Hoạt ảnh.
+- [x] Giữ add/copy/paste/delete/reorder/duration/FPS/loop/markers.
+- [x] Play/pause/step và onion skin liên kết preview trái.
+- [x] Chỉnh pose riêng frame không sửa shared pose ngoài ý muốn.
+- [x] Tạo/nhân bản hoạt ảnh, lưu pose và mẫu hành động tùy chỉnh.
+- [x] Non-loop và thời lượng frame được kiểm chứng.
 
 ### Phase E — Thư viện và bộ tạo hành động
-- [ ] Danh mục template data-driven và nhóm, trạng thái khả dụng.
-- [ ] Tìm kiếm/lọc/thẻ/checkbox/xem thử; footer số lượng + Tạo.
-- [ ] Lưu danh sách hành động đã chọn theo từng nhân vật.
-- [ ] Template chuyển động và kiểm tra rig/view/slot tương thích.
-- [ ] Bộ cơ bản: đứng, đi, chạy, nhảy tại chỗ, xoay vòng có output thực.
-- [ ] Bộ tư thế: ngồi, nằm, chống nạnh, khoanh tay, quỳ có output thực.
-- [ ] Bộ tay/chân: đấm/đá/giơ tay trái-phải, vẫy, chỉ có output thực.
-- [ ] Bộ chiến đấu: chém, đâm, đỡ, né, bị đánh, chết có output thực.
-- [ ] Bộ sinh hoạt: ăn, uống, ngủ, đọc, viết, nói chuyện có output thực.
-- [ ] Bộ tương tác: nhặt, mang, sửa chữa, đào, chặt, mở cửa có output thực.
-- [ ] Bổ sung state assets cần thiết, không giả lập bằng idle/alias.
-- [ ] Service tạo pose/animation/bindings; ID không xung đột nhiều nhân vật.
-- [ ] Progress/cancel; atomic từng hành động; thông báo lỗi cụ thể.
-- [ ] Tạo lại giữ bản chỉnh tay, hỗ trợ bản mới/thay thế chủ đích.
-- [ ] Undo/redo thao tác tạo; template dùng chung không bị mutate.
-- [ ] Đổi nguồn đánh dấu cần tạo lại khi thích hợp; không dùng cache lỗi thời.
+- [x] Danh mục template data-driven và nhóm, trạng thái khả dụng.
+- [x] Tìm kiếm/lọc/thẻ/checkbox/xem thử; footer số lượng + Tạo.
+- [x] Lưu danh sách hành động đã chọn theo từng nhân vật.
+- [x] Template chuyển động và kiểm tra rig/view/slot tương thích.
+- [x] Bộ cơ bản: đứng, đi, chạy, nhảy tại chỗ, xoay vòng có output thực.
+- [x] Bộ tư thế: ngồi, nằm, chống nạnh, khoanh tay, quỳ có output thực.
+- [x] Bộ tay/chân: đấm/đá/giơ tay trái-phải, vẫy, chỉ có output thực.
+- [x] Bộ chiến đấu: chém, đâm, đỡ, né, bị đánh, chết có output thực.
+- [x] Bộ sinh hoạt: ăn, uống, ngủ, đọc, viết, nói chuyện có output thực.
+- [x] Bộ tương tác: nhặt, mang, sửa chữa, đào, chặt, mở cửa có output thực.
+- [x] Bổ sung state assets cần thiết, không giả lập bằng idle/alias.
+- [x] Service tạo pose/animation/bindings; ID không xung đột nhiều nhân vật.
+- [x] Progress/cancel; atomic từng hành động; thông báo lỗi cụ thể.
+- [x] Tạo lại giữ bản chỉnh tay, hỗ trợ bản mới/thay thế chủ đích.
+- [x] Undo/redo thao tác tạo; template dùng chung không bị mutate.
+- [x] Đổi nguồn đánh dấu cần tạo lại khi thích hợp; không dùng cache lỗi thời.
 
 ### Phase F — Lưu project và Xuất
-- [ ] Serialization dữ liệu hành động/bindings/nguồn theo nhân vật.
-- [ ] Migration và mở project cũ; không mất appearance/equipment/animation.
-- [ ] Autosave/recovery phục hồi dữ liệu mới.
-- [ ] Chọn nhiều nhân vật/hoạt ảnh/hướng trong tab Xuất.
-- [ ] Export frames/spritesheet/layers/Godot, metadata và folder riêng.
-- [ ] Chặn animation thiếu/hỏng, không xuất nhầm nhân vật đang active.
+- [x] Serialization dữ liệu hành động/bindings/nguồn theo nhân vật.
+- [x] Migration và mở project cũ; không mất appearance/equipment/animation.
+- [x] Autosave/recovery phục hồi dữ liệu mới.
+- [x] Chọn nhiều nhân vật/hoạt ảnh/hướng trong tab Xuất.
+- [x] Export frames/spritesheet/layers/Godot, metadata và folder riêng.
+- [x] Chặn animation thiếu/hỏng, không xuất nhầm nhân vật đang active.
 
 ### Phase G — Kiểm chứng và tài liệu
-- [ ] Build solution và test liên quan; báo rõ môi trường/lệnh/kết quả.
-- [ ] Regression render/alpha/nearest và golden tests phù hợp.
-- [ ] Test save/load hai nhân vật có hành động khác nhau.
-- [ ] Test generation compatibility, deterministic output, shared-template isolation.
-- [ ] Test tạo lại sau chỉnh tay, cancel và undo/redo.
-- [ ] Test export nhiều nhân vật, frame map/duration/loop/marker đúng.
+- [x] Build solution và test liên quan; báo rõ môi trường/lệnh/kết quả.
+- [x] Regression render/alpha/nearest và golden tests phù hợp.
+- [x] Test save/load hai nhân vật có hành động khác nhau.
+- [x] Test generation compatibility, deterministic output, shared-template isolation.
+- [x] Test tạo lại sau chỉnh tay, cancel và undo/redo.
+- [x] Test export nhiều nhân vật, frame map/duration/loop/marker đúng.
 - [ ] Nghiệm thu UI với project mới và project cũ.
-- [ ] Cập nhật CURRENT_STATE, USER_GUIDE, CHARACTER_SYSTEM, PROJECT_FORMAT, EXPORT_FORMAT và checklist.
-- [ ] Chỉ đánh dấu từng mục DONE khi có bằng chứng, ghi phần chưa làm.
+- [x] Cập nhật CURRENT_STATE, USER_GUIDE, CHARACTER_SYSTEM, PROJECT_FORMAT, EXPORT_FORMAT và checklist.
+- [x] Chỉ đánh dấu từng mục DONE khi có bằng chứng, ghi phần chưa làm.
 
 ## Kịch bản nghiệm thu thủ công
 

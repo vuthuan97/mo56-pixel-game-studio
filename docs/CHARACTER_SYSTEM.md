@@ -26,13 +26,13 @@ RigDefinition (cây PartNode + anchors + slots)
 
 - `Parts`: partId → `PartPose{offsetX, offsetY, hidden, states}` (toàn số nguyên).
 - `Slots`: slotId → `SlotPose{offsetX, offsetY, hidden, zIndexOverride, states}` (vd weapon raise/slash → art front + z 23).
-- Pose là **shared definition** (theo id) — sửa pose ảnh hưởng mọi animation dùng nó (giống legacy overrides).
+- Pose là **shared definition** theo id. Khi sửa qua editor trên một frame đang dùng pose chung, editor tạo bản sao trước khi thay đổi (clone-on-write); các frame khác giữ pose cũ. Chỉnh trực tiếp `Project.Poses` ngoài editor vẫn là sửa dữ liệu dùng chung.
 
 ## Animation — `AnimationDefinition`
 
 - `Frames`: danh sách `{poseId, durationTicks, markers[]}`; `Fps` (1..60); `Loop`.
 - `FrameMarker` types: Footstep, Sound, Hit, SpawnEffect, SpawnProjectile, Interaction, PickUp, Drop, Custom.
-- Timeline UI: Add/Duplicate/Copy/Paste/Delete/Move ◀▶; onion skin (fade 22% frame trước).
+- Timeline UI ở panel phải tab Hoạt ảnh: Add/Copy/Paste/Delete/Move ◀▶; onion skin (fade 22% frame trước). Playback dùng `DurationTicks / FPS` cho từng frame; non-loop dừng ở frame cuối.
 
 ## Behavior — `BehaviorDefinition`
 
@@ -48,4 +48,4 @@ RigDefinition (cây PartNode + anchors + slots)
 
 `CharacterEntity.Build` stores gender, body type and bounded native-pixel head/torso/arm/leg/foot dimensions per character. The composer applies only clamped integer part/anchor deltas, so changing one character cannot alter another character.
 
-`ActionTemplateCatalog` evaluates required rig slots/anchors before generation. A generated action owns its `PoseDefinition` objects and `AnimationDefinition`; it is not an alias of `idle` or `walk`. `ActionIds` records the generated selections on the character.
+`ActionTemplateCatalog` đánh giá rig slot/anchor trước khi tạo. `SelectedActionIds` là lựa chọn checkbox chưa tạo; `ActionIds` là các mẫu đã tạo. `GeneratedActionBindings` lưu animation ID và fingerprint nguồn của từng mẫu. Output mới dùng ID ổn định riêng theo `character.Id` và template, nên hai nhân vật chọn cùng một mẫu vẫn có pose/animation tách biệt. Khi nguồn đổi, thẻ báo cần tạo lại; bấm Tạo mặc định giữ bản đã chỉnh tay. Có nút tạo version mới và nút thay thế chủ đích; thay thế bị từ chối nếu pose đang dùng chung hoặc output là legacy toàn project. Danh mục hiện mới có 14 mẫu cơ bản, chưa đủ toàn bộ bộ hành động MO56.

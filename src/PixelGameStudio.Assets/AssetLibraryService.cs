@@ -140,6 +140,9 @@ public sealed class AssetLibraryService
         return PngCodec.Decode(File.OpenRead(path));
     }
 
+    /// <summary>Removes thumbnails for a regenerated asset so the next browser refresh reads the new PNG.</summary>
+    public void InvalidateThumbnails(string projectRoot, string assetId) => DeleteThumbnails(projectRoot, assetId);
+
     /// <summary>Search by substring (id/displayName), required tags (AND) and exact type. Case-insensitive.</summary>
     public IReadOnlyList<AssetDefinition> Search(Project project, string? query = null, IEnumerable<string>? tags = null, string? type = null)
     {

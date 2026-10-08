@@ -176,4 +176,69 @@ public class ExportServiceTests : IDisposable
                 AnimationId = "anim.missing",
             }, Path.Combine(_root, "out2")));
     }
+
+    [Theory]
+    [InlineData("missing-pose")]
+    [InlineData("empty-frames")]
+    [InlineData("invalid-duration")]
+    [InlineData("invalid-fps")]
+    public void ExportCharacter_InvalidAnimation_DoesNotCreateOutput(string failure)
+    {
+        var project = ProjectTemplates.ClassicTopDown46();
+        _store.Save(project, _root);
+        StarterContentFactory.CreateHumanoidDemo(project, _root, _library);
+        new BehaviorLibraryService().InstallPresets(project);
+        var hero = project.Characters.Single(c => c.Id == "char.hero");
+        var walk = project.Animations.Single(a => a.Id == "walk");
+        switch (failure)
+        {
+            case "missing-pose": walk.Frames[0].PoseId = "pose.missing"; break;
+            case "empty-frames": walk.Frames.Clear(); break;
+            case "invalid-duration": walk.Frames[0].DurationTicks = 0; break;
+            case "invalid-fps": walk.Fps = 0; break;
+        }
+
+        string output = Path.Combine(_root, $"invalid-{failure}");
+        Assert.Throws<InvalidOperationException>(() => new ExportService(_composer).ExportCharacter(
+            project, _root, hero,
+            new CharacterExportOptions { AnimationId = walk.Id, Views = ["Down"] }, output));
+        Assert.False(Directory.Exists(output));
+    }
+
+    [Fact]
+    public void ExportCharacter_UnsupportedDirection_DoesNotCreateOutput()
+    {
+        var project = ProjectTemplates.ClassicTopDown46();
+        _store.Save(project, _root);
+        StarterContentFactory.CreateHumanoidDemo(project, _root, _library);
+        var hero = project.Characters.Single(c => c.Id == "char.hero");
+        string output = Path.Combine(_root, "invalid-direction");
+
+        Assert.Throws<InvalidOperationException>(() => new ExportService(_composer).ExportCharacter(
+            project, _root, hero,
+            new CharacterExportOptions { Views = ["Diagonal"] }, output));
+        Assert.False(Directory.Exists(output));
+    }
+
+    [Fact]
+    public void ExportCharacter_GodotWithoutFrames_RejectsBrokenPackage()
+    {
+        var project = ProjectTemplates.ClassicTopDown46();
+        _store.Save(project, _root);
+        StarterContentFactory.CreateHumanoidDemo(project, _root, _library);
+        new BehaviorLibraryService().InstallPresets(project);
+        var hero = project.Characters.Single(c => c.Id == "char.hero");
+        string output = Path.Combine(_root, "invalid-godot");
+
+        Assert.Throws<InvalidOperationException>(() => new ExportService(_composer).ExportCharacter(
+            project, _root, hero,
+            new CharacterExportOptions
+            {
+                AnimationId = "walk",
+                Views = ["Down"],
+                IncludeGodot = true,
+                IncludeFrames = false,
+            }, output));
+        Assert.False(Directory.Exists(output));
+    }
 }

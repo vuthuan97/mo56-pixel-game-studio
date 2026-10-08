@@ -8,6 +8,15 @@ namespace PixelGameStudio.Rendering.Procedural;
 /// </summary>
 public sealed class LegacySpriteSpec
 {
+    /// <summary>
+    /// Native canvas supplied by the project when starter art is generated.
+    /// LegacySpriteRenderer intentionally keeps its historical 32x46 output;
+    /// ReferenceGridSpriteRenderer uses these values to fit its template.
+    /// </summary>
+    public int CanvasWidth { get; set; } = LegacyCatalog.CanvasWidth;
+
+    public int CanvasHeight { get; set; } = LegacyCatalog.CanvasHeight;
+
     public string Name { get; set; } = "Lăng Hàn";
     public string Gender { get; set; } = "Nam";
     public string ClassType { get; set; } = "Kiếm tu";
@@ -19,7 +28,14 @@ public sealed class LegacySpriteSpec
     public string MouthStyle { get; set; } = "Trung tính";
     public string HairStyle { get; set; } = "Búi cao";
     public string HairColor { get; set; } = "Đen tím";
-    public string Direction { get; set; } = "Down";
+    private string _direction = "Down";
+
+    /// <summary>Direction is normalized at the boundary because old project JSON/UI bindings may provide null.</summary>
+    public string Direction
+    {
+        get => _direction;
+        set => _direction = string.IsNullOrWhiteSpace(value) ? "Down" : value;
+    }
     public string SkinVariant { get; set; } = "Mặc định";
     public string Aura { get; set; } = "Không";
     public string Effect { get; set; } = "Không";

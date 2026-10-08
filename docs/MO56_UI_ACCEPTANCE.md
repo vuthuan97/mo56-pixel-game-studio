@@ -12,7 +12,7 @@
 
 | Target | Layout contract | Result |
 |---|---|---|
-| 1280x800 | 2*:3* preview/config split, contextual browser visible for Equipment/Actions | Passes XAML/build contract |
-| 1024x640 | minimum window, scrollable inspector, no Role workspace | Passes XAML/build contract |
+| 1280x800 | 2*:3* preview/config split, contextual browser visible for Equipment/Actions | XAML/build only; native resize and interaction not yet verified |
+| 1024x640 | minimum window, scrollable inspector, no Role workspace | XAML/build only; native overflow and button accessibility not yet verified |
 
-Native Computer Use screenshots could not be captured in this environment because the helper reports `Computer Use native pipe is unavailable`. The code/build/test evidence is therefore the reproducible acceptance artifact.
+The earlier screenshot attempt reported `Computer Use native pipe is unavailable`; no successful native UI acceptance is recorded. XAML/build evidence is not a substitute for resizing and interacting with the running app at both target sizes.

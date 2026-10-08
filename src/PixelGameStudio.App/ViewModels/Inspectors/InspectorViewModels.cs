@@ -132,8 +132,11 @@ public class RigInspectorViewModel : InspectorViewModel
             OnPropertyChanged();
             OnPropertyChanged(nameof(PartDisplayName));
             OnPropertyChanged(nameof(PartZIndex));
+            OnPropertyChanged(nameof(PartZIndexSlider));
             OnPropertyChanged(nameof(PartOffsetX));
+            OnPropertyChanged(nameof(PartOffsetXSlider));
             OnPropertyChanged(nameof(PartOffsetY));
+            OnPropertyChanged(nameof(PartOffsetYSlider));
             OnPropertyChanged(nameof(PartParentId));
         }
     }
@@ -169,6 +172,7 @@ public class RigInspectorViewModel : InspectorViewModel
             _selectedPart.ZIndex = value;
             Main.MarkDirty();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(PartZIndexSlider));
         }
     }
 
@@ -186,6 +190,7 @@ public class RigInspectorViewModel : InspectorViewModel
             _selectedPart.Transform.OffsetX = value;
             Main.MarkDirty();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(PartOffsetXSlider));
             Main.RenderPreviewCommand.Execute(null);
         }
     }
@@ -204,8 +209,27 @@ public class RigInspectorViewModel : InspectorViewModel
             _selectedPart.Transform.OffsetY = value;
             Main.MarkDirty();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(PartOffsetYSlider));
             Main.RenderPreviewCommand.Execute(null);
         }
+    }
+
+    public double PartZIndexSlider
+    {
+        get => PartZIndex;
+        set => PartZIndex = (int)Math.Round(value);
+    }
+
+    public double PartOffsetXSlider
+    {
+        get => PartOffsetX;
+        set => PartOffsetX = (int)Math.Round(value);
+    }
+
+    public double PartOffsetYSlider
+    {
+        get => PartOffsetY;
+        set => PartOffsetY = (int)Math.Round(value);
     }
 
     public string PartParentId => _selectedPart?.ParentId ?? "(root)";
@@ -219,7 +243,65 @@ public class AnimationInspectorViewModel : InspectorViewModel
     public AnimationInspectorViewModel(MainViewModel main)
         : base(main)
     {
+        main.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName == nameof(MainViewModel.SelectedAnimationId))
+            {
+                OnPropertyChanged(nameof(SelectedAnimationId));
+                OnPropertyChanged(nameof(AnimationDisplayName));
+                OnPropertyChanged(nameof(Fps));
+                OnPropertyChanged(nameof(Loop));
+                OnPropertyChanged(nameof(DurationSeconds));
+                OnPropertyChanged(nameof(FrameCount));
+            }
+
+            if (args.PropertyName == nameof(MainViewModel.CurrentFrameIndex))
+            {
+                OnPropertyChanged(nameof(CurrentFrameIndex));
+                OnPropertyChanged(nameof(CurrentFrameDurationTicks));
+            }
+
+            if (args.PropertyName == nameof(MainViewModel.ShowOnionSkin))
+            {
+                OnPropertyChanged(nameof(ShowOnionSkin));
+            }
+        };
     }
+
+    public System.Collections.ObjectModel.ObservableCollection<string> AnimationOptions => Main.AnimationOptions;
+
+    public string? SelectedAnimationId
+    {
+        get => Main.SelectedAnimationId;
+        set => Main.SelectedAnimationId = value;
+    }
+
+    public System.Collections.ObjectModel.ObservableCollection<FrameItemViewModel> TimelineFrames => Main.TimelineFrames;
+
+    public int CurrentFrameIndex
+    {
+        get => Main.CurrentFrameIndex;
+        set => Main.CurrentFrameIndex = value;
+    }
+
+    public bool ShowOnionSkin
+    {
+        get => Main.ShowOnionSkin;
+        set => Main.ShowOnionSkin = value;
+    }
+
+    public System.Windows.Input.ICommand StepBackCommand => Main.StepBackCommand;
+    public System.Windows.Input.ICommand TogglePlayCommand => Main.TogglePlayCommand;
+    public System.Windows.Input.ICommand StepNextCommand => Main.StepNextCommand;
+    public System.Windows.Input.ICommand AddFrameCommand => Main.AddFrameCommand;
+    public System.Windows.Input.ICommand CopyFrameCommand => Main.CopyFrameCommand;
+    public System.Windows.Input.ICommand PasteFrameCommand => Main.PasteFrameCommand;
+    public System.Windows.Input.ICommand DeleteFrameCommand => Main.DeleteFrameCommand;
+    public System.Windows.Input.ICommand MoveFrameLeftCommand => Main.MoveFrameLeftCommand;
+    public System.Windows.Input.ICommand MoveFrameRightCommand => Main.MoveFrameRightCommand;
+    public System.Windows.Input.ICommand CreateAnimationCommand => Main.CreateAnimationCommand;
+    public System.Windows.Input.ICommand DuplicateAnimationCommand => Main.DuplicateAnimationCommand;
+    public System.Windows.Input.ICommand SaveAnimationAsBehaviorTemplateCommand => Main.SaveAnimationAsBehaviorTemplateCommand;
 
     private AnimationDefinition? Animation => Main.ProjectObject.Animations
         .FirstOrDefault(a => a.Id == Main.SelectedAnimationId);
@@ -356,12 +438,14 @@ public class BehaviorInspectorViewModel : InspectorViewModel
             if (args.PropertyName is nameof(MainViewModel.SelectedActionTemplate)
                 or nameof(MainViewModel.IsActionGenerationRunning)
                 or nameof(MainViewModel.ActionGenerationProgress)
-                or nameof(MainViewModel.ActionGenerationStatus))
+                or nameof(MainViewModel.ActionGenerationStatus)
+                or nameof(MainViewModel.SelectedActionCountText))
             {
                 OnPropertyChanged(nameof(SelectedActionTemplate));
                 OnPropertyChanged(nameof(IsActionGenerationRunning));
                 OnPropertyChanged(nameof(ActionGenerationProgress));
                 OnPropertyChanged(nameof(ActionGenerationStatus));
+                OnPropertyChanged(nameof(SelectedActionCountText));
             }
         };
     }
@@ -371,6 +455,28 @@ public class BehaviorInspectorViewModel : InspectorViewModel
 
     public System.Collections.ObjectModel.ObservableCollection<ActionTemplateItemViewModel> ActionTemplates =>
         Main.ActionTemplateItems;
+
+    public System.Collections.ObjectModel.ObservableCollection<ActionTemplateItemViewModel> FilteredActionTemplates =>
+        Main.FilteredActionTemplateItems;
+
+    public System.Collections.ObjectModel.ObservableCollection<string> ActionGenerationResults =>
+        Main.ActionGenerationResults;
+
+    public IReadOnlyList<string> ActionGroupOptions => Main.ActionGroupOptions;
+
+    public string ActionQuery
+    {
+        get => Main.ActionQuery;
+        set => Main.ActionQuery = value;
+    }
+
+    public string SelectedActionGroup
+    {
+        get => Main.SelectedActionGroup;
+        set => Main.SelectedActionGroup = value;
+    }
+
+    public string SelectedActionCountText => Main.SelectedActionCountText;
 
     public ActionTemplateItemViewModel? SelectedActionTemplate
     {
@@ -383,6 +489,16 @@ public class BehaviorInspectorViewModel : InspectorViewModel
     }
 
     public System.Windows.Input.ICommand GenerateActionTemplateCommand => Main.GenerateActionTemplateCommand;
+
+    public System.Windows.Input.ICommand PreviewActionTemplateCommand => Main.PreviewActionTemplateCommand;
+
+    public System.Windows.Input.ICommand CreateNewActionVersionCommand => Main.CreateNewActionVersionCommand;
+
+    public System.Windows.Input.ICommand ReplaceGeneratedActionCommand => Main.ReplaceGeneratedActionCommand;
+
+    public System.Windows.Input.ICommand SelectAllCompatibleActionsCommand => Main.SelectAllCompatibleActionsCommand;
+
+    public System.Windows.Input.ICommand GenerateSelectedActionsCommand => Main.GenerateSelectedActionsCommand;
 
     public System.Windows.Input.ICommand CancelActionGenerationCommand => Main.CancelActionGenerationCommand;
 
@@ -542,19 +658,24 @@ public class ValidationInspectorViewModel : InspectorViewModel
 public class ExportInspectorViewModel : InspectorViewModel
 {
     private string _outputSummary = "";
+    private string? _choicesProjectId;
 
     public ExportInspectorViewModel(MainViewModel main)
         : base(main)
     {
     }
 
-    public IReadOnlyList<string> AnimationOptions => Main.AnimationOptions.ToList();
-
-    public string? SelectedAnimation { get; set; }
+    public System.Collections.ObjectModel.ObservableCollection<ExportChoiceItemViewModel> CharacterChoices { get; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<ExportChoiceItemViewModel> AnimationChoices { get; } = [];
+    public System.Collections.ObjectModel.ObservableCollection<ExportChoiceItemViewModel> DirectionChoices { get; } = [];
 
     public bool IncludeFrames { get; set; } = true;
 
     public bool IncludeSpritesheet { get; set; } = true;
+
+    public bool IncludeLayers { get; set; }
+
+    public bool IncludeGodot { get; set; }
 
     public string OutputSummary
     {
@@ -566,29 +687,78 @@ public class ExportInspectorViewModel : InspectorViewModel
         }
     }
 
-    public void SetAnimationOptions(IReadOnlyList<string> animationIds)
+    public void RefreshChoices()
     {
-        // kept simple: options shown in the UI come from MainViewModel.AnimationOptions
+        Project project = Main.ProjectObject;
+        bool sameProject = _choicesProjectId == project.ProjectId;
+        Dictionary<string, bool> selectedCharacters = sameProject
+            ? CharacterChoices.ToDictionary(item => item.Id!, item => item.IsSelected, StringComparer.Ordinal)
+            : new(StringComparer.Ordinal);
+        Dictionary<string, bool> selectedAnimations = sameProject
+            ? AnimationChoices.ToDictionary(item => item.Id ?? "", item => item.IsSelected, StringComparer.Ordinal)
+            : new(StringComparer.Ordinal);
+        Dictionary<string, bool> selectedDirections = sameProject
+            ? DirectionChoices.ToDictionary(item => item.Id!, item => item.IsSelected, StringComparer.Ordinal)
+            : new(StringComparer.Ordinal);
+
+        CharacterChoices.Clear();
+        foreach (CharacterEntity character in project.Characters)
+        {
+            bool selected = selectedCharacters.GetValueOrDefault(character.Id,
+                !sameProject && character.Id == Main.SelectedCharacterId);
+            CharacterChoices.Add(new ExportChoiceItemViewModel(character.Id,
+                $"{character.Name} ({character.Id})", selected));
+        }
+
+        AnimationChoices.Clear();
+        AnimationChoices.Add(new ExportChoiceItemViewModel(null, "Tư thế mặc định",
+            selectedAnimations.GetValueOrDefault("", !sameProject)));
+        foreach (AnimationDefinition animation in project.Animations)
+        {
+            AnimationChoices.Add(new ExportChoiceItemViewModel(animation.Id,
+                $"{animation.DisplayName} ({animation.Id})",
+                selectedAnimations.GetValueOrDefault(animation.Id, false)));
+        }
+
+        DirectionChoices.Clear();
+        foreach (string direction in project.View.Directions)
+        {
+            DirectionChoices.Add(new ExportChoiceItemViewModel(direction, direction,
+                selectedDirections.GetValueOrDefault(direction, true)));
+        }
+
+        _choicesProjectId = project.ProjectId;
     }
 
     public string Run(string outputDirectory)
     {
-        CharacterEntity? character = Main.CurrentCharacter;
-        if (character is null)
+        Project project = Main.ProjectObject;
+        List<CharacterEntity> characters = project.Characters
+            .Where(character => CharacterChoices.Any(choice => choice.Id == character.Id && choice.IsSelected))
+            .ToList();
+        List<string?> animations = AnimationChoices.Where(choice => choice.IsSelected)
+            .Select(choice => choice.Id).ToList();
+        List<string> directions = DirectionChoices.Where(choice => choice.IsSelected)
+            .Select(choice => choice.Id!).ToList();
+        if (characters.Count == 0 || animations.Count == 0 || directions.Count == 0)
         {
-            return "Cần chọn nhân vật để export.";
+            OutputSummary = "Cần chọn ít nhất một nhân vật, một hoạt ảnh/tư thế và một hướng.";
+            return OutputSummary;
         }
 
         try
         {
             Export.CharacterExportOptions options = new()
             {
-                AnimationId = string.IsNullOrWhiteSpace(SelectedAnimation) ? null : SelectedAnimation,
+                Views = directions,
                 IncludeFrames = IncludeFrames,
                 IncludeSpritesheet = IncludeSpritesheet,
+                IncludeLayers = IncludeLayers,
+                IncludeGodot = IncludeGodot,
             };
-            ExportResult result = Main.ExportCharacter(character, options, outputDirectory);
-            OutputSummary = $"{result.FrameCount} frame, {result.SheetCount} spritesheet → {result.OutputDirectory}";
+            BatchExportResult result = Main.ExportBatch(characters, animations, options, outputDirectory);
+            OutputSummary = $"{result.Packages.Count} gói, {result.FrameCount} frame, " +
+                $"{result.SheetCount} spritesheet; bỏ qua {result.Skipped.Count} cặp không thuộc nhân vật → {outputDirectory}";
             return OutputSummary;
         }
         catch (Exception ex)
